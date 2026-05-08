@@ -47,6 +47,17 @@ export default function Home() {
       <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
         <h2 className="text-2xl font-bold text-zinc-900">차시별 학습 로드맵</h2>
         <p className="text-sm text-zinc-600">수업 차시에 맞춰 필요한 개념과 실습을 한 화면에서 확인할 수 있습니다.</p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {units.map((unit) => (
+            <Link
+              key={`pill-${unit.id}`}
+              href={`/learn?unit=${unit.id}`}
+              className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 px-3 text-sm font-semibold text-zinc-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800"
+            >
+              {unit.id}
+            </Link>
+          ))}
+        </div>
         <div className="grid gap-3 md:grid-cols-2">
           {units.map((unit) => (
             <Link
