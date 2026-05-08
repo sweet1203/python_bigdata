@@ -37,7 +37,7 @@ export default function RootLayout({
           본문으로 건너뛰기
         </a>
         <Header />
-        <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 px-4 py-6 sm:py-8">
+        <main id="main-content" className="mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:py-8">
           {children}
         </main>
         <Footer />
