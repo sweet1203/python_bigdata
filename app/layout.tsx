@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AC-DATA 코스웨어",
+  title: "GOO's 데이터 분석 with 파이썬",
   description: "코랩 실습 중심 빅데이터 분석 학습 사이트",
 };
 

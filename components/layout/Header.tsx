@@ -11,9 +11,9 @@ const navItems = [
 export default function Header() {
   return (
     <header className="border-b border-zinc-200 bg-white">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/" className="text-base font-bold text-zinc-900 sm:text-lg">
-          AC-DATA 코스웨어
+          GOO's 데이터 분석 with 파이썬
         </Link>
         <nav
           aria-label="주요 메뉴"
