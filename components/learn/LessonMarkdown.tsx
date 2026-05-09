@@ -39,7 +39,7 @@ const components: Components = {
   ol: ({ children }) => <ol className="my-4 list-decimal space-y-2 pl-6 text-zinc-700">{children}</ol>,
   li: ({ children }) => <li className="leading-relaxed">{children}</li>,
   blockquote: ({ children }) => (
-    <blockquote className="my-6 rounded-r-lg border-l-4 border-emerald-500 bg-emerald-50/90 px-4 py-3 text-[15px] text-zinc-800 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">
+    <blockquote className="my-6 rounded-r-lg border-l-4 border-primary-500 bg-primary-50/90 px-4 py-3 text-[15px] text-zinc-800 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">
       {children}
     </blockquote>
   ),
@@ -49,7 +49,7 @@ const components: Components = {
   a: ({ href, children }) => (
     <a
       href={href}
-      className="font-medium text-emerald-700 underline decoration-emerald-300 underline-offset-2 hover:text-emerald-900"
+      className="font-medium text-primary-700 underline decoration-primary-300 underline-offset-2 hover:text-primary-900"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -74,7 +74,7 @@ const components: Components = {
     const inline = !className;
     if (inline) {
       return (
-        <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-900">
+        <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.9em] text-primary-900">
           {children}
         </code>
       );

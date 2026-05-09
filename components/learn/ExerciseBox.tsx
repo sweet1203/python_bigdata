@@ -14,13 +14,13 @@ export default function ExerciseBox({ title, prompt, hint, answer }: ExerciseBox
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
-    <section className="space-y-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
-      <h3 className="text-base font-semibold text-emerald-900">{title}</h3>
+    <section className="space-y-3 rounded-lg border border-primary-200 bg-primary-50 p-4">
+      <h3 className="text-base font-semibold text-primary-900">{title}</h3>
       <p className="text-sm text-zinc-800">{prompt}</p>
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setShowHint((prev) => !prev)}
-          className="rounded-md border border-emerald-300 bg-white px-3 py-1.5 text-sm font-medium text-emerald-800 hover:bg-emerald-100"
+          className="rounded-md border border-primary-300 bg-white px-3 py-1.5 text-sm font-medium text-primary-800 hover:bg-primary-100"
         >
           {showHint ? "힌트 숨기기" : "힌트 보기"}
         </button>
