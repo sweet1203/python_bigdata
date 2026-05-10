@@ -23,4 +23,4 @@ npm run dev
 - `/progress` 내 학습 현황
 - `/help` 도움말
 - `/data` 데이터
-- `/assessment` 수행평가 준비실
+- `/assessment` 제출 전 점검(루브릭·템플릿)

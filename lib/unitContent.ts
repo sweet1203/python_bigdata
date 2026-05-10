@@ -275,45 +275,48 @@ df["sex"].isna().sum()`,
   "7": {
     unitId: "7",
     summary:
-      "mpg(자동차 연비) 데이터로 Matplotlib 막대·산점도 등을 구분해 쓰고, 제목·축으로 그래프를 완성합니다.",
+      "mpg 데이터로 히스토그램·막대(빈도·평균)·산점도·선 그래프를 구분해 쓰고, 제목·축으로 그림을 완성합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
 
-df.groupby("origin")["mpg"].mean().plot(kind="bar", color="coral")
-plt.title("출시 지역(origin)별 평균 연비(mpg)")
-plt.ylabel("평균 mpg")
+plt.hist(df["mpg"], bins=15, color="skyblue", edgecolor="black")
+plt.title("연비(mpg) 분포")
+plt.xlabel("mpg")
+plt.ylabel("빈도")
 plt.show()`,
     breakdown: {
       input: "seaborn 내장 mpg 표와 matplotlib.",
-      process: "집계 후 bar/plot/scatter 등으로 인코딩하고 축 제목을 붙입니다.",
-      output: "비교·관계를 한눈에 보여 주는 그림.",
+      process: "hist/bar/scatter/line으로 목적에 맞게 그리고 제목·축을 붙입니다.",
+      output: "분포·비교·관계·추세를 한눈에 보여 주는 그림.",
     },
     lineNotes: [
-      "항목 간 비교는 막대(bar), 두 수치의 관계는 scatter에 가깝습니다.",
-      "plt.show(): 노트북/코랩에서 그림을 출력합니다.",
-      "한글 깨짐이 있으면 코랩에서 나눔폰트 설정 후 런타임 재시작.",
+      "plt.hist(열): 한 수치 열의 분포(히스토그램).",
+      "value_counts().plot(kind='bar'): 범주별 개수 비교.",
+      "groupby(...).mean().plot(kind='bar'): 범주별 평균 비교.",
+      "scatter / line: 관계·시간(연식) 추세에 자주 씁니다.",
     ],
     quiz: {
-      question: "출시 지역(origin)별 평균 연비를 나란히 비교할 때 가장 자연스러운 그래프는?",
-      answerId: "a",
+      question: "연비(mpg) 값이 전체적으로 어떻게 퍼져 있는지 **분포**를 보고 싶을 때 가장 먼저 쓰기 쉬운 그래프는?",
+      answerId: "b",
       options: [
-        { id: "a", label: "막대 그래프 (bar)" },
-        { id: "b", label: "히스토그램 (hist)만 가능" },
+        { id: "a", label: "범주별 평균 막대만 가능" },
+        { id: "b", label: "히스토그램 (plt.hist)" },
         { id: "c", label: "파이 차트만 가능" },
       ],
     },
     exercise: {
       title: "실습",
       prompt:
-        "mpg 데이터를 읽어 cylinders(실린더 수)별 mpg 평균을 구한 뒤, 막대 그래프로 그려 보세요. (groupby 후 plot(kind='bar'))",
-      hint: "df.groupby('cylinders')['mpg'].mean().plot(kind='bar') 후 plt.show()",
+        "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. (bins=12 정도, title·xlabel·ylabel 포함)",
+      hint: "plt.hist(df['mpg'], bins=12, edgecolor='black') 후 축·제목·show",
       answer: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
 
-df.groupby("cylinders")["mpg"].mean().plot(kind="bar", color="steelblue")
-plt.title("실린더 수별 평균 연비")
-plt.ylabel("평균 mpg")
+plt.hist(df["mpg"], bins=12, color="wheat", edgecolor="black")
+plt.title("연비 분포")
+plt.xlabel("mpg")
+plt.ylabel("빈도")
 plt.show()`,
     },
   },

@@ -55,9 +55,9 @@ export default function AssessmentPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
       <section className="space-y-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-slate-800">수행평가 준비실</h1>
+        <h1 className="text-2xl font-bold text-slate-800">제출 전 점검</h1>
         <p className="text-slate-600">
-          Colab에서 만든 시각화와 코드를 수행평가 제출물 형태로 정리할 수 있도록 체크리스트와 템플릿을 제공합니다.
+          Colab에서 만든 시각화와 코드를 정리·제출할 때 참고할 체크리스트와 보고 틀을 제공합니다.
         </p>
 
         <div className="rounded-lg border border-slate-200 p-4">
@@ -82,7 +82,7 @@ export default function AssessmentPage() {
           <h2 className="mb-2 text-lg font-semibold text-slate-900">포트폴리오 템플릿</h2>
           <p className="mb-3 text-sm text-slate-600">아래 구조를 복사해 보고서/발표자료의 기본 틀로 사용하세요.</p>
           <pre className="overflow-x-auto rounded-md bg-slate-900 p-4 text-xs leading-relaxed text-slate-100">
-            {`# 데이터 시각화 수행평가 포트폴리오
+            {`# 데이터 시각화 포트폴리오
 
 1. 주제와 분석 질문
 - 내가 분석하려는 문제는 무엇인가?
