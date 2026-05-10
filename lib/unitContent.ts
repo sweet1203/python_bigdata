@@ -17,6 +17,8 @@ export interface UnitContent {
   exercise: {
     title: string;
     prompt: string;
+    /** Colab 실행 직후 출력을 학생이 스스로 읽도록 돕는 해석 안내(짧은 마크다운) */
+    interpretation: string;
     hint: string;
     answer: string;
   };
@@ -64,6 +66,11 @@ df.head()`,
       title: "실습",
       prompt:
         "첫 셀에서 pandas와 seaborn을 불러온 뒤 `sns.load_dataset(\"penguins\")`로 df를 만들고 `df.head()` 출력을 확인해 보세요.",
+      interpretation: `**표가 잘 나왔는지**부터 보면 됩니다. 위쪽에 \`species\`, \`island\`, \`bill_length_mm\` 같은 **열 이름**이 한 줄로 보이고, 그 아래에 **5행 정도**만 미리 보입니다.
+
+- 숫자 열과 글자(범주) 열이 섞여 있어도 정상입니다.
+- 값에 \`NaN\`이 보일 수 있는데, 이건 “아직 비어 있는 칸”이라는 뜻입니다(나중에 6차시에서 다룹니다).
+- **스스로 질문해 보기:** “한 행은 한 마리 펭귄 관측인가?”, “부리 길이·체중 같은 숫자가 대략 어느 범위인가?” 정도만 말로 정리해 보세요.`,
       hint: "첫 실행 시 `load_dataset`이 잠시 걸릴 수 있습니다.",
       answer: `${PENGUINS_LOAD}
 
@@ -103,6 +110,9 @@ df[["species", "bill_length_mm"]]`,
     exercise: {
       title: "실습",
       prompt: "같은 df에 대해 tail(3)으로 마지막 3행과 columns로 열 이름 목록을 출력해 보세요.",
+      interpretation: `**1) \`tail(3)\` 결과**는 표의 **맨 아래쪽 3행**입니다. \`head\`와 모양은 같고, **어떤 종·섬**이 마지막에 나오는지만 보면 됩니다. “끝부분도 중간과 비슷한 패턴인가?” 정도를 느껴 보세요.
+
+**2) \`columns\` 결과**는 **분석에 쓸 수 있는 변수 이름 목록**입니다. \`Index([...])\` 형태로 한 줄에 쭉 나옵니다. 이 중에서 숫자로 다룰 열과 범주(종 이름 등)로 다룰 열을 **구분할 수 있으면** 목표 달성입니다.`,
       hint: "df.tail(3), df.columns 순으로 실행하면 됩니다.",
       answer: `${PENGUINS_LOAD}
 
@@ -143,6 +153,10 @@ df["species"].value_counts()`,
       title: "실습",
       prompt:
         "flipper_length_mm(날개 길이)가 긴 순으로 정렬한 뒤, 상위 2마리의 species와 flipper_length_mm만 한 줄(체이닝)으로 출력해 보세요.",
+      interpretation: `출력은 **딱 2행짜리 작은 표**가 나와야 합니다. **위쪽 행이 1등, 아래가 2등**이라고 생각하면 됩니다.
+
+- 두 행의 \`flipper_length_mm\` 숫자를 비교해 보세요. **위가 더 크거나 같아야** “긴 순 정렬”이 맞습니다.
+- \`species\`를 보면 “날개가 긴 펭귄이 어떤 종인지”를 **한 문장**으로 말해 볼 수 있으면 좋습니다. (예: “상위 두 마리 모두 ○○종이다”처럼요.)`,
       hint: "sort_values(by='flipper_length_mm', ascending=False).head(2)[['species','flipper_length_mm']]",
       answer: `${PENGUINS_LOAD}
 
@@ -186,6 +200,10 @@ df.iloc[0:2]`,
       title: "실습",
       prompt:
         "위와 같이 번호를 인덱스로 둔 뒤, 0번 펭귄의 species, bill_length_mm, bill_depth_mm만 한 번에 추출하는 loc 코드를 써 보세요.",
+      interpretation: `출력은 **세 칸짜리 한 줄(또는 세로로 세 줄)** 형태일 수 있습니다. 각각 **종 이름, 부리 길이(mm), 부리 깊이(mm)** 입니다.
+
+- 숫자 두 개가 **서로 다른 단위가 아니라 같은 펭귄의 두 측정값**이라는 점을 기억하세요.
+- **해석 연습:** “0번 펭귄은 ○○종이고, 부리 길이는 ○○mm, 깊이는 ○○mm이다”처럼 **말로 한 번 적어 보세요.**`,
       hint: "df.loc[0, ['species','bill_length_mm','bill_depth_mm']]",
       answer: `${PENGUINS_LOAD}
 
@@ -226,6 +244,10 @@ df.groupby("species")["body_mass_g"].mean()`,
     exercise: {
       title: "실습",
       prompt: "species가 Adelie 또는 Chinstrap인 행만 남기려면 isin을 써서 한 줄로 필터링해 보세요.",
+      interpretation: `출력은 **표 전체가 다시 출력**되는데, **행 개수가 원래보다 줄어든 것**이 핵심입니다.
+
+- 맨 아래나 위에 \`[행 수 × 열 수]\` 비슷한 요약이 보이면, **필터 전·후 행 수**를 비교해 보세요.
+- \`species\` 열을 보면 **Gentoo는 더 이상 없어야** 합니다. “Adelie와 Chinstrap만 남겼다”는 조건이 맞는지 **눈으로 확인**하면 됩니다.`,
       hint: "df['species'].isin(['Adelie', 'Chinstrap'])",
       answer: `${PENGUINS_LOAD}
 
@@ -265,6 +287,10 @@ df["bill_length_mm"] = df["bill_length_mm"].fillna(df["bill_length_mm"].median()
       title: "실습",
       prompt:
         "sex 열의 결측을 문자열 'unknown'으로 채운 뒤, sex 열의 isna().sum()이 0인지 확인해 보세요.",
+      interpretation: `마지막에 나오는 숫자 **\`0\`**이 중요합니다. 이건 **“sex 열에 더 이상 비어 있는 칸이 없다”**는 뜻입니다.
+
+- 만약 \`0\`이 아니면, 위쪽 \`fillna\` 줄이 실행됐는지·철자(\`'unknown'\`)가 맞는지 다시 확인하세요.
+- **왜 이렇게 했나요?** 성별 정보가 비어 있을 때 그 행을 버리지 않고, 나중에 그룹을 나눌 때 쓸 수 있게 **임시 라벨**을 붙인 것입니다. 보고서에는 “결측은 unknown으로 표기했다”고 적을 수 있어요.`,
       hint: "df['sex'] = df['sex'].fillna('unknown')",
       answer: `${PENGUINS_LOAD}
 
@@ -309,6 +335,12 @@ plt.show()`,
       title: "실습",
       prompt:
         "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. (bins=12 정도, title·xlabel·ylabel 포함)",
+      interpretation: `그림이 나오면 **가로축·세로축부터** 읽어 보세요.
+
+- **가로(mpg):** 연비가 낮은 차부터 높은 차까지 구간으로 나뉜 것입니다.
+- **세로(빈도):** 그 구간에 해당하는 **차가 몇 대인지**입니다. 막대가 높은 곳이 “차가 많이 몰린 연비 구간”입니다.
+
+**한 줄 요약 연습:** “대부분의 차는 mpg ○○ 근처에 많이 모여 있다” 또는 “넓게 퍼져 있다”처럼 **봉우리 위치**를 말로 적어 보세요.`,
       hint: "plt.hist(df['mpg'], bins=12, edgecolor='black') 후 축·제목·show",
       answer: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
@@ -359,6 +391,15 @@ plt.show()`,
       title: "실습",
       prompt:
         "질문 하나(예: bill_length_mm와 bill_depth_mm의 상관은?)를 정하고, corr 한 줄과 scatter 플롯으로 시각화해 보세요.",
+      interpretation: `**1) 상관계수(corr) 한 숫자**를 먼저 봅니다. 범위는 대략 **-1 ~ 1**입니다.
+
+- **0에 가까우면:** 두 열이 거의 함께 움직이지 않습니다.
+- **양수이면:** 하나가 커질 때 다른 하나도 **같이 커지는 경향**(오른쪽 위로 점이 퍼지는 느낌).
+- **음수이면:** 하나가 커질 때 다른 하나는 **작아지는 경향**.
+
+**2) 산점도**는 그 “경향”을 **눈으로 확인**하는 단계입니다. 점들이 **대각선처럼** 모이면 상관이 있다고 말하기 쉽습니다.
+
+**보고 한 줄:** “상관계수는 ○○이고, 산점도에서 부리가 길수록 깊이도 ○○한 경향이 보인다”처럼 **숫자 + 그림**을 같이 쓰면 좋습니다.`,
       hint: "df['bill_length_mm'].corr(df['bill_depth_mm']), plt.scatter(...)",
       answer: `import matplotlib.pyplot as plt
 ${PENGUINS_LOAD}

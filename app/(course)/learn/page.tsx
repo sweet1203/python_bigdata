@@ -67,7 +67,8 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           <div className="border-b border-primary-100 pb-4">
             <h2 className="text-lg font-bold text-slate-900">마무리 점검 · 학습 활동</h2>
             <p className="mt-1 text-sm text-slate-600">
-              교안을 Colab에서 실행한 뒤, 아래 퀴즈와 실습으로 오늘 내용을 짧게 점검해 보세요.
+              교안을 Colab에서 실행한 뒤, 실습 상자의 <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>를
+              따라 출력을 해석하고, 퀴즈로 오늘 내용을 짧게 점검해 보세요.
             </p>
           </div>
           <LinePurposeQuiz
@@ -79,6 +80,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           <ExerciseBox
             title={currentContent.exercise.title}
             prompt={currentContent.exercise.prompt}
+            interpretation={currentContent.exercise.interpretation}
             hint={currentContent.exercise.hint}
             answer={currentContent.exercise.answer}
           />
