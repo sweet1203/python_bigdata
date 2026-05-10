@@ -7,17 +7,12 @@ const faqs = [
   {
     question: "처음 시작하려면 어떻게 하나요?",
     answer:
-      "왼쪽 목차에서 차시를 고른 뒤 `학습하기` 화면의 교안을 읽고, 안내에 따라 Colab에서 코드 셀을 위에서부터 실행하면 됩니다.",
-  },
-  {
-    question: "데이터 파일을 매번 올려야 하나요?",
-    answer:
-      "아니요. 기본 실습은 교안대로 `import seaborn as sns` 후 `sns.load_dataset(\"penguins\")` 또는 `\"mpg\"`만 쓰면 됩니다. CSV는 심화·비교용으로 `데이터` 메뉴에 선택 항목으로 두었습니다.",
+      "왼쪽 목차에서 차시를 고른 뒤 `학습하기` 교안을 읽고, Colab에서 코드 셀을 위에서부터 실행하면 됩니다.",
   },
   {
     question: "그래프에서 한글이 깨질 때는?",
     answer:
-      "Colab에서 한글 폰트를 설치하고 matplotlib 폰트 설정을 적용하면 해결됩니다. 시각화 차시 예제를 그대로 따라 하세요.",
+      "Colab에서 한글 폰트를 설치하고 matplotlib 폰트 설정을 적용하면 해결됩니다. 시각화 차시 예제를 따라 하세요.",
   },
 ];
 
@@ -26,7 +21,7 @@ export default function HelpPage() {
     <div className="mx-auto max-w-3xl px-6 py-8">
       <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <h1 className="text-2xl font-bold text-slate-800">도움말</h1>
-        <p className="text-slate-600">수업 중 자주 묻는 질문을 모아둔 페이지입니다.</p>
+        <p className="text-slate-600">자주 묻는 질문입니다.</p>
         <ul className="space-y-3">
           {faqs.map((faq) => (
             <li key={faq.question} className="rounded-lg border border-slate-200 px-4 py-3">
@@ -35,19 +30,11 @@ export default function HelpPage() {
             </li>
           ))}
         </ul>
-        <div className="rounded-lg border border-primary-200 bg-primary-50 px-4 py-3">
-          <p className="font-semibold text-primary-900">학습 화면 안내</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-primary-900">
-            <li>데이터 리터러시 사이트와 같은 형태로 왼쪽 고정 목차·모바일 메뉴·진행 체크를 맞춰 두었습니다.</li>
-            <li>차시별 마크다운 교안은 웹에서 읽기 좋게 표시되며, 코드는 복사해 Colab에 붙여 넣을 수 있습니다.</li>
-            <li>목차(넓은 화면 오른쪽)로 긴 교안을 주제별로 이동할 수 있습니다.</li>
-          </ul>
-        </div>
         <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">정식 수업 안내</p>
+          <p className="font-semibold text-slate-900">권장 순서</p>
           <p className="mt-1">
-            권장 순서는 <span className="font-medium">학습하기(Colab 병행) → 퀴즈 → 내 학습 현황</span>입니다. 데이터 파일은{" "}
-            <span className="font-medium">데이터</span> 메뉴에서 내려받아 Colab에 업로드해 사용하세요.
+            <span className="font-medium">학습하기</span> → <span className="font-medium">퀴즈</span> →{" "}
+            <span className="font-medium">내 학습 현황</span>
           </p>
         </div>
       </section>

@@ -15,11 +15,9 @@ const iconColorMap = {
 } as const;
 
 const bottomNav = [
-  { href: "/data", label: "데이터" },
   { href: "/quiz", label: "퀴즈" },
   { href: "/progress", label: "내 학습 현황" },
   { href: "/help", label: "도움말" },
-  { href: "/assessment", label: "제출 전 점검" },
 ] as const;
 
 function isRouteActive(pathname: string, href: string) {

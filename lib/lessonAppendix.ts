@@ -2,7 +2,7 @@
 export const lessonWebAppendix: Record<string, string> = {
   "1": `### 이 학습 사이트에서 이렇게 활용해 보세요
 
-- **Colab**에서 \`import seaborn as sns\` 후 \`sns.load_dataset("penguins")\`로 시작하면 **CSV 업로드 없이** 실습할 수 있어요.
+- **Colab**에서 \`import seaborn as sns\` 후 \`sns.load_dataset("penguins")\`로 시작해 보세요.
 - **목차**(넓은 화면 오른쪽·모바일 상단)로 긴 교안을 주제별로 점프할 수 있어요.
 - 맨 아래 **마무리 점검**으로 오늘 배운 개념을 스스로 확인해 보세요.`,
   "2": `### 이 학습 사이트에서 이렇게 활용해 보세요

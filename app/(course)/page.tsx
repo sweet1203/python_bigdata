@@ -1,22 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import ProgressBadge from "@/components/common/ProgressBadge";
 import Icon from "@/components/common/Icon";
 import { useLearningProgress } from "@/hooks/useLearningProgress";
 import { COURSE_MODULE, getTotalDurationMinutes, totalLessons, UNIT_DURATION_MIN } from "@/lib/courseConstants";
 import { units } from "@/lib/units";
 
-const DATA_FILES = [
-  { label: "MBTI 샘플 (선택)", file: "MBTI.csv", path: "/data/MBTI.csv" },
-  { label: "학생 CSV (선택)", file: "students.csv", path: "/data/students.csv" },
-  { label: "결측 샘플 (선택)", file: "students_with_missing.csv", path: "/data/students_with_missing.csv" },
-] as const;
-
 const unitSummaries: Record<string, string> = {
   "1": "데이터와 정보의 차이를 이해하고 pandas·코랩 실습 흐름을 시작합니다.",
-  "2": "Series와 DataFrame 구조를 익히고 CSV를 읽어 기본 정보를 확인합니다.",
+  "2": "Series와 DataFrame 구조를 익히고 표 데이터를 살펴봅니다.",
   "3": "정렬과 기초 통계로 데이터의 분포와 패턴을 빠르게 파악합니다.",
   "4": "loc·iloc 인덱싱으로 원하는 행·열을 정확하게 추출합니다.",
   "5": "조건 필터링과 groupby 집계로 질문에 맞는 데이터를 분석합니다.",
@@ -49,7 +42,6 @@ const colorMap = {
 type ColorKey = keyof typeof colorMap;
 
 export default function HomePage() {
-  const [downloadOpen, setDownloadOpen] = useState(false);
   const { getCompletedCount, getTotalProgress, isLessonCompleted, isUnitVisited, getModuleProgress } =
     useLearningProgress();
 
@@ -62,7 +54,7 @@ export default function HomePage() {
     <div className="mx-auto max-w-5xl px-6 py-10">
       <div className="mb-10 text-center">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-sm font-medium text-primary-600">
-          seaborn 내장 데이터로 CSV 업로드 없이 실습하는 파이썬 데이터 분석 수업
+          Colab · seaborn 내장 데이터로 바로 실습
         </div>
         <h1 className="mb-4 text-4xl font-bold text-slate-800">GOO&apos;s 데이터 분석 with 파이썬</h1>
         <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-slate-500">
@@ -70,7 +62,7 @@ export default function HomePage() {
           <br />
           <strong className="text-slate-700">Google Colab</strong>에서{" "}
           <code className="rounded bg-slate-100 px-1 text-base text-slate-800">sns.load_dataset</code>으로{" "}
-          <strong className="text-slate-700">펭귄·mpg</strong> 데이터를 바로 불러와 실습합니다.
+          <strong className="text-slate-700">펭귄·mpg</strong> 예제를 불러와 실습합니다.
         </p>
 
         <div className="mb-4 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500">
@@ -93,34 +85,9 @@ export default function HomePage() {
             className="inline-flex items-center gap-1.5 rounded-lg border border-accent-200 bg-accent-50 px-3 py-1.5 font-medium text-accent-800 transition-colors hover:border-accent-300 hover:bg-accent-100"
           >
             <Icon name="memo" size={16} className="text-accent-600" />
-            학습 안내
+            도움말
           </Link>
-          <button
-            type="button"
-            onClick={() => setDownloadOpen((o) => !o)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50"
-          >
-            <Icon name="download" size={16} className="text-slate-400" />
-            자료 다운받기
-            <span className={`inline-block transition-transform ${downloadOpen ? "rotate-180" : ""}`}>▼</span>
-          </button>
         </div>
-
-        {downloadOpen && (
-          <div className="mb-2 flex flex-wrap items-center justify-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-            {DATA_FILES.map(({ label, file, path }) => (
-              <a
-                key={path}
-                href={path}
-                download={file}
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700"
-              >
-                <Icon name="download" size={18} className="text-slate-400" />
-                {label} ({file})
-              </a>
-            ))}
-          </div>
-        )}
 
         {completedCount > 0 && (
           <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-5 py-2.5 shadow-sm">
@@ -214,26 +181,24 @@ export default function HomePage() {
           </div>
           <h4 className="mb-1 font-bold text-slate-700">실습 중심</h4>
           <p className="text-xs text-slate-500">
-            교안의 코드를 Colab에서 그대로 실행하며 pandas 문법과 데이터 흐름을 익힙니다.
+            교안 코드를 Colab에서 실행하며 pandas 문법과 데이터 흐름을 익힙니다.
           </p>
         </div>
         <div className="p-4">
           <div className="mb-2 flex justify-center">
             <Icon name="chart" size={32} className="text-accent-500" />
           </div>
-          <h4 className="mb-1 font-bold text-slate-700">실제 데이터</h4>
+          <h4 className="mb-1 font-bold text-slate-700">같은 흐름</h4>
           <p className="text-xs text-slate-500">
-            seaborn 예제 표본으로 결측·집계·시각화를 경험하고, 필요 시 데이터 메뉴의 CSV로 확장할 수 있습니다.
+            1~6·8차시는 펭귄, 7차시는 자동차 연비(mpg)로 차트까지 연결합니다.
           </p>
         </div>
         <div className="p-4">
           <div className="mb-2 flex justify-center">
             <Icon name="brain" size={32} className="text-warm-600" />
           </div>
-          <h4 className="mb-1 font-bold text-slate-700">사고력 중심</h4>
-          <p className="text-xs text-slate-500">
-            코드 실행 결과를 해석하고, 다음 분석 단계를 스스로 설계하는 연습을 합니다.
-          </p>
+          <h4 className="mb-1 font-bold text-slate-700">사고력</h4>
+          <p className="text-xs text-slate-500">출력을 해석하고 다음 분석 단계를 스스로 설계하는 연습을 합니다.</p>
         </div>
       </div>
 

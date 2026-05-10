@@ -36,7 +36,7 @@ export const unitContents: Record<string, UnitContent> = {
   "1": {
     unitId: "1",
     summary:
-      "데이터→정보→지혜, 파이썬·판다스·코랩의 역할을 이해하고 seaborn 내장 펭귄 데이터로 첫 실행을 해 봅니다. (CSV 업로드 불필요)",
+      "데이터→정보→지혜, 파이썬·판다스·코랩의 역할을 이해하고 seaborn 내장 펭귄 데이터로 첫 실행을 해 봅니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `${PENGUINS_LOAD}
 
@@ -64,7 +64,7 @@ df.head()`,
       title: "실습",
       prompt:
         "첫 셀에서 pandas와 seaborn을 불러온 뒤 `sns.load_dataset(\"penguins\")`로 df를 만들고 `df.head()` 출력을 확인해 보세요.",
-      hint: "첫 실행 시 데이터 다운로드가 잠시 걸릴 수 있습니다.",
+      hint: "첫 실행 시 `load_dataset`이 잠시 걸릴 수 있습니다.",
       answer: `${PENGUINS_LOAD}
 
 df.head()`,
