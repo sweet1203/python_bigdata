@@ -9,9 +9,9 @@ import { COURSE_MODULE, getTotalDurationMinutes, totalLessons, UNIT_DURATION_MIN
 import { units } from "@/lib/units";
 
 const DATA_FILES = [
-  { label: "MBTI 샘플", file: "MBTI.csv", path: "/data/MBTI.csv" },
-  { label: "학생 성적·신체", file: "students.csv", path: "/data/students.csv" },
-  { label: "결측치 포함", file: "students_with_missing.csv", path: "/data/students_with_missing.csv" },
+  { label: "MBTI 샘플 (선택)", file: "MBTI.csv", path: "/data/MBTI.csv" },
+  { label: "학생 CSV (선택)", file: "students.csv", path: "/data/students.csv" },
+  { label: "결측 샘플 (선택)", file: "students_with_missing.csv", path: "/data/students_with_missing.csv" },
 ] as const;
 
 const unitSummaries: Record<string, string> = {
@@ -62,14 +62,15 @@ export default function HomePage() {
     <div className="mx-auto max-w-5xl px-6 py-10">
       <div className="mb-10 text-center">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-sm font-medium text-primary-600">
-          모두를 위한 실습 중심 파이썬 데이터 분석 수업!
+          seaborn 내장 데이터로 CSV 업로드 없이 실습하는 파이썬 데이터 분석 수업
         </div>
         <h1 className="mb-4 text-4xl font-bold text-slate-800">GOO&apos;s 데이터 분석 with 파이썬</h1>
         <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-slate-500">
           데이터를 읽고, 질문하고, 분석하고, 검증하는 힘을 키우세요.
           <br />
-          <strong className="text-slate-700">Google Colab</strong>에서 pandas 코드를 실행하며 자연스럽게 익히는 학습
-          사이트입니다.
+          <strong className="text-slate-700">Google Colab</strong>에서{" "}
+          <code className="rounded bg-slate-100 px-1 text-base text-slate-800">sns.load_dataset</code>으로{" "}
+          <strong className="text-slate-700">펭귄·mpg</strong> 데이터를 바로 불러와 실습합니다.
         </p>
 
         <div className="mb-4 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500">
@@ -222,7 +223,7 @@ export default function HomePage() {
           </div>
           <h4 className="mb-1 font-bold text-slate-700">실제 데이터</h4>
           <p className="text-xs text-slate-500">
-            수업용 CSV를 내려받아 업로드하고, 결측·시각화·집계를 직접 경험합니다.
+            seaborn 예제 표본으로 결측·집계·시각화를 경험하고, 필요 시 데이터 메뉴의 CSV로 확장할 수 있습니다.
           </p>
         </div>
         <div className="p-4">

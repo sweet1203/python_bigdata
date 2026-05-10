@@ -31,13 +31,13 @@ export default function LinePurposeQuiz({ unitId, question, options, answerId }:
   const resultText = useMemo(() => {
     if (!selectedId) return "";
     return selectedId === answerId
-      ? "정답입니다! 데이터의 앞부분을 빠르게 확인하려는 목적입니다."
-      : "아직 아니에요. 데이터 확인 목적에 가장 가까운 선택지를 다시 골라보세요.";
+      ? "정답입니다! 결과가 저장되었습니다."
+      : "아직 아니에요. 다시 골라 보세요. (선택한 답은 저장됩니다.)";
   }, [selectedId, answerId]);
 
   return (
     <section className="space-y-3 rounded-lg border border-primary-200 bg-primary-50 p-4">
-      <h3 className="text-base font-semibold text-primary-900">이 줄은 왜 필요할까?</h3>
+      <h3 className="text-base font-semibold text-primary-900">차시 이해도 퀴즈</h3>
       <p className="text-sm text-slate-800">{question}</p>
       <div className="space-y-2">
         {options.map((option) => (
