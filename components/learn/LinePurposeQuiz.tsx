@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import InlineMarkdown from "@/components/learn/InlineMarkdown";
 import { loadProgress, saveQuizResult } from "@/lib/progressStorage";
 
 interface Option {
@@ -38,7 +39,7 @@ export default function LinePurposeQuiz({ unitId, question, options, answerId }:
   return (
     <section className="space-y-3 rounded-lg border border-primary-200 bg-primary-50 p-4">
       <h3 className="text-base font-semibold text-primary-900">차시 이해도 퀴즈</h3>
-      <p className="text-sm text-slate-800">{question}</p>
+      <InlineMarkdown text={question} className="text-sm text-slate-800" />
       <div className="space-y-2">
         {options.map((option) => (
           <button
@@ -51,7 +52,7 @@ export default function LinePurposeQuiz({ unitId, question, options, answerId }:
                 : "border-primary-200 bg-white text-slate-700 hover:bg-primary-100"
             }`}
           >
-            {option.label}
+            <InlineMarkdown text={option.label} className="text-sm" inline />
           </button>
         ))}
       </div>

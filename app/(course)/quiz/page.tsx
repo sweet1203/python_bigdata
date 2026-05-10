@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import InlineMarkdown from "@/components/learn/InlineMarkdown";
 import { unitContents } from "@/lib/unitContent";
 import { units } from "@/lib/units";
 import { saveQuizResult } from "@/lib/progressStorage";
@@ -51,7 +52,7 @@ export default function QuizPage() {
         </div>
 
         <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <p className="text-sm font-semibold text-slate-900">{content.quiz.question}</p>
+          <InlineMarkdown text={content.quiz.question} className="text-sm font-semibold text-slate-900" />
           <div className="space-y-2">
             {content.quiz.options.map((option) => (
               <label
@@ -65,7 +66,7 @@ export default function QuizPage() {
                   checked={selectedOptionId === option.id}
                   onChange={() => setSelectedOptionId(option.id)}
                 />
-                {option.label}
+                <InlineMarkdown text={option.label} className="text-sm text-slate-700" inline />
               </label>
             ))}
           </div>

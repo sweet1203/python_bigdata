@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import InlineMarkdown from "@/components/learn/InlineMarkdown";
 
 interface ExerciseBoxProps {
   title: string;
@@ -16,7 +17,7 @@ export default function ExerciseBox({ title, prompt, hint, answer }: ExerciseBox
   return (
     <section className="space-y-3 rounded-lg border border-primary-200 bg-primary-50 p-4">
       <h3 className="text-base font-semibold text-primary-900">{title}</h3>
-      <p className="text-sm text-zinc-800">{prompt}</p>
+      <InlineMarkdown text={prompt} className="text-sm text-zinc-800" />
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setShowHint((prev) => !prev)}
@@ -31,7 +32,12 @@ export default function ExerciseBox({ title, prompt, hint, answer }: ExerciseBox
           {showAnswer ? "정답 숨기기" : "정답 보기"}
         </button>
       </div>
-      {showHint && <p className="rounded-md bg-white px-3 py-2 text-sm text-zinc-700">힌트: {hint}</p>}
+      {showHint && (
+        <p className="rounded-md bg-white px-3 py-2 text-sm text-zinc-700">
+          <span className="font-medium text-zinc-800">힌트: </span>
+          <InlineMarkdown text={hint} className="text-inherit" inline />
+        </p>
+      )}
       {showAnswer && <p className="rounded-md bg-white px-3 py-2 text-sm text-zinc-700">정답 예시: {answer}</p>}
     </section>
   );
