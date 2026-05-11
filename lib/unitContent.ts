@@ -364,9 +364,10 @@ df = df.dropna()
 print(df.head(), df.shape)
 print(df.describe())
 
-df.groupby("species")["body_mass_g"].mean().plot(kind="bar")
-plt.title("펭귄 종별 평균 체중 (g)")
-plt.ylabel("g")
+df.groupby("species")["body_mass_g"].mean().plot(kind="bar", color="steelblue")
+plt.title("Mean body mass by penguin species")
+plt.xlabel("species")
+plt.ylabel("mean body_mass_g")
 plt.show()`,
     breakdown: {
       input: "분석 대상으로 다시 펭귄 데이터를 사용 — 1~6차시와 동일 맥락.",
@@ -375,6 +376,7 @@ plt.show()`,
     },
     lineNotes: [
       "EDA는 정해진 답이 아니라 데이터를 탐험하며 가설을 다듬는 과정입니다.",
+      "그래프 제목·축은 영어로 두면 Colab에서 바로 읽기 좋습니다.",
       "describe는 숫자 열 위주 — 범주열은 value_counts 등을 병행합니다.",
       "인사이트는 ‘무엇이 얼마나 다른가’까지 숫자로 적으면 설득력이 생깁니다.",
     ],
@@ -397,19 +399,19 @@ plt.show()`,
 - **양수이면:** 하나가 커질 때 다른 하나도 **같이 커지는 경향**(오른쪽 위로 점이 퍼지는 느낌).
 - **음수이면:** 하나가 커질 때 다른 하나는 **작아지는 경향**.
 
-**2) 산점도**는 그 “경향”을 **눈으로 확인**하는 단계입니다. 점들이 **대각선처럼** 모이면 상관이 있다고 말하기 쉽습니다.
+**2) 산점도**는 그 “경향”을 **눈으로 확인**하는 단계입니다. 점들이 **대각선처럼** 모이면 상관이 있다고 말하기 쉽습니다. 축·제목은 **영어**로 나와도, 노트에는 한글로 해석을 적으면 됩니다.
 
 **보고 한 줄:** “상관계수는 ○○이고, 산점도에서 부리가 길수록 깊이도 ○○한 경향이 보인다”처럼 **숫자 + 그림**을 같이 쓰면 좋습니다.`,
-      hint: "df['bill_length_mm'].corr(df['bill_depth_mm']), plt.scatter(...)",
+      hint: "df['bill_length_mm'].corr(df['bill_depth_mm']), plt.scatter(...), plt.title 은 영어로",
       answer: `import matplotlib.pyplot as plt
 ${PENGUINS_LOAD}
 
 df = df.dropna()
-print("상관계수:", df["bill_length_mm"].corr(df["bill_depth_mm"]))
+print("Correlation:", df["bill_length_mm"].corr(df["bill_depth_mm"]))
 plt.scatter(df["bill_length_mm"], df["bill_depth_mm"], alpha=0.6)
 plt.xlabel("bill_length_mm")
 plt.ylabel("bill_depth_mm")
-plt.title("부리 길이 vs 부리 깊이")
+plt.title("Bill length vs bill depth")
 plt.show()`,
     },
   },
