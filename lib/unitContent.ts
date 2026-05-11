@@ -301,26 +301,26 @@ df["sex"].isna().sum()`,
   "7": {
     unitId: "7",
     summary:
-      "mpg 데이터로 히스토그램·막대(빈도·평균)·산점도·선 그래프를 구분해 쓰고, 제목·축으로 그림을 완성합니다.",
+      "mpg로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축은 영어로 두어 Colab에서 바로 읽기 좋게 만듭니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
 
 plt.hist(df["mpg"], bins=15, color="skyblue", edgecolor="black")
-plt.title("연비(mpg) 분포")
+plt.title("Distribution of MPG (miles per gallon)")
 plt.xlabel("mpg")
-plt.ylabel("빈도")
+plt.ylabel("count")
 plt.show()`,
     breakdown: {
-      input: "seaborn 내장 mpg 표와 matplotlib.",
-      process: "hist/bar/scatter/line으로 목적에 맞게 그리고 제목·축을 붙입니다.",
-      output: "분포·비교·관계·추세를 한눈에 보여 주는 그림.",
+      input: "seaborn 내장 mpg 표와 matplotlib·seaborn.",
+      process: "목적에 맞게 hist / bar / scatter / line / heatmap / pie를 고르고 title·xlabel·ylabel을 영어로 붙입니다.",
+      output: "분포·비교·관계·추세·상관·비율을 그림으로 설명할 수 있습니다.",
     },
     lineNotes: [
-      "plt.hist(열): 한 수치 열의 분포(히스토그램).",
-      "value_counts().plot(kind='bar'): 범주별 개수 비교.",
-      "groupby(...).mean().plot(kind='bar'): 범주별 평균 비교.",
-      "scatter / line: 관계·시간(연식) 추세에 자주 씁니다.",
+      "plt.hist: 한 수치 열의 분포. 제목·축은 영어로 두면 Colab에서 글꼴 설정 없이 잘 보입니다.",
+      "sns.heatmap(corr): 숫자 열들의 상관행렬을 색으로 표현합니다.",
+      "plt.pie: 범주가 적을 때 전체 대비 비율을 보여 줍니다.",
+      "value_counts / groupby().mean()과 plot을 연결하면 빈도·평균 비교 막대를 쉽게 그립니다.",
     ],
     quiz: {
       question: "연비(mpg) 값이 전체적으로 어떻게 퍼져 있는지 **분포**를 보고 싶을 때 가장 먼저 쓰기 쉬운 그래프는?",
@@ -334,21 +334,21 @@ plt.show()`,
     exercise: {
       title: "실습",
       prompt:
-        "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. (bins=12 정도, title·xlabel·ylabel 포함)",
-      interpretation: `그림이 나오면 **가로축·세로축부터** 읽어 보세요.
+        "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. **제목·가로축·세로축은 모두 영어**로 적고, `bins=12` 정도로 해 보세요.",
+      interpretation: `그림이 나오면 **축 라벨(영어)**와 막대 모양을 같이 읽습니다.
 
-- **가로(mpg):** 연비가 낮은 차부터 높은 차까지 구간으로 나뉜 것입니다.
-- **세로(빈도):** 그 구간에 해당하는 **차가 몇 대인지**입니다. 막대가 높은 곳이 “차가 많이 몰린 연비 구간”입니다.
+- **가로축(mpg):** 연비 구간입니다.
+- **세로축(count):** 그 구간에 해당하는 **차 대수**입니다. 막대가 높은 곳 = 그 연비 근처에 차가 많이 몰림.
 
-**한 줄 요약 연습:** “대부분의 차는 mpg ○○ 근처에 많이 모여 있다” 또는 “넓게 퍼져 있다”처럼 **봉우리 위치**를 말로 적어 보세요.`,
-      hint: "plt.hist(df['mpg'], bins=12, edgecolor='black') 후 축·제목·show",
+**한 줄 요약(노트에는 한글로):** “mpg가 ○○ 부근에 많이 몰려 있다 / 넓게 퍼져 있다”처럼 **봉우리**를 말로 적어 보세요.`,
+      hint: "plt.title / plt.xlabel / plt.ylabel 을 영어로. plt.hist(df['mpg'], bins=12, edgecolor='black') 후 plt.show()",
       answer: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
 
 plt.hist(df["mpg"], bins=12, color="wheat", edgecolor="black")
-plt.title("연비 분포")
+plt.title("Distribution of MPG")
 plt.xlabel("mpg")
-plt.ylabel("빈도")
+plt.ylabel("count")
 plt.show()`,
     },
   },
