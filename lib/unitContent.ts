@@ -301,7 +301,7 @@ df["sex"].isna().sum()`,
   "7": {
     unitId: "7",
     summary:
-      "mpg로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축은 영어로 두어 Colab에서 바로 읽기 좋게 만듭니다.",
+      "mpg로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축 라벨을 붙여 그림을 마무리합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
@@ -313,11 +313,11 @@ plt.ylabel("count")
 plt.show()`,
     breakdown: {
       input: "seaborn 내장 mpg 표와 matplotlib·seaborn.",
-      process: "목적에 맞게 hist / bar / scatter / line / heatmap / pie를 고르고 title·xlabel·ylabel을 영어로 붙입니다.",
+      process: "목적에 맞게 hist / bar / scatter / line / heatmap / pie를 고르고 title·xlabel·ylabel을 붙입니다.",
       output: "분포·비교·관계·추세·상관·비율을 그림으로 설명할 수 있습니다.",
     },
     lineNotes: [
-      "plt.hist: 한 수치 열의 분포. 제목·축은 영어로 두면 Colab에서 글꼴 설정 없이 잘 보입니다.",
+      "plt.hist: 한 수치 열의 분포를 볼 때 씁니다.",
       "sns.heatmap(corr): 숫자 열들의 상관행렬을 색으로 표현합니다.",
       "plt.pie: 범주가 적을 때 전체 대비 비율을 보여 줍니다.",
       "value_counts / groupby().mean()과 plot을 연결하면 빈도·평균 비교 막대를 쉽게 그립니다.",
@@ -334,14 +334,14 @@ plt.show()`,
     exercise: {
       title: "실습",
       prompt:
-        "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. **제목·가로축·세로축은 모두 영어**로 적고, `bins=12` 정도로 해 보세요.",
+        "mpg 데이터를 읽은 뒤, `mpg` 열로 히스토그램을 그려 보세요. `title`·`xlabel`·`ylabel`을 붙이고, `bins=12` 정도로 해 보세요.",
       interpretation: `그림이 나오면 **축 라벨(영어)**와 막대 모양을 같이 읽습니다.
 
 - **가로축(mpg):** 연비 구간입니다.
 - **세로축(count):** 그 구간에 해당하는 **차 대수**입니다. 막대가 높은 곳 = 그 연비 근처에 차가 많이 몰림.
 
-**한 줄 요약(노트에는 한글로):** “mpg가 ○○ 부근에 많이 몰려 있다 / 넓게 퍼져 있다”처럼 **봉우리**를 말로 적어 보세요.`,
-      hint: "plt.title / plt.xlabel / plt.ylabel 을 영어로. plt.hist(df['mpg'], bins=12, edgecolor='black') 후 plt.show()",
+**한 줄 요약:** “mpg가 ○○ 부근에 많이 몰려 있다 / 넓게 퍼져 있다”처럼 **봉우리**를 말로 적어 보세요.`,
+      hint: "plt.title / plt.xlabel / plt.ylabel 을 붙인 뒤 plt.hist(df['mpg'], bins=12, edgecolor='black'), plt.show()",
       answer: `import matplotlib.pyplot as plt
 ${MPG_LOAD}
 
@@ -376,7 +376,7 @@ plt.show()`,
     },
     lineNotes: [
       "EDA는 정해진 답이 아니라 데이터를 탐험하며 가설을 다듬는 과정입니다.",
-      "그래프 제목·축은 영어로 두면 Colab에서 바로 읽기 좋습니다.",
+      "막대·산점도 예제에는 제목·축 라벨이 들어 있습니다.",
       "describe는 숫자 열 위주 — 범주열은 value_counts 등을 병행합니다.",
       "인사이트는 ‘무엇이 얼마나 다른가’까지 숫자로 적으면 설득력이 생깁니다.",
     ],
@@ -399,10 +399,10 @@ plt.show()`,
 - **양수이면:** 하나가 커질 때 다른 하나도 **같이 커지는 경향**(오른쪽 위로 점이 퍼지는 느낌).
 - **음수이면:** 하나가 커질 때 다른 하나는 **작아지는 경향**.
 
-**2) 산점도**는 그 “경향”을 **눈으로 확인**하는 단계입니다. 점들이 **대각선처럼** 모이면 상관이 있다고 말하기 쉽습니다. 축·제목은 **영어**로 나와도, 노트에는 한글로 해석을 적으면 됩니다.
+**2) 산점도**는 그 “경향”을 **눈으로 확인**하는 단계입니다. 점들이 **대각선처럼** 모이면 상관이 있다고 말하기 쉽습니다.
 
 **보고 한 줄:** “상관계수는 ○○이고, 산점도에서 부리가 길수록 깊이도 ○○한 경향이 보인다”처럼 **숫자 + 그림**을 같이 쓰면 좋습니다.`,
-      hint: "df['bill_length_mm'].corr(df['bill_depth_mm']), plt.scatter(...), plt.title 은 영어로",
+      hint: "df['bill_length_mm'].corr(df['bill_depth_mm']), plt.scatter(...), plt.title 등으로 마무리",
       answer: `import matplotlib.pyplot as plt
 ${PENGUINS_LOAD}
 
