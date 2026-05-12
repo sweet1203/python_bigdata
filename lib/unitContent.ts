@@ -77,10 +77,8 @@ df.head()`,
       interpretation: `\`shape\`은 (행 개수, 열 개수) 튜플입니다. 표 전체가 얼마나 큰지 한눈에 잡습니다.
 
 \`head(3)\`은 교안의 5행보다 짧게 미리 보기만 바꾼 것입니다. 열 구성은 동일한지 비교해 보세요.`,
-      hint: "from IPython.display import display 후 display(df.shape), 마지막 줄에 df.head(3)",
-      answer: `from IPython.display import display
-
-display(df.shape)
+      hint: "`df.shape` 다음 줄에 `df.head(3)` — Colab에서는 마지막 줄이 표로 보입니다.",
+      answer: `df.shape
 df.head(3)`,
     },
     challenge: {
@@ -131,10 +129,8 @@ df[["species", "bill_length_mm"]]`,
       interpretation: `\`df['body_mass_g']\`처럼 한 열만 고르면 Series(1차원)입니다. \`.head(4)\`는 앞에서 네 개 값입니다.
 
 \`shape[1]\`은 “열이 몇 개인지”입니다. 교안의 \`columns\` 목록 길이와 같은 숫자가 나와야 합니다.`,
-      hint: "from IPython.display import display 후 display(df.shape[1]), 마지막에 df['body_mass_g'].head(4)",
-      answer: `from IPython.display import display
-
-display(df.shape[1])
+      hint: "`df.shape[1]` 다음 `df['body_mass_g'].head(4)` — 마지막 줄이 Series로 보입니다.",
+      answer: `df.shape[1]
 df["body_mass_g"].head(4)`,
     },
     challenge: {
@@ -348,12 +344,9 @@ len(sub)`,
       interpretation: `\`subset\`에 열 이름을 주면, 그 열에 NaN인 행만 지웁니다. 다른 열의 결측은 그대로 둘 수 있습니다.
 
 전후 shape를 비교하면 몇 행이 빠졌는지 숫자로 말할 수 있습니다.`,
-      hint: "display(df.shape) → dropna → display(df2.shape)",
-      answer: `from IPython.display import display
-
-display(df.shape)
-df2 = df.dropna(subset=["bill_length_mm"])
-display(df2.shape)`,
+      hint: "df2 = df.dropna(...) 후 `(df.shape, df2.shape)`으로 전·후 크기를 한 번에 비교",
+      answer: `df2 = df.dropna(subset=["bill_length_mm"])
+(df.shape, df2.shape)`,
     },
   },
   "7": {
@@ -425,13 +418,12 @@ plt.show()`,
       "확인→전처리→통계→시각화→인사이트의 EDA 파이프라인으로 펭귄 데이터를 한 번에 분석합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
-from IPython.display import display
 ${PENGUINS_LOAD}
 
 df = df.dropna()
-display(df.head())
-display(df.shape)
-display(df.describe())
+df.head()
+df.shape
+df.describe()
 
 df.groupby("species")["body_mass_g"].mean().plot(kind="bar", color="steelblue")
 plt.title("Mean body mass by penguin species")
