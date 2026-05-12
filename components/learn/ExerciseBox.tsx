@@ -9,24 +9,46 @@ interface ExerciseBoxProps {
   interpretation: string;
   hint: string;
   answer: string;
+  /** practice: 변형 실습, challenge: 도전 문제 */
+  variant?: "practice" | "challenge";
 }
 
-export default function ExerciseBox({ title, prompt, interpretation, hint, answer }: ExerciseBoxProps) {
+export default function ExerciseBox({
+  title,
+  prompt,
+  interpretation,
+  hint,
+  answer,
+  variant = "practice",
+}: ExerciseBoxProps) {
   const [showHint, setShowHint] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
+  const isChallenge = variant === "challenge";
+  const shell = isChallenge
+    ? "rounded-lg border border-amber-300 bg-amber-50/90 p-4"
+    : "rounded-lg border border-primary-200 bg-primary-50 p-4";
+  const titleCls = isChallenge ? "text-base font-semibold text-amber-950" : "text-base font-semibold text-primary-900";
+  const hintBtn = isChallenge
+    ? "rounded-md border border-amber-400 bg-white px-3 py-1.5 text-sm font-medium text-amber-950 hover:bg-amber-100"
+    : "rounded-md border border-primary-300 bg-white px-3 py-1.5 text-sm font-medium text-primary-800 hover:bg-primary-100";
+  const readBox = isChallenge
+    ? "rounded-lg border border-amber-200/90 bg-amber-100/60 px-3 py-3 text-sm text-zinc-800"
+    : "rounded-lg border border-emerald-200/90 bg-emerald-50/80 px-3 py-3 text-sm text-zinc-800";
+  const readTitle = isChallenge ? "mb-2 font-semibold text-amber-950" : "mb-2 font-semibold text-emerald-900";
+
   return (
-    <section className="space-y-3 rounded-lg border border-primary-200 bg-primary-50 p-4">
-      <h3 className="text-base font-semibold text-primary-900">{title}</h3>
+    <section className={`space-y-3 ${shell}`}>
+      <h3 className={titleCls}>{title}</h3>
       <InlineMarkdown text={prompt} className="text-sm text-zinc-800" />
-      <div className="rounded-lg border border-emerald-200/90 bg-emerald-50/80 px-3 py-3 text-sm text-zinc-800">
-        <p className="mb-2 font-semibold text-emerald-900">실행 후, 출력 이렇게 읽어 보세요</p>
+      <div className={readBox}>
+        <p className={readTitle}>실행 후, 출력 이렇게 읽어 보세요</p>
         <InlineMarkdown text={interpretation} className="text-sm leading-relaxed text-zinc-800" />
       </div>
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setShowHint((prev) => !prev)}
-          className="rounded-md border border-primary-300 bg-white px-3 py-1.5 text-sm font-medium text-primary-800 hover:bg-primary-100"
+          className={hintBtn}
         >
           {showHint ? "힌트 숨기기" : "힌트 보기"}
         </button>

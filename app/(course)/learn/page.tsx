@@ -67,8 +67,9 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           <div className="border-b border-primary-100 pb-4">
             <h2 className="text-lg font-bold text-slate-900">마무리 점검 · 학습 활동</h2>
             <p className="mt-1 text-sm text-slate-600">
-              교안을 Colab에서 실행한 뒤, 실습 상자의 <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>를
-              따라 출력을 해석하고, 퀴즈로 오늘 내용을 짧게 점검해 보세요.
+              교안을 Colab에서 실행한 뒤, <strong className="font-semibold text-slate-800">변형 실습</strong>(예제와 조건이 조금 다름)과{" "}
+              <strong className="font-semibold text-slate-800">도전 문제</strong>를 풀고, 각 상자의{" "}
+              <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>로 출력을 해석한 다음 퀴즈로 점검해 보세요.
             </p>
           </div>
           <LinePurposeQuiz
@@ -83,6 +84,15 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             interpretation={currentContent.exercise.interpretation}
             hint={currentContent.exercise.hint}
             answer={currentContent.exercise.answer}
+            variant="practice"
+          />
+          <ExerciseBox
+            title={currentContent.challenge.title}
+            prompt={currentContent.challenge.prompt}
+            interpretation={currentContent.challenge.interpretation}
+            hint={currentContent.challenge.hint}
+            answer={currentContent.challenge.answer}
+            variant="challenge"
           />
           <div className="space-y-2 rounded-lg border border-slate-200 bg-white/90 p-4">
             <h3 className="text-base font-semibold text-slate-900">코드 해석 3문장 템플릿</h3>
