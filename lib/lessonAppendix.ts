@@ -20,7 +20,7 @@ export const lessonWebAppendix: Record<string, string> = {
   "5": `### 이 학습 사이트에서 이렇게 활용해 보세요
 
 - \`&\`·\`|\` 조건은 **괄호**가 생명입니다. 교안의 올바른 예와 맞춰 보세요.
-- \`groupby\` 집계 결과는 Series/DataFrame 형태가 헷갈릴 수 있으니 \`print()\`로 형태를 확인해 보세요.`,
+- \`groupby\` 집계 결과는 Series/DataFrame 형태가 헷갈릴 수 있으니 셀에서 실행해 표·Series 출력으로 확인해 보세요.`,
   "6": `### 이 학습 사이트에서 이렇게 활용해 보세요
 
 - 결측 처리 전에 반드시 **열별 개수**\`isna().sum()\`를 확인하는 습관을 들이세요.

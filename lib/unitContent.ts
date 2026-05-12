@@ -77,9 +77,11 @@ df.head()`,
       interpretation: `\`shape\`은 (행 개수, 열 개수) 튜플입니다. 표 전체가 얼마나 큰지 한눈에 잡습니다.
 
 \`head(3)\`은 교안의 5행보다 짧게 미리 보기만 바꾼 것입니다. 열 구성은 동일한지 비교해 보세요.`,
-      hint: "print(df.shape) 다음에 print(df.head(3)) 또는 df.head(3)만 셀 마지막에 두기",
-      answer: `print(df.shape)
-print(df.head(3))`,
+      hint: "from IPython.display import display 후 display(df.shape), 마지막 줄에 df.head(3)",
+      answer: `from IPython.display import display
+
+display(df.shape)
+df.head(3)`,
     },
     challenge: {
       title: "도전 문제",
@@ -88,9 +90,8 @@ print(df.head(3))`,
       interpretation: `\`value_counts()\`는 많은 순으로 정렬된 표를 줍니다. 맨 위 행이 1위 종입니다.
 
 \`idxmax()\`는 “가장 큰 값이 붙은 이름(인덱스)”을 돌려줍니다. 마리 수는 그 이름에 해당하는 숫자 칸을 같이 출력하면 됩니다.`,
-      hint: "vc = df['species'].value_counts() 후 vc.idxmax(), vc.max() 또는 int(vc.iloc[0])",
-      answer: `vc = df["species"].value_counts()
-print(vc.idxmax(), int(vc.max()))`,
+      hint: "df['species'].value_counts() 한 번에 실행하면 표에서 1위 종과 마리 수를 볼 수 있음",
+      answer: `df["species"].value_counts()`,
     },
   },
   "2": {
@@ -102,7 +103,7 @@ print(vc.idxmax(), int(vc.max()))`,
 
 df.head()
 df.info()
-print(df.shape)
+df.shape
 df[["species", "bill_length_mm"]]`,
     breakdown: {
       input: "seaborn 펭귄 데이터와 pandas.",
@@ -130,9 +131,11 @@ df[["species", "bill_length_mm"]]`,
       interpretation: `\`df['body_mass_g']\`처럼 한 열만 고르면 Series(1차원)입니다. \`.head(4)\`는 앞에서 네 개 값입니다.
 
 \`shape[1]\`은 “열이 몇 개인지”입니다. 교안의 \`columns\` 목록 길이와 같은 숫자가 나와야 합니다.`,
-      hint: "print(df['body_mass_g'].head(4)), print(df.shape[1])",
-      answer: `print(df["body_mass_g"].head(4))
-print(df.shape[1])`,
+      hint: "from IPython.display import display 후 display(df.shape[1]), 마지막에 df['body_mass_g'].head(4)",
+      answer: `from IPython.display import display
+
+display(df.shape[1])
+df["body_mass_g"].head(4)`,
     },
     challenge: {
       title: "도전 문제",
@@ -141,9 +144,9 @@ print(df.shape[1])`,
       interpretation: `\`value_counts()\`는 기본적으로 많은 순입니다. “가장 적은 섬”은 보통 맨 아래 행이거나, 코드로는 \`idxmin()\`으로 고를 수 있습니다.
 
 출력이 섬 이름 하나면, 그 섬이 표본 수가 가장 작은 서식지라는 뜻으로 해석할 수 있습니다.`,
-      hint: "vc = df['island'].value_counts(); print(vc.idxmin())",
+      hint: "vc = df['island'].value_counts(); 마지막 줄에 vc.idxmin()",
       answer: `vc = df["island"].value_counts()
-print(vc.idxmin())`,
+vc.idxmin()`,
     },
   },
   "3": {
@@ -287,7 +290,7 @@ df.groupby("species")["body_mass_g"].mean()`,
 
 Dream 섬만 남았다면 \`island\` 열 값이 모두 Dream인지 head로 몇 줄만 검증해 보세요.`,
       hint: "df[df['island']=='Dream'].shape",
-      answer: `print(df[df["island"] == "Dream"].shape)`,
+      answer: `df[df["island"] == "Dream"].shape`,
     },
     challenge: {
       title: "도전 문제",
@@ -305,7 +308,7 @@ Dream 섬만 남았다면 \`island\` 열 값이 모두 Dream인지 head로 몇 �
     colabUrl: "https://colab.research.google.com/",
     code: `${PENGUINS_LOAD}
 
-print(df.isna().sum())
+df.isna().sum()
 
 df["bill_length_mm"] = df["bill_length_mm"].fillna(df["bill_length_mm"].median())`,
     breakdown: {
@@ -334,9 +337,9 @@ df["bill_length_mm"] = df["bill_length_mm"].fillna(df["bill_length_mm"].median()
       interpretation: `\`df['bill_depth_mm'].isna()\`는 행마다 True/False입니다. 그걸로 \`df[...]\`를 쓰면 결측 행만 남습니다.
 
 \`len(...)\`이 0이면 그 열에는 결측이 없다는 뜻입니다.`,
-      hint: "sub = df[df['bill_depth_mm'].isna()]; print(len(sub))",
+      hint: "sub = df[df['bill_depth_mm'].isna()]; 마지막 줄에 len(sub)",
       answer: `sub = df[df["bill_depth_mm"].isna()]
-print(len(sub))`,
+len(sub)`,
     },
     challenge: {
       title: "도전 문제",
@@ -345,10 +348,12 @@ print(len(sub))`,
       interpretation: `\`subset\`에 열 이름을 주면, 그 열에 NaN인 행만 지웁니다. 다른 열의 결측은 그대로 둘 수 있습니다.
 
 전후 shape를 비교하면 몇 행이 빠졌는지 숫자로 말할 수 있습니다.`,
-      hint: "print(df.shape); df2 = df.dropna(subset=['bill_length_mm']); print(df2.shape)",
-      answer: `print("before", df.shape)
+      hint: "display(df.shape) → dropna → display(df2.shape)",
+      answer: `from IPython.display import display
+
+display(df.shape)
 df2 = df.dropna(subset=["bill_length_mm"])
-print("after", df2.shape)`,
+display(df2.shape)`,
     },
   },
   "7": {
@@ -420,11 +425,13 @@ plt.show()`,
       "확인→전처리→통계→시각화→인사이트의 EDA 파이프라인으로 펭귄 데이터를 한 번에 분석합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
+from IPython.display import display
 ${PENGUINS_LOAD}
 
 df = df.dropna()
-print(df.head(), df.shape)
-print(df.describe())
+display(df.head())
+display(df.shape)
+display(df.describe())
 
 df.groupby("species")["body_mass_g"].mean().plot(kind="bar", color="steelblue")
 plt.title("Mean body mass by penguin species")
@@ -472,13 +479,13 @@ plt.show()`,
       interpretation: `상관계수는 두 수치가 함께 커지는지를 숫자로, 산점도는 점 구름의 방향으로 확인합니다.
 
 교안의 부리 길이·깊이 조합과는 다른 몸 크기 질문입니다.`,
-      hint: "print(df['flipper_length_mm'].corr(df['body_mass_g'])); plt.scatter(df['flipper_length_mm'], df['body_mass_g'], alpha=0.6)",
-      answer: `print("Correlation:", df["flipper_length_mm"].corr(df["body_mass_g"]))
-plt.scatter(df["flipper_length_mm"], df["body_mass_g"], alpha=0.6)
+      hint: "산점도·축·제목·show() 다음 마지막 줄에 df['flipper_length_mm'].corr(df['body_mass_g'])",
+      answer: `plt.scatter(df["flipper_length_mm"], df["body_mass_g"], alpha=0.6)
 plt.xlabel("flipper_length_mm")
 plt.ylabel("body_mass_g")
 plt.title("Flipper length vs body mass")
-plt.show()`,
+plt.show()
+df["flipper_length_mm"].corr(df["body_mass_g"])`,
     },
   },
 };
