@@ -69,7 +69,7 @@ export default function ExerciseBox({
         <div className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700">
           <p className="mb-2 font-medium text-zinc-800">정답 예시 코드</p>
           <p className="mb-2 text-xs text-zinc-500">
-            <strong className="font-medium text-zinc-700">+ 코드</strong>를 눌러 새 셀을 추가한 뒤, 아래 코드를 입력해 보세요. 위에서는 교안·데이터 준비 셀을 이미 실행한 상태라고 가정합니다.
+            <strong className="font-medium text-zinc-700">+ 코드</strong>를 눌러 새 셀을 추가한 뒤, 아래 코드를 입력해 보세요.
           </p>
           <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-md bg-zinc-50 p-3 font-mono text-xs leading-relaxed text-zinc-800">
             {answer}
