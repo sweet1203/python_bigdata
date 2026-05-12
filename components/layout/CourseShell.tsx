@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import CourseSidebar from "@/components/layout/CourseSidebar";
+import RefreshHintBar from "@/components/layout/RefreshHintBar";
 import CourseLogo from "@/components/icons/CourseLogo";
 
 export default function CourseShell({ children }: { children: React.ReactNode }) {
@@ -40,8 +41,9 @@ export default function CourseShell({ children }: { children: React.ReactNode })
           <span className="font-semibold text-slate-800">GOO&apos;s 데이터 분석 with 파이썬</span>
         </header>
 
-        <main id="main-content" ref={mainRef} className="flex-1 overflow-y-auto" tabIndex={-1}>
-          {children}
+        <main id="main-content" ref={mainRef} className="flex flex-1 flex-col overflow-y-auto" tabIndex={-1}>
+          <RefreshHintBar />
+          <div className="min-h-0 flex-1">{children}</div>
         </main>
       </div>
     </div>
