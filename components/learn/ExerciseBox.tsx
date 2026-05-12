@@ -68,6 +68,9 @@ export default function ExerciseBox({
       {showAnswer && (
         <div className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700">
           <p className="mb-2 font-medium text-zinc-800">정답 예시 코드</p>
+          <p className="mb-2 text-xs text-zinc-500">
+            Colab에서는 위에서 교안·데이터 준비 셀을 이미 실행했다고 가정하고, 새 셀에는 아래 줄만 이어서 쓰면 됩니다.
+          </p>
           <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-md bg-zinc-50 p-3 font-mono text-xs leading-relaxed text-zinc-800">
             {answer}
           </pre>
