@@ -36,9 +36,9 @@ function buildComponents(inline: boolean): Components {
         {children}
       </a>
     ),
-    ul: ({ children }) => <ul className="my-2 list-disc space-y-1 pl-5">{children}</ul>,
-    ol: ({ children }) => <ol className="my-2 list-decimal space-y-1 pl-5">{children}</ol>,
-    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    ul: ({ children }) => <ul className="my-2 list-disc space-y-2 pl-5">{children}</ul>,
+    ol: ({ children }) => <ol className="my-2 list-decimal space-y-2 pl-5">{children}</ol>,
+    li: ({ children }) => <li className="mt-0.5 leading-relaxed">{children}</li>,
   };
 }
 
