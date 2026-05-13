@@ -73,22 +73,20 @@ df.head()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안에서는 `df.head()`로 앞 5행을 봤습니다. 위에서 이미 `df`를 만든 뒤, 이번 셀에는 `df.shape`로 행·열 개수를 출력하고, `head(3)`으로 앞 3행만 확인해 보세요.",
-      interpretation: `\`shape\`은 (행 개수, 열 개수) 튜플입니다. 표 전체가 얼마나 큰지 한눈에 잡습니다.
-
-\`head(3)\`은 교안의 5행보다 짧게 미리 보기만 바꾼 것입니다. 열 구성은 동일한지 비교해 보세요.`,
-      hint: "`df.shape` 다음 줄에 `df.head(3)` — Colab에서는 마지막 줄이 표로 보입니다.",
+        "`df`가 이미 있을 때, 한 셀에 다음 두 줄을 넣고 실행하세요. ① `df.shape` ② `df.head(3)`",
+      interpretation: `**해야 할 일:** 표 크기(행 수, 열 수)를 보고, 이어서 앞에서 3행만 표로 봅니다.  
+**참고:** \`shape\`은 튜플, \`head(3)\`은 DataFrame입니다.`,
+      hint: "위에서 아래 순서: `df.shape` → `df.head(3)` (Colab은 마지막 줄 결과가 크게 보일 수 있음)",
       answer: `df.shape
 df.head(3)`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "위에서 `df`가 있는 상태에서, `species` 열에서 각 종이 몇 마리씩인지 세고, 그중 가장 많이 등장한 종 이름과 그 마리 수를 한 번에 출력해 보세요.",
-      interpretation: `\`value_counts()\`는 많은 순으로 정렬된 표를 줍니다. 맨 위 행이 1위 종입니다.
-
-\`idxmax()\`는 “가장 큰 값이 붙은 이름(인덱스)”을 돌려줍니다. 마리 수는 그 이름에 해당하는 숫자 칸을 같이 출력하면 됩니다.`,
-      hint: "df['species'].value_counts() 한 번에 실행하면 표에서 1위 종과 마리 수를 볼 수 있음",
+        "`species` 열로 **종마다 몇 마리인지** 세는 표를 한 줄 코드로 만드세요. (가장 많은 종은 표 **맨 위** 행에서 보면 됩니다.)",
+      interpretation: `**해야 할 일:** 종 이름이 인덱스, 마리 수가 값인 표를 출력합니다.  
+**참고:** \`value_counts()\`는 개수가 많은 순으로 정렬합니다.`,
+      hint: "`df[\"species\"].value_counts()`",
       answer: `df["species"].value_counts()`,
     },
   },
@@ -125,22 +123,20 @@ df[["species", "bill_length_mm"]]`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안은 `head`·`info`·`shape`·두 열 선택을 다뤘습니다. 이번에는 `body_mass_g` 열 하나만 뽑아(Series) 앞 4개 값만 보고, 이어서 `df.shape[1]`(열 개수)을 출력해 보세요.",
-      interpretation: `\`df['body_mass_g']\`처럼 한 열만 고르면 Series(1차원)입니다. \`.head(4)\`는 앞에서 네 개 값입니다.
-
-\`shape[1]\`은 “열이 몇 개인지”입니다. 교안의 \`columns\` 목록 길이와 같은 숫자가 나와야 합니다.`,
-      hint: "`df.shape[1]` 다음 `df['body_mass_g'].head(4)` — 마지막 줄이 Series로 보입니다.",
+        "한 셀에 두 줄을 넣으세요. ① 열 개수: `df.shape[1]` ② `body_mass_g` 열만 뽑아 앞 4개: `df[\"body_mass_g\"].head(4)`",
+      interpretation: `**해야 할 일:** ① 전체 열이 몇 개인지 숫자로, ② 체중 열의 앞쪽 값 네 개를 봅니다.  
+**참고:** 한 열만 고르면 Series입니다.`,
+      hint: "순서: `df.shape[1]` 다음 줄에 `df[\"body_mass_g\"].head(4)`",
       answer: `df.shape[1]
 df["body_mass_g"].head(4)`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "섬(`island`)별로 펭귄이 몇 마리씩 있는지 `value_counts()`로 세고, 그중 가장 적은 마리 수를 가진 섬 이름을 출력해 보세요.",
-      interpretation: `\`value_counts()\`는 기본적으로 많은 순입니다. “가장 적은 섬”은 보통 맨 아래 행이거나, 코드로는 \`idxmin()\`으로 고를 수 있습니다.
-
-출력이 섬 이름 하나면, 그 섬이 표본 수가 가장 작은 서식지라는 뜻으로 해석할 수 있습니다.`,
-      hint: "vc = df['island'].value_counts(); 마지막 줄에 vc.idxmin()",
+        "섬(`island`)별 마리 수를 세고, 그중 **가장 적게** 나온 **섬 이름**만 남기세요.",
+      interpretation: `**해야 할 일:** 섬별 마리 수를 세고, 가장 작은 빈도에 해당하는 섬 이름만 구합니다.  
+**참고:** \`value_counts()\`로 표를 만든 뒤 \`idxmin()\`으로 “값이 가장 작은 행의 인덱스”(섬 이름)를 가져옵니다.`,
+      hint: "`vc = df[\"island\"].value_counts()` 다음 줄: `vc.idxmin()`",
       answer: `vc = df["island"].value_counts()
 vc.idxmin()`,
     },
@@ -177,21 +173,19 @@ df["species"].value_counts()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안은 `bill_length_mm`으로 내림차순 정렬했습니다. 이번에는 `body_mass_g`가 작은 순(가벼운 펭귄부터)으로 정렬한 뒤, 맨 앞 3행의 `species`와 `body_mass_g`만 골라 출력해 보세요.",
-      interpretation: `\`ascending=True\`(또는 생략 시 기본 오름차순)이면 값이 작은 쪽이 위에 옵니다.
-
-출력 3행의 \`body_mass_g\`가 위에서 아래로 커지는지 확인하면 정렬이 맞는지 점검할 수 있습니다.`,
-      hint: "sort_values(by='body_mass_g', ascending=True).head(3)[['species','body_mass_g']]",
+        "`body_mass_g`가 **작은 값부터** 위로 오도록 정렬한 다음, **맨 위 3행**만 남기고 열은 `species`, `body_mass_g`만 보이게 하세요.",
+      interpretation: `**해야 할 일:** 가벼운 펭귄이 위에 오도록 정렬한 뒤, 종·체중 두 열만 잘라 냅니다.  
+**참고:** \`ascending=True\`(또는 생략)이면 오름차순입니다.`,
+      hint: "`df.sort_values(by=\"body_mass_g\", ascending=True).head(3)[[\"species\",\"body_mass_g\"]]`",
       answer: `df.sort_values(by="body_mass_g", ascending=True).head(3)[["species", "body_mass_g"]]`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "섬(`island`)마다 `bill_length_mm`의 평균이 어떻게 다른지 `groupby`로 구해 한 줄에 출력해 보세요.",
-      interpretation: `결과는 섬 이름이 인덱스, 평균 부리 길이가 값인 Series 형태가 일반적입니다.
-
-숫자를 비교해 “어느 섬 펭귄의 평균 부리가 더 긴지”를 한 문장으로 적어 보면 인사이트 연습이 됩니다.`,
-      hint: "df.groupby('island')['bill_length_mm'].mean()",
+        "섬(`island`)마다 `bill_length_mm`의 **평균**을 한 줄로 구하세요.",
+      interpretation: `**해야 할 일:** 섬 이름이 인덱스, 평균 부리 길이가 값인 Series를 만듭니다.  
+**참고:** \`groupby(\"island\")[\"bill_length_mm\"].mean()\` 패턴입니다.`,
+      hint: "`df.groupby(\"island\")[\"bill_length_mm\"].mean()`",
       answer: `df.groupby("island")["bill_length_mm"].mean()`,
     },
   },
@@ -231,21 +225,19 @@ df.iloc[0:2]`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안은 `loc`로 0번 행과 여러 열을 뽑았습니다. 같은 방식으로 번호 인덱스를 만든 뒤, `iloc`로 0번·1번 행만 고르고 열은 `species`와 `flipper_length_mm` 두 개만 남겨 보세요. (`iloc`는 정수 위치를 쓰므로 열도 위치로 고르거나, 잘라낸 뒤 열을 선택해도 됩니다.)",
-      interpretation: `\`iloc[0:2]\`는 “앞에서 0번·1번 위치의 행”입니다(끝 2는 포함 안 됨).
-
-열을 고를 때 이름으로 고르고 싶다면 \`iloc\`으로 행만 자른 다음 \`[[열1,열2]]\`를 이어 붙이는 방식이 초보에게 안전합니다.`,
-      hint: "df.iloc[0:2][['species','flipper_length_mm']]",
+        "번호 인덱스가 준비된 `df`에서 **0번·1번 행**만 고르고, 열은 `species`, `flipper_length_mm`만 남기세요. (`iloc` 사용)",
+      interpretation: `**해야 할 일:** 행 위치 \`0:2\`(0과 1만)로 자른 뒤, 열 이름 두 개를 골라 붙입니다.  
+**참고:** \`iloc[0:2][[\"species\", \"flipper_length_mm\"]]\`처럼 이어 쓰면 됩니다.`,
+      hint: "`df.iloc[0:2][[\"species\",\"flipper_length_mm\"]]`",
       answer: `df.iloc[0:2][["species", "flipper_length_mm"]]`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "같은 준비(결측 제거 → 번호 열 → 인덱스)를 한 뒤, `loc`만 사용해 마지막 번호 행의 `species`와 `body_mass_g`를 한 번에 추출해 보세요.",
-      interpretation: `마지막 행의 인덱스 레이블은 \`df.index[-1]\`처럼 구할 수 있습니다. 그 값을 \`loc\`의 행 자리에 넣으면 됩니다.
-
-교안의 “0번 행”과 달리 끝 관측을 집는 연습입니다.`,
-      hint: "last = df.index[-1]; df.loc[last, ['species','body_mass_g']]",
+        "`loc`만 사용해 **마지막 행**의 `species`, `body_mass_g`만 한 번에 꺼내세요.",
+      interpretation: `**해야 할 일:** 마지막 행의 인덱스 번호를 변수에 넣고, \`df.loc[그번호, [열 두 개]]\` 형태로 씁니다.  
+**참고:** 마지막 인덱스는 \`df.index[-1]\`입니다.`,
+      hint: "`last = df.index[-1]` 다음 `df.loc[last, [\"species\",\"body_mass_g\"]]`",
       answer: `last = df.index[-1]
 df.loc[last, ["species", "body_mass_g"]]`,
     },
@@ -281,19 +273,19 @@ df.groupby("species")["body_mass_g"].mean()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안은 체중·종 조건을 `&`로 묶었습니다. 이번에는 `island`가 \"Dream\"인 행만 남기는 필터를 한 줄로 작성하고, 결과의 `shape`을 출력해 보세요.",
-      interpretation: `\`shape[0]\`이 원본보다 작아졌는지 보면 필터가 먹었는지 확인할 수 있습니다.
-
-Dream 섬만 남았다면 \`island\` 열 값이 모두 Dream인지 head로 몇 줄만 검증해 보세요.`,
-      hint: "df[df['island']=='Dream'].shape",
+        "`island` 값이 `\"Dream\"`인 행만 남긴 표의 **크기**를 보이게 하세요. (필터 한 줄 뒤에 `.shape`을 붙이면 됩니다.)",
+      interpretation: `**해야 할 일:** 조건에 맞는 행만 남긴 뒤 \`(행 수, 열 수)\` 튜플을 봅니다.  
+**참고:** \`shape[0]\`이 줄어들었는지 보면 필터가 먹었는지 확인할 수 있습니다.`,
+      hint: "`df[df[\"island\"] == \"Dream\"].shape`",
       answer: `df[df["island"] == "Dream"].shape`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "종(`species`)마다 `flipper_length_mm`의 평균과 개수(count)를 한 번에 보고 싶습니다. `groupby`와 `agg`(또는 `mean`/`count`를 묶는 방법)로 표를 만들어 보세요.",
-      interpretation: `열이 두 개(\`mean\`, \`count\`)인 요약 표가 나오면 성공입니다. 평균 날개 길이와 표본 수를 동시에 보면 “수가 적어서 평균이 불안정할 수 있는 종”도 짐작할 수 있습니다.`,
-      hint: "df.groupby('species')['flipper_length_mm'].agg(['mean','count'])",
+        "종(`species`)마다 `flipper_length_mm`의 **평균**과 **개수(count)**를 한 표로 만드세요.",
+      interpretation: `**해야 할 일:** \`groupby\` 뒤에 \`agg\`로 열 이름 \`mean\`, \`count\`를 한 번에 지정합니다.  
+**참고:** 행이 종, 열이 평균·개수인 요약 표가 나오면 됩니다.`,
+      hint: "`df.groupby(\"species\")[\"flipper_length_mm\"].agg([\"mean\", \"count\"])`",
       answer: `df.groupby("species")["flipper_length_mm"].agg(["mean", "count"])`,
     },
   },
@@ -329,22 +321,20 @@ df["bill_length_mm"] = df["bill_length_mm"].fillna(df["bill_length_mm"].median()
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안은 `bill_length_mm`을 중앙값으로 채웠습니다. 이번에는 `bill_depth_mm` 열에 결측이 있는 행만 골라 새 DataFrame으로 두고, 그 행 개수(`len`)를 출력해 보세요.",
-      interpretation: `\`df['bill_depth_mm'].isna()\`는 행마다 True/False입니다. 그걸로 \`df[...]\`를 쓰면 결측 행만 남습니다.
-
-\`len(...)\`이 0이면 그 열에는 결측이 없다는 뜻입니다.`,
-      hint: "sub = df[df['bill_depth_mm'].isna()]; 마지막 줄에 len(sub)",
+        "`bill_depth_mm`이 비어 있는(NaN) 행만 골라 `sub`에 두고, 그 행이 **몇 개**인지 `len(sub)`으로 보이게 하세요.",
+      interpretation: `**해야 할 일:** \`df[\"bill_depth_mm\"].isna()\`로 True인 행만 \`df[...]\`로 고릅니다.  
+**참고:** \`len(sub)\`이 0이면 그 열에는 결측이 없습니다.`,
+      hint: "1) `sub = df[df[\"bill_depth_mm\"].isna()]`  2) 다음 줄 `len(sub)`",
       answer: `sub = df[df["bill_depth_mm"].isna()]
 len(sub)`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "`bill_length_mm`에 결측이 있는 행만 통째로 제거하는 `dropna(subset=[...])`를 쓰세요. 처리 전·후 `df.shape`를 각각 출력해, 행이 몇 줄 줄었는지 확인해 보세요.",
-      interpretation: `\`subset\`에 열 이름을 주면, 그 열에 NaN인 행만 지웁니다. 다른 열의 결측은 그대로 둘 수 있습니다.
-
-전후 shape를 비교하면 몇 행이 빠졌는지 숫자로 말할 수 있습니다.`,
-      hint: "df2 = df.dropna(...) 후 `(df.shape, df2.shape)`으로 전·후 크기를 한 번에 비교",
+        "`bill_length_mm`에 결측이 있는 행만 지우세요. 그다음 **처리 전·후** 표 크기를 `(df.shape, df2.shape)` 한 줄로 비교하세요.",
+      interpretation: `**해야 할 일:** \`dropna(subset=[\"bill_length_mm\"])\`로 해당 열에 NaN인 행만 제거한 표를 \`df2\`에 둡니다.  
+**참고:** 튜플 앞이 원본, 뒤가 처리 후입니다.`,
+      hint: "`df2 = df.dropna(subset=[\"bill_length_mm\"])` 다음 줄 `(df.shape, df2.shape)`",
       answer: `df2 = df.dropna(subset=["bill_length_mm"])
 (df.shape, df2.shape)`,
     },
@@ -385,11 +375,10 @@ plt.show()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안 히스토그램은 `mpg`였습니다. 위에서 `mpg` 데이터와 `plt` 준비가 끝난 뒤, 이번 셀에는 `weight` 히스토그램만 그리세요. `bins=10`, `edgecolor='black'`, 제목 \"Distribution of vehicle weight\", 축 weight / count.",
-      interpretation: `가로축은 파운드 단위 무게 구간, 세로축은 그 구간에 속한 차 대수입니다.
-
-교안의 mpg 분포와 비교해 “무게는 한쪽에 몰리는지, 넓게 퍼지는지”를 말로 한 줄 적어 보세요.`,
-      hint: "plt.hist(df['weight'], bins=10, ...); plt.title(...); plt.xlabel('weight'); plt.ylabel('count')",
+        "`mpg` 데이터와 `plt`가 준비된 상태에서, `weight` 열 **히스토그램**만 그리세요. 조건: `bins=10`, `edgecolor=\"black\"`, 제목 `Distribution of vehicle weight`, 가로축 `weight`, 세로축 `count`.",
+      interpretation: `**해야 할 일:** \`plt.hist(df[\"weight\"], ...)\`로 막대를 그리고, 제목·축 이름을 붙인 뒤 \`plt.show()\`까지 씁니다.  
+**참고:** 교안의 mpg 히스토그램과 같은 형태입니다.`,
+      hint: "`plt.hist(df[\"weight\"], bins=10, color=\"...\", edgecolor=\"black\")` → `title` / `xlabel` / `ylabel` → `show()`",
       answer: `plt.hist(df["weight"], bins=10, color="lightsteelblue", edgecolor="black")
 plt.title("Distribution of vehicle weight")
 plt.xlabel("weight")
@@ -399,11 +388,10 @@ plt.show()`,
     challenge: {
       title: "도전 문제",
       prompt:
-        "위에서 `df`(mpg)가 있는 뒤, 이번 셀만 작성합니다. `horsepower` 결측을 제거한 뒤 `cylinders`별 평균 horsepower 막대 그래프를 그리세요. 제목·축 이름은 영어로.",
-      interpretation: `막대는 실린더 수(범주)마다 평균 마력을 비교합니다. 막대가 높은 실린더 구성이 “평균적으로 힘이 센지”를 읽을 수 있습니다.
-
-결측을 먼저 빼야 경고 없이 평균이 계산되는 경우가 많습니다.`,
-      hint: "tmp = df.dropna(subset=['horsepower']); tmp.groupby('cylinders')['horsepower'].mean().plot(kind='bar')",
+        "`horsepower`에 NaN인 행을 뺀 뒤, 실린더(`cylinders`)별 **평균 마력** 막대 그래프를 그리세요. 제목·축 이름은 **영어**로.",
+      interpretation: `**해야 할 일:** ① \`dropna(subset=[\"horsepower\"])\`로 깨끗한 표 ② \`groupby(...).mean().plot(kind=\"bar\")\` ③ 제목·축·\`show()\`.  
+**참고:** 결측을 먼저 빼야 평균 계산이 안정적입니다.`,
+      hint: "`tmp = df.dropna(subset=[\"horsepower\"])` → `tmp.groupby(\"cylinders\")[\"horsepower\"].mean().plot(kind=\"bar\", ...)` → `title` / `xlabel` / `ylabel` / `show()`",
       answer: `tmp = df.dropna(subset=["horsepower"])
 tmp.groupby("cylinders")["horsepower"].mean().plot(kind="bar", color="teal")
 plt.title("Mean horsepower by cylinder count")
@@ -453,11 +441,10 @@ plt.show()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "교안 막대그래프는 종(`species`)별 평균 체중이었습니다. 교안에서 `df = df.dropna()`까지 실행한 같은 `df`를 쓰고, 이번 셀에는 `island`별 평균 `body_mass_g` 막대만 그리세요. 제목은 \"Mean body mass by island\", 축 이름은 영어로 맞춥니다.",
-      interpretation: `막대 세 개(또는 섬 개수만큼)가 나오면, 어느 서식지 펭귄이 평균적으로 더 무거운지를 비교할 수 있습니다.
-
-교안의 “종별”과 달리 지리(섬) 기준으로 묶었습니다.`,
-      hint: "df = df.dropna(); df.groupby('island')['body_mass_g'].mean().plot(kind='bar'); plt.title(...)",
+        "`df.dropna()`까지 해 둔 **같은 `df`**로, 섬(`island`)별 **평균 `body_mass_g`** 막대만 그리세요. 제목: `Mean body mass by island`, 축 이름은 영어로.",
+      interpretation: `**해야 할 일:** 교안의 “종별 평균 체중”과 같지만, \`groupby\`에 넣는 열만 \`island\`로 바꿉니다.  
+**참고:** \`plot(kind=\"bar\")\` 뒤에 \`title\`, \`xlabel\`, \`ylabel\`, \`show()\`를 붙입니다.`,
+      hint: "`df.groupby(\"island\")[\"body_mass_g\"].mean().plot(kind=\"bar\", ...)` → 제목·축 → `show()`",
       answer: `df.groupby("island")["body_mass_g"].mean().plot(kind="bar", color="darkorange")
 plt.title("Mean body mass by island")
 plt.xlabel("island")
@@ -467,11 +454,10 @@ plt.show()`,
     challenge: {
       title: "도전 문제",
       prompt:
-        "같은 `df`(결측 제거까지 끝낸 표)로, 이번 셀에는 `flipper_length_mm`과 `body_mass_g`의 상관계수 출력과 산점도만 작성하세요. 제목은 \"Flipper length vs body mass\"(영어), 축 이름은 열 이름과 같게 맞춥니다.",
-      interpretation: `상관계수는 두 수치가 함께 커지는지를 숫자로, 산점도는 점 구름의 방향으로 확인합니다.
-
-교안의 부리 길이·깊이 조합과는 다른 몸 크기 질문입니다.`,
-      hint: "산점도·축·제목·show() 다음 마지막 줄에 df['flipper_length_mm'].corr(df['body_mass_g'])",
+        "`flipper_length_mm`(가로)과 `body_mass_g`(세로) **산점도**를 그리세요. 제목: `Flipper length vs body mass`(영어). 마지막 줄에 두 열의 **상관계수** `corr`를 두세요.",
+      interpretation: `**해야 할 일:** \`plt.scatter\` → 축 이름 → 제목 → \`show()\` → 마지막에 \`df[\"...\"].corr(...)\`.  
+**참고:** 산점도로 관계를 보고, 숫자 하나로 상관을 확인합니다.`,
+      hint: "`scatter` → `xlabel` / `ylabel` / `title` / `show()` → 마지막 줄 `df[\"flipper_length_mm\"].corr(df[\"body_mass_g\"])`",
       answer: `plt.scatter(df["flipper_length_mm"], df["body_mass_g"], alpha=0.6)
 plt.xlabel("flipper_length_mm")
 plt.ylabel("body_mass_g")
