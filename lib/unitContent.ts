@@ -89,16 +89,18 @@ df.head(3)`,
     challenge: {
       title: "도전 문제",
       prompt:
-        "`species` 열로 **종마다 몇 마리인지** 세는 표를 한 줄 코드로 만드세요. (가장 많은 종은 표 **맨 위** 행에서 보면 됩니다.)",
+        "`df.columns`로 **열 이름 목록**을 확인하고, `df.tail(3)`으로 **마지막 3행**을 보세요.",
       interpretation: `**해야 할 일**
 
-1. 종 이름이 인덱스, 마리 수가 값인 표를 한 줄로 출력합니다.
+1. \`df.columns\`로 어떤 열이 있는지 확인합니다.
+2. \`df.tail(3)\`으로 표의 마지막 3행을 봅니다.
 
 **참고**
 
-- \`value_counts()\`는 개수가 많은 순으로 정렬합니다.`,
-      hint: "`df[\"species\"].value_counts()`",
-      answer: `df["species"].value_counts()`,
+- \`head()\`가 앞을 보는 것처럼 \`tail()\`은 표의 뒤쪽을 봅니다.`,
+      hint: "`df.columns` 다음 줄 `df.tail(3)`",
+      answer: `df.columns
+df.tail(3)`,
     },
   },
   "2": {
@@ -148,23 +150,22 @@ df[["species", "bill_length_mm"]]`,
 df["body_mass_g"].head(4)`,
     },
     challenge: {
-      title: "도전 문제",
+      title: “도전 문제”,
       prompt:
-        "섬(`island`)별 마리 수를 세고, 그중 **가장 적게** 나온 **섬 이름**만 남기세요.",
+        “`df`에서 `\”species\”`, `\”flipper_length_mm\”`, `\”body_mass_g\”` **세 열만** 골라 **마지막 3행**을 확인하세요.”,
       interpretation: `**해야 할 일**
 
-1. 섬별 마리 수를 셉니다 (\`value_counts()\`).
-2. 가장 작은 빈도에 해당하는 섬 이름만 구합니다 (\`idxmin()\`).
+1. 열 이름 세 개를 리스트로 묶어 열을 선택합니다.
+2. \`tail(3)\`으로 마지막 3행을 봅니다.
 
 **참고**
 
-- 먼저 표를 만든 뒤, “값이 가장 작은 행의 인덱스”가 곧 섬 이름입니다.`,
-      hint: "`vc = df[\"island\"].value_counts()` 다음 줄: `vc.idxmin()`",
-      answer: `vc = df["island"].value_counts()
-vc.idxmin()`,
+- 열 두 개 이상을 고를 때는 대괄호를 두 겹(\`[[ ]]\`) 씁니다.`,
+      hint: “`df[[\”species\”,\”flipper_length_mm\”,\”body_mass_g\”]].tail(3)`”,
+      answer: `df[[“species”, “flipper_length_mm”, “body_mass_g”]].tail(3)`,
     },
   },
-  "3": {
+  “3”: {
     unitId: "3",
     summary:
       "sort_values로 순위를 매기고, describe·평균 등 통계와 value_counts·unique로 범주형(종·섬)을 분석합니다.",
@@ -211,16 +212,18 @@ df["species"].value_counts()`,
     challenge: {
       title: "도전 문제",
       prompt:
-        "섬(`island`)마다 `bill_length_mm`의 **평균**을 한 줄로 구하세요.",
+        "`flipper_length_mm`(지느러미 길이)가 **큰 순**으로 정렬한 뒤, 상위 20개 개체에서 **종(`species`)별 마리 수**를 세세요.",
       interpretation: `**해야 할 일**
 
-1. 섬 이름이 인덱스, 평균 부리 길이가 값인 Series를 한 줄로 만듭니다.
+1. \`sort_values\`로 지느러미 길이 내림차순 정렬 후 \`head(20)\`으로 상위 20개만 남깁니다.
+2. 남은 표에서 \`value_counts()\`로 종별 마리 수를 셉니다.
 
 **참고**
 
-- \`groupby("island")["bill_length_mm"].mean()\` 패턴입니다.`,
-      hint: "`df.groupby(\"island\")[\"bill_length_mm\"].mean()`",
-      answer: `df.groupby("island")["bill_length_mm"].mean()`,
+- \`sort_values\`와 \`value_counts\` 모두 이번 차시에서 배운 함수입니다.`,
+      hint: "`top20 = df.sort_values(by=\"flipper_length_mm\", ascending=False).head(20)` 다음 줄 `top20[\"species\"].value_counts()`",
+      answer: `top20 = df.sort_values(by="flipper_length_mm", ascending=False).head(20)
+top20["species"].value_counts()`,
     },
   },
   "4": {
