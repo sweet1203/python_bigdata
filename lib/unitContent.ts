@@ -229,26 +229,26 @@ top20["species"].value_counts()`,
   "4": {
     unitId: "4",
     summary:
-      "행 번호(레이블)를 인덱스로 두고 loc와 iloc의 차이, 슬라이싱 시 끝 포함 여부를 구분해 행·열을 추출합니다.",
+      "P001 형식 일련번호를 인덱스로 두고 loc(이름표)와 iloc(줄 위치) 차이, 슬라이스 끝 포함 여부를 구분합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `${PENGUINS_LOAD}
 
 df = df.dropna().reset_index(drop=True)
-df.insert(0, "번호", range(len(df)))
-df = df.set_index("번호")
+df.insert(0, "펭귄번호", [f"P{i:03d}" for i in range(1, len(df) + 1)])
+df = df.set_index("펭귄번호")
 
-df.loc[0, "bill_length_mm"]
-df.loc[0:2, ["species", "bill_length_mm", "body_mass_g"]]
+df.loc["P001", "bill_length_mm"]
+df.loc["P001":"P003", ["species", "bill_length_mm", "body_mass_g"]]
 df.iloc[0:2]`,
     breakdown: {
-      input: "결측 제거 후 0,1,2… 번호를 인덱스로 둔 펭귄 표.",
-      process: "loc는 레이블·iloc는 0부터 번호로 접근합니다.",
+      input: "결측 제거 후 P001, P002… 일련번호를 인덱스로 둔 펭귄 표.",
+      process: "loc는 P001 같은 이름표·iloc는 0부터 줄 위치로 접근합니다.",
       output: "한 칸, 여러 행·열, 슬라이스 결과가 Series 또는 DataFrame으로 반환됩니다.",
     },
     lineNotes: [
-      "loc[0, 'bill_length_mm']: 인덱스 0번 행과 열 이름이 만나는 한 값.",
-      "loc 슬라이스는 끝 레이블을 포함하고, iloc[i:j]는 j를 제외합니다.",
-      "iloc[-1]: 마지막 행.",
+      "loc['P001', 'bill_length_mm']: 이름표 P001 행과 열 이름이 만나는 한 값.",
+      "loc['P001':'P003']는 P003까지 포함, iloc[0:2]는 2번 위치는 제외.",
+      "iloc[0]은 맨 위 줄, loc['P001']과 같은 행이지만 숫자 0과 P001은 다름.",
     ],
     quiz: {
       question: "iloc[0:2]와 loc에서 행 슬라이싱할 때 ‘끝’ 처리의 차이로 옳은 것은?",
@@ -262,15 +262,15 @@ df.iloc[0:2]`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "번호 인덱스가 준비된 `df`에서 **0번·1번 행**만 고르고, 열은 `species`, `flipper_length_mm`만 남기세요. (`iloc` 사용)",
+        "펭귄번호 인덱스가 준비된 `df`에서 **맨 위·그다음 줄**(줄 위치 0, 1)만 고르고, 열은 `species`, `flipper_length_mm`만 남기세요. (`iloc` 사용)",
       interpretation: `**해야 할 일**
 
-1. 행 위치 \`0:2\`(0번·1번 행만)으로 자릅니다.
+1. 줄 위치 \`0:2\`(맨 위·그다음 두 줄)로 자릅니다.
 2. \`species\`, \`flipper_length_mm\` 열만 고릅니다.
 
 **참고**
 
-- \`iloc[0:2][["species", "flipper_length_mm"]]\`처럼 이어 쓰면 됩니다.`,
+- 일련번호 P001이 아니라 **줄 번호**이므로 \`iloc\`를 씁니다.`,
       hint: "`df.iloc[0:2][[\"species\",\"flipper_length_mm\"]]`",
       answer: `df.iloc[0:2][["species", "flipper_length_mm"]]`,
     },
@@ -280,12 +280,12 @@ df.iloc[0:2]`,
         "`loc`만 사용해 **마지막 행**의 `species`, `body_mass_g`만 한 번에 꺼내세요.",
       interpretation: `**해야 할 일**
 
-1. 마지막 행 번호를 \`df.index[-1]\`로 구합니다.
-2. \`df.loc[그번호, ["species", "body_mass_g"]]\`로 두 열만 한 번에 뽑습니다.
+1. 마지막 일련번호를 \`df.index[-1]\`로 구합니다 (예: P333).
+2. \`df.loc[그이름, ["species", "body_mass_g"]]\`로 두 열만 한 번에 뽑습니다.
 
 **참고**
 
-- \`loc\`만 사용합니다.`,
+- \`loc\`에는 **P001** 같은 문자열 이름표를 씁니다.`,
       hint: "`last = df.index[-1]` 다음 `df.loc[last, [\"species\",\"body_mass_g\"]]`",
       answer: `last = df.index[-1]
 df.loc[last, ["species", "body_mass_g"]]`,
