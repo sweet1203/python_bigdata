@@ -12,6 +12,9 @@ function buildComponents(inline: boolean): Components {
       ) : (
         <p className="my-0 leading-relaxed [&:not(:first-child)]:mt-2">{children}</p>
       ),
+    h4: ({ children }) => (
+      <h4 className="mb-1 mt-3 text-sm font-semibold text-inherit first:mt-0">{children}</h4>
+    ),
     strong: ({ children }) => <strong className="font-semibold text-inherit">{children}</strong>,
     em: ({ children }) => <em className="italic text-inherit">{children}</em>,
     code: ({ className, children }) => {

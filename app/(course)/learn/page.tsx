@@ -41,7 +41,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
   const coreAndAppendix =
     bodyWithoutTitle + (appendix ? `\n\n---\n\n${appendix}` : "");
   const markdownWithIntro =
-    `> **이번 차시 요약:** ${currentContent.summary}\n\n---\n\n` + coreAndAppendix;
+    `> 이번 차시 요약: ${currentContent.summary}\n\n---\n\n` + coreAndAppendix;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
