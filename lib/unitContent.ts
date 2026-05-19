@@ -150,9 +150,9 @@ df[["species", "bill_length_mm"]]`,
 df["body_mass_g"].head(4)`,
     },
     challenge: {
-      title: “도전 문제”,
+      title: "도전 문제",
       prompt:
-        “`df`에서 `\”species\”`, `\”flipper_length_mm\”`, `\”body_mass_g\”` **세 열만** 골라 **마지막 3행**을 확인하세요.”,
+        "`df`에서 `\"species\"`, `\"flipper_length_mm\"`, `\"body_mass_g\"` **세 열만** 골라 **마지막 3행**을 확인하세요.",
       interpretation: `**해야 할 일**
 
 1. 열 이름 세 개를 리스트로 묶어 열을 선택합니다.
@@ -161,11 +161,11 @@ df["body_mass_g"].head(4)`,
 **참고**
 
 - 열 두 개 이상을 고를 때는 대괄호를 두 겹(\`[[ ]]\`) 씁니다.`,
-      hint: “`df[[\”species\”,\”flipper_length_mm\”,\”body_mass_g\”]].tail(3)`”,
-      answer: `df[[“species”, “flipper_length_mm”, “body_mass_g”]].tail(3)`,
+      hint: "`df[[\"species\",\"flipper_length_mm\",\"body_mass_g\"]].tail(3)`",
+      answer: `df[["species", "flipper_length_mm", "body_mass_g"]].tail(3)`,
     },
   },
-  “3”: {
+  "3": {
     unitId: "3",
     summary:
       "sort_values로 순위를 매기고, describe·평균 등 통계와 value_counts·unique로 범주형(종·섬)을 분석합니다.",
@@ -536,7 +536,7 @@ plt.show()`,
 
 **참고**
 
-- “종별 평균 체중” 예제와 같은 줄기입니다.`,
+- "종별 평균 체중" 예제와 같은 줄기입니다.`,
       hint: "`df.groupby(\"island\")[\"body_mass_g\"].mean().plot(kind=\"bar\", ...)` → 제목·축 → `show()`",
       answer: `df.groupby("island")["body_mass_g"].mean().plot(kind="bar", color="darkorange")
 plt.title("Mean body mass by island")
