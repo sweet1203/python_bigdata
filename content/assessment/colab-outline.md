@@ -1,6 +1,6 @@
 # Colab 노트북 구성 안내
 
-**데이터:** `penguins` 대신 **`/assessment/datasets`** 의 6개 중 하나.  
+**데이터:** `penguins` 대신 [데이터셋 선택](/assessment/datasets)에 있는 6개 중 하나.  
 **불러오기:** 항상 `import seaborn as sns` → `sns.load_dataset(...)`.
 
 아래 예시는 `tips` 기준입니다. 변수 이름만 본인 데이터에 맞게 바꾸세요.
@@ -107,7 +107,7 @@ plt.show()
 
 ## 셀 8 — 점검
 
-`/assessment/checklist` 확인.
+[제출 전 점검](/assessment/checklist)을 확인하세요.
 
 ---
 
@@ -119,4 +119,4 @@ plt.show()
 | flights | line(연도별 passengers) + 막대(월) |
 | exercise | hist(pulse) + diet별 막대 |
 
-교안 연습: **`/learn?unit=7`** (코드는 같음, 수행만 `load_dataset` 이름 변경).
+교안 연습: [7차시 시각화](/learn?unit=7) (코드는 같음, 수행만 `load_dataset` 이름 변경).

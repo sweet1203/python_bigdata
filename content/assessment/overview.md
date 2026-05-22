@@ -20,7 +20,7 @@ CSV를 따로 받지 않습니다. 수업과 같이 **`import seaborn`** 후 **`
 - **연습(7~8차시):** `penguins`
 - **수행평가:** `tips`, `iris`, `mpg`, `titanic`, `flights`, `exercise` **중 1개** (`penguins` 금지)
 
-자세한 표·예시: **`/assessment/datasets`**
+자세한 표·예시는 [데이터셋 선택](/assessment/datasets) 페이지를 보세요.
 
 ```python
 import seaborn as sns
@@ -33,43 +33,45 @@ df = sns.load_dataset("tips")  # 본인이 고른 이름
 
 | 구분 | 내용 | 루브릭 연결 |
 |------|------|-------------|
-| 코드·그래프 | Colab — seaborn 데이터 1종, 그래프 2종 이상 | 프로그래밍 시각화 (40점) |
-| 그래픽 강조 | `color`, `hue` 등으로 핵심 정보 강조 | 그래픽 요소 (30점) |
-| 해석·글 | 그래프·수치에 맞는 해석·결론·주의점 | 스토리텔링 (30점) |
+| 코드·그래프 | Colab — seaborn 데이터 1종, 그래프 2종 이상 | [프로그래밍 시각화 (40점)](/assessment/rubric) |
+| 그래픽 강조 | `color`, `hue` 등으로 핵심 정보 강조 | [그래픽 요소 (30점)](/assessment/rubric) |
+| 해석·글 | 그래프·수치에 맞는 해석·결론·주의점 | [스토리텔링 (30점)](/assessment/rubric) |
 
-수업 복습: **`/learn?unit=7`** (시각화), **`/learn?unit=8`** (EDA·인사이트) — 코드 패턴은 같고, 수행 때만 데이터 이름을 바꿉니다.
+수업 복습: [7차시 시각화](/learn?unit=7), [8차시 EDA](/learn?unit=8) — 코드 패턴은 같고, 수행 때만 데이터 이름을 바꿉니다.
 
 ---
 
-## 코스웨어 안내 페이지 (주소 직접 입력)
+## 안내 페이지 (왼쪽 메뉴 또는 아래 링크)
 
-| 경로 | 내용 |
-|------|------|
-| `/assessment` | 이 목차 |
-| `/assessment/datasets` | 허용 6종 + `load_dataset` 방법 |
-| `/assessment/rubric` | 성취기준·채점표 |
-| `/assessment/submit` | 제출물·파일명 |
-| `/assessment/checklist` | 제출 전 점검 |
-| `/assessment/colab-outline` | 노트북 셀 구성 |
+| 순서 | 페이지 |
+|------|--------|
+| 1 | [평가 개요](/assessment/overview) (현재) |
+| 2 | [데이터셋 선택](/assessment/datasets) |
+| 3 | [성취기준·채점표](/assessment/rubric) |
+| 4 | [Colab 노트북 구성](/assessment/colab-outline) |
+| 5 | [제출 전 점검](/assessment/checklist) |
+| 6 | [제출 안내](/assessment/submit) |
 
-제출 위치(리로스쿨, Google 폼 등)는 **수업 시간 선생님 안내**를 따릅니다.
+[안내 목차](/assessment)로 돌아가기
 
 ---
 
 ## Classroom 노트북 (사본 배포)
 
-교사가 배포하는 파일: `ac-data-courseware/assessment/수행2_데이터시각화_템플릿.ipynb`
-
+- Google Classroom에서 받은 **사본**만 편집
 - AI 기본 꺼짐 (`generative_ai_disabled`)
 - **질문(마크다운) ↔ 코드** 셀 번갈아 작성
-- 교사용: `assessment/CLASSROOM_배포안내.md`
+- 셀 구성은 [Colab 노트북 구성](/assessment/colab-outline) 참고
+
+---
 
 ## 권장 순서
 
-1. Classroom에서 **사본** 노트북 열기
-2. `/assessment/datasets` 에서 `DATASET` 1개 선택
-3. 노트북 셀 순서대로 작성 → `/assessment/checklist` 점검
-4. Classroom·서술 폼 제출 (선생님 안내)
+1. 이 페이지(개요) 읽기
+2. [데이터셋 선택](/assessment/datasets)에서 `DATASET` 정하기
+3. [성취기준·채점표](/assessment/rubric) 확인
+4. Classroom 사본 노트북 + [Colab 노트북 구성](/assessment/colab-outline)대로 작성
+5. [제출 전 점검](/assessment/checklist) 후 [제출 안내](/assessment/submit)에 따라 제출
 
 ---
 

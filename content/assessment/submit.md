@@ -20,7 +20,7 @@
 | 금지 | `penguins` (교안 연습 전용), CSV 직접 업로드로 대체 |
 | 결측 | `mpg`, `titanic` 은 `dropna()` 권장 |
 
-상세: **`/assessment/datasets`**
+상세: [데이터셋 선택](/assessment/datasets)
 
 노트북 준비 셀에 아래가 보이면 됩니다.
 

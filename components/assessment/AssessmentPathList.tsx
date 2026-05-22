@@ -1,19 +1,26 @@
+import Link from "next/link";
 import { assessmentPages, assessmentPlanPage } from "@/lib/assessmentCatalog";
 
-/** 클릭 링크 없이 경로만 표시 (URL 직접 입력 정책) */
 export default function AssessmentPathList({ includePlan = false }: { includePlan?: boolean }) {
   const items = includePlan ? [...assessmentPages, assessmentPlanPage] : [...assessmentPages];
 
   return (
-    <ul className="space-y-3">
+    <ul className="grid gap-3 sm:grid-cols-2">
       {items.map((page) => (
-        <li
-          key={page.slug}
-          className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3"
-        >
-          <p className="font-semibold text-slate-900">{page.title}</p>
-          <p className="mt-0.5 text-sm text-slate-600">{page.description}</p>
-          <p className="mt-2 font-mono text-sm text-primary-800">{page.path}</p>
+        <li key={page.slug}>
+          <Link
+            href={page.path}
+            className="flex h-full flex-col rounded-xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition-all hover:border-amber-400 hover:shadow-md"
+          >
+            {"step" in page && (
+              <span className="mb-2 inline-flex w-fit rounded-full bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-900">
+                STEP {page.step}
+              </span>
+            )}
+            <span className="font-semibold text-slate-900">{page.title}</span>
+            <span className="mt-1 flex-1 text-sm text-slate-600">{page.description}</span>
+            <span className="mt-3 text-sm font-medium text-primary-700">보기 →</span>
+          </Link>
         </li>
       ))}
     </ul>

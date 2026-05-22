@@ -125,7 +125,9 @@ df = sns.load_dataset("exercise")
 | `plt.title`, `xlabel`, `ylabel` | 모든 그래프 |
 | `describe()`, `value_counts()` | 서술 ③ 기초 통계 |
 
-연습은 **`/learn?unit=7`** (penguins), 수행은 **위 6개 중 택 1** — 코드 형태는 같고 **데이터 이름만** 바꿉니다.
+연습은 [7차시](/learn?unit=7) (penguins), 수행은 **위 6개 중 택 1** — 코드 형태는 같고 **데이터 이름만** 바꿉니다.
+
+다음: [성취기준·채점표](/assessment/rubric) → [Colab 노트북 구성](/assessment/colab-outline)
 
 ---
 
