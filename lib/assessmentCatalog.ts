@@ -1,4 +1,4 @@
-/** 수행평가 안내 (사이드바 메뉴 없음, /assessment 내부 링크 네비게이션) */
+/** 수행평가 안내 (/assessment = 1단계 개요, 차시 사이드바 없음) */
 
 export const assessmentPages = [
   {
@@ -6,7 +6,7 @@ export const assessmentPages = [
     step: 1,
     title: "평가 개요",
     description: "2차 포트폴리오 평가 안내, 일정, 구성",
-    path: "/assessment/overview",
+    path: "/assessment",
   },
   {
     slug: "datasets",
@@ -54,8 +54,9 @@ export const assessmentPlanPage = {
   path: "/assessment/plan",
 } as const;
 
+/** [slug] 동적 라우트용 (개요는 /assessment 인덱스에서 표시) */
 export const allAssessmentSlugs = [
-  ...assessmentPages.map((p) => p.slug),
+  ...assessmentPages.filter((p) => p.slug !== "overview").map((p) => p.slug),
   assessmentPlanPage.slug,
 ] as const;
 

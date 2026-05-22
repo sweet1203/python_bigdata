@@ -3,7 +3,6 @@ import AssessmentShell from "@/components/assessment/AssessmentShell";
 import LessonMarkdown from "@/components/learn/LessonMarkdown";
 import {
   allAssessmentSlugs,
-  assessmentPages,
   assessmentPlanPage,
   getAssessmentMeta,
 } from "@/lib/assessmentCatalog";
@@ -19,9 +18,7 @@ interface AssessmentSlugPageProps {
 }
 
 export function generateStaticParams() {
-  return allAssessmentSlugs
-    .filter((slug) => slug !== "overview")
-    .map((slug) => ({ slug }));
+  return allAssessmentSlugs.map((slug) => ({ slug }));
 }
 
 export default async function AssessmentSlugPage({ params }: AssessmentSlugPageProps) {
@@ -43,12 +40,12 @@ export default async function AssessmentSlugPage({ params }: AssessmentSlugPageP
   const displayTitle = heading ?? meta.title;
   const body = stripLeadingH1(rawMarkdown);
   const isPlan = slug === assessmentPlanPage.slug;
-  const stepPage = assessmentPages.find((p) => p.slug === slug);
-  const subtitle = stepPage
-    ? `STEP ${stepPage.step} · ${stepPage.description}`
-    : isPlan
-      ? assessmentPlanPage.description
-      : undefined;
+  const subtitle =
+    meta && "step" in meta
+      ? `STEP ${meta.step} · ${meta.description}`
+      : isPlan
+        ? assessmentPlanPage.description
+        : undefined;
 
   return (
     <AssessmentShell

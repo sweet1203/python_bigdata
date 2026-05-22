@@ -25,7 +25,7 @@
 | 경로 | 용도 | 콘텐츠 소스 |
 |------|------|-------------|
 | `/assessment` | 목차·접속 경로 안내 | `assessmentCatalog.ts` |
-| `/assessment/overview` | 평가 개요·일정·포트폴리오 구성 | `content/assessment/overview.md` |
+| `/assessment` | 평가 개요·일정·포트폴리오 구성 (1단계) | `content/assessment/overview.md` |
 | `/assessment/datasets` | seaborn 6종·load_dataset 안내 | `content/assessment/datasets.md` |
 | `/assessment/rubric` | 성취기준 + 채점표 | `content/assessment/rubric.md` |
 | `/assessment/submit` | 제출물·파일명·금지 사항 | `content/assessment/submit.md` |

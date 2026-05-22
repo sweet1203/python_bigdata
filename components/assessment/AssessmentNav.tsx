@@ -14,68 +14,25 @@ export default function AssessmentNav({
   currentSlug?: string | null;
   variant?: "sidebar" | "compact";
 }) {
-  const isIndex = currentSlug == null;
-
   if (variant === "compact") {
     return (
       <nav aria-label="수행평가 안내" className="flex flex-wrap gap-2">
-        <Link
-          href="/assessment"
-          className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${navLinkClass(isIndex)}`}
-        >
-          목차
-        </Link>
-        <Link
-          href="/assessment/overview"
-          className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${navLinkClass(currentSlug === "overview")}`}
-        >
-          1. 평가 개요
-        </Link>
-        {assessmentPages
-          .filter((page) => page.slug !== "overview")
-          .map((page) => (
-            <Link
-              key={page.slug}
-              href={page.path}
-              className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${navLinkClass(currentSlug === page.slug)}`}
-            >
-              {page.step}. {page.title}
-            </Link>
-          ))}
+        {assessmentPages.map((page) => (
+          <Link
+            key={page.slug}
+            href={page.path}
+            className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${navLinkClass(currentSlug === page.slug)}`}
+          >
+            {page.step}. {page.title}
+          </Link>
+        ))}
       </nav>
     );
   }
 
   return (
     <nav aria-label="수행평가 안내" className="space-y-1">
-      <Link
-        href="/assessment"
-        className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${navLinkClass(isIndex)}`}
-      >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-200 text-xs font-bold text-slate-600">
-          ☰
-        </span>
-        <span>안내 목차</span>
-      </Link>
-      <Link
-        href="/assessment/overview"
-        className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 text-sm transition-colors ${navLinkClass(currentSlug === "overview")}`}
-      >
-        <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-            currentSlug === "overview" ? "bg-amber-500 text-white" : "bg-amber-100 text-amber-800"
-          }`}
-        >
-          1
-        </span>
-        <span className="min-w-0">
-          <span className="block font-medium leading-snug">평가 개요</span>
-          <span className="block truncate text-xs text-slate-500">사이드 메뉴 없음 · 시작 페이지</span>
-        </span>
-      </Link>
-      {assessmentPages
-        .filter((page) => page.slug !== "overview")
-        .map((page) => (
+      {assessmentPages.map((page) => (
         <Link
           key={page.slug}
           href={page.path}

@@ -20,7 +20,7 @@ CSV를 따로 받지 않습니다. 수업과 같이 **`import seaborn`** 후 **`
 - **연습(7~8차시):** `penguins`
 - **수행평가:** `tips`, `iris`, `mpg`, `titanic`, `flights`, `exercise` **중 1개** (`penguins` 금지)
 
-자세한 표·예시는 [데이터셋 선택](/assessment/datasets) 페이지를 보세요.
+자세한 표·예시는 [데이터셋 선택](/assessment/datasets)을 보세요.
 
 ```python
 import seaborn as sns
@@ -41,18 +41,16 @@ df = sns.load_dataset("tips")  # 본인이 고른 이름
 
 ---
 
-## 안내 페이지 (왼쪽 메뉴 또는 아래 링크)
+## 왼쪽 메뉴 안내 (1~6단계)
 
-| 순서 | 페이지 |
-|------|--------|
-| 1 | [평가 개요](/assessment/overview) (현재) |
+| 단계 | 내용 |
+|------|------|
+| 1 | **평가 개요** (지금 보는 페이지) |
 | 2 | [데이터셋 선택](/assessment/datasets) |
 | 3 | [성취기준·채점표](/assessment/rubric) |
 | 4 | [Colab 노트북 구성](/assessment/colab-outline) |
 | 5 | [제출 전 점검](/assessment/checklist) |
 | 6 | [제출 안내](/assessment/submit) |
-
-[안내 목차](/assessment)로 돌아가기
 
 ---
 
@@ -67,7 +65,7 @@ df = sns.load_dataset("tips")  # 본인이 고른 이름
 
 ## 권장 순서
 
-1. 이 페이지(개요) 읽기
+1. 이 페이지(1단계 개요) 읽기
 2. [데이터셋 선택](/assessment/datasets)에서 `DATASET` 정하기
 3. [성취기준·채점표](/assessment/rubric) 확인
 4. Classroom 사본 노트북 + [Colab 노트북 구성](/assessment/colab-outline)대로 작성
