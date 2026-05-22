@@ -10,10 +10,19 @@ export default function CourseShell({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const isAssessmentOverview = pathname === "/assessment/overview";
 
   useEffect(() => {
     mainRef.current?.scrollTo(0, 0);
   }, [pathname]);
+
+  if (isAssessmentOverview) {
+    return (
+      <div className="min-h-screen overflow-y-auto bg-white" id="main-content" ref={mainRef} tabIndex={-1}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex h-screen">

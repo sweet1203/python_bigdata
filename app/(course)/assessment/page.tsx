@@ -15,8 +15,11 @@ export default function AssessmentIndexPage() {
         <p className="font-semibold">빠른 시작</p>
         <p className="mt-1 leading-relaxed">
           처음이면{" "}
-          <Link href="/assessment/overview" className="font-semibold underline decoration-amber-400">
-            평가 개요
+          <Link
+            href="/assessment/overview"
+            className="font-semibold underline decoration-amber-400"
+          >
+            평가 개요 (전용 페이지)
           </Link>
           부터, 이어서{" "}
           <Link href="/assessment/datasets" className="font-semibold underline decoration-amber-400">

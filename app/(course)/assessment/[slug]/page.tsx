@@ -19,7 +19,9 @@ interface AssessmentSlugPageProps {
 }
 
 export function generateStaticParams() {
-  return allAssessmentSlugs.map((slug) => ({ slug }));
+  return allAssessmentSlugs
+    .filter((slug) => slug !== "overview")
+    .map((slug) => ({ slug }));
 }
 
 export default async function AssessmentSlugPage({ params }: AssessmentSlugPageProps) {
