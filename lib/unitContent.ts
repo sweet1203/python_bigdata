@@ -415,18 +415,20 @@ len(sub)`,
   "7": {
     unitId: "7",
     summary:
-      "mpg로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축 라벨을 붙여 그림을 마무리합니다.",
+      "penguins로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축 라벨을 붙여 그림을 마무리합니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
-${MPG_LOAD}
+${PENGUINS_LOAD}
 
-plt.hist(df["mpg"], bins=15, color="skyblue", edgecolor="black")
-plt.title("Distribution of MPG (miles per gallon)")
-plt.xlabel("mpg")
+df = df.dropna()
+
+plt.hist(df["body_mass_g"], bins=15, color="skyblue", edgecolor="black")
+plt.title("Penguin Body Mass Distribution")
+plt.xlabel("body_mass_g")
 plt.ylabel("count")
 plt.show()`,
     breakdown: {
-      input: "seaborn 내장 mpg 표와 matplotlib·seaborn.",
+      input: "seaborn 내장 penguins 표와 matplotlib·seaborn.",
       process: "목적에 맞게 hist / bar / scatter / line / heatmap / pie를 고르고 title·xlabel·ylabel을 붙입니다.",
       output: "분포·비교·관계·추세·상관·비율을 그림으로 설명할 수 있습니다.",
     },
@@ -437,7 +439,7 @@ plt.show()`,
       "value_counts / groupby().mean()과 plot을 연결하면 빈도·평균 비교 막대를 쉽게 그립니다.",
     ],
     quiz: {
-      question: "연비(mpg) 값이 전체적으로 어떻게 퍼져 있는지 분포를 보고 싶을 때 가장 먼저 쓰기 쉬운 그래프는?",
+      question: "펭귄 몸무게(body_mass_g)가 전체적으로 어떻게 퍼져 있는지 분포를 보고 싶을 때 가장 먼저 쓰기 쉬운 그래프는?",
       answerId: "b",
       options: [
         { id: "a", label: "범주별 평균 막대만 가능" },
@@ -448,42 +450,41 @@ plt.show()`,
     exercise: {
       title: "변형 실습",
       prompt:
-        "`mpg` 데이터와 `plt`가 준비된 상태에서, `weight` 열 히스토그램만 그리세요. 조건: `bins=10`, `edgecolor=\"black\"`, 제목 `Distribution of vehicle weight`, 가로축 `weight`, 세로축 `count`.",
+        "`penguins` 데이터와 `plt`가 준비된 상태에서, `flipper_length_mm` 열 히스토그램만 그리세요. 조건: `bins=10`, `edgecolor=\"black\"`, 제목 `Distribution of flipper length`, 가로축 `flipper_length_mm`, 세로축 `count`.",
       interpretation: `#### 해야 할 일
 
-1. \`plt.hist(df["weight"], ...)\`로 히스토그램을 그립니다.
+1. \`plt.hist(df["flipper_length_mm"], ...)\`로 히스토그램을 그립니다.
 2. 제목·축 이름을 붙입니다.
 3. \`plt.show()\`까지 호출합니다.
 
 #### 참고
 
-- 교안의 mpg 히스토그램과 같은 형태입니다.`,
-      hint: "`plt.hist(df[\"weight\"], bins=10, color=\"...\", edgecolor=\"black\")` → `title` / `xlabel` / `ylabel` → `show()`",
-      answer: `plt.hist(df["weight"], bins=10, color="lightsteelblue", edgecolor="black")
-plt.title("Distribution of vehicle weight")
-plt.xlabel("weight")
+- 교안의 body_mass_g 히스토그램과 같은 형태입니다.`,
+      hint: "`plt.hist(df[\"flipper_length_mm\"], bins=10, color=\"...\", edgecolor=\"black\")` → `title` / `xlabel` / `ylabel` → `show()`",
+      answer: `plt.hist(df["flipper_length_mm"], bins=10, color="lightsteelblue", edgecolor="black")
+plt.title("Distribution of flipper length")
+plt.xlabel("flipper_length_mm")
 plt.ylabel("count")
 plt.show()`,
     },
     challenge: {
       title: "도전 문제",
       prompt:
-        "`horsepower`에 NaN인 행을 뺀 뒤, 실린더(`cylinders`)별 평균 마력 막대 그래프를 그리세요. 제목·축 이름은 영어로.",
+        "종(`species`)별 평균 `bill_length_mm` 막대 그래프를 그리세요. 제목·축 이름은 영어로.",
       interpretation: `#### 해야 할 일
 
-1. \`dropna(subset=["horsepower"])\`로 결측 행을 뺍니다.
-2. \`groupby(...).mean().plot(kind="bar")\`로 실린더별 평균 마력 막대를 그립니다.
-3. 제목·축·\`show()\`를 붙입니다.
+1. \`groupby(...).mean().plot(kind="bar")\`로 종별 평균 부리 길이 막대를 그립니다.
+2. 제목·축·\`show()\`를 붙입니다.
 
 #### 참고
 
-- 결측을 먼저 빼야 평균 계산이 안정적입니다.`,
-      hint: "`tmp = df.dropna(subset=[\"horsepower\"])` → `tmp.groupby(\"cylinders\")[\"horsepower\"].mean().plot(kind=\"bar\", ...)` → `title` / `xlabel` / `ylabel` / `show()`",
-      answer: `tmp = df.dropna(subset=["horsepower"])
-tmp.groupby("cylinders")["horsepower"].mean().plot(kind="bar", color="teal")
-plt.title("Mean horsepower by cylinder count")
-plt.xlabel("cylinders")
-plt.ylabel("mean horsepower")
+- 교안의 종별 평균 몸무게 예제와 같은 형태입니다.`,
+      hint: "`df.groupby(\"species\")[\"bill_length_mm\"].mean().plot(kind=\"bar\", ...)` → `title` / `xlabel` / `ylabel` / `xticks(rotation=0)` / `show()`",
+      answer: `df.groupby("species")["bill_length_mm"].mean().plot(kind="bar", color="coral")
+plt.title("Mean bill length by species")
+plt.xlabel("species")
+plt.ylabel("mean bill_length_mm")
+plt.xticks(rotation=0)
 plt.show()`,
     },
   },
