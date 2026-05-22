@@ -2,12 +2,11 @@
 
 제출 **경로·마감**은 **Google Classroom** 및 선생님 안내(서술 폼·PNG 등)를 따릅니다.
 
-## Classroom 배포 노트북
+## Classroom 노트북
 
-- 선생님이 배포하는 파일: **`assessment/수행2_데이터시각화_템플릿.ipynb`**
-- 학생은 **사본 만들기** 후 그 사본만 편집·제출
-- 노트북 메타데이터: **`generative_ai_disabled: true`** (생성형 AI 기본 숨김, 재활성화 금지)
-- 구성: **질문(마크다운 셀) ↔ 코드(코드 셀)** 번갈아 작성
+- Classroom에서 받은 **사본**만 편집·제출
+- **생성형 AI는 사용하지 않습니다**
+- **질문(마크다운 셀) ↔ 코드(코드 셀)** 번갈아 작성
 
 ---
 
@@ -17,7 +16,7 @@
 |------|------|
 | 불러오기 | `import seaborn as sns` → `df = sns.load_dataset("이름")` |
 | 허용 이름 | `tips`, `iris`, `mpg`, `titanic`, `flights`, `exercise` |
-| 금지 | `penguins` (교안 연습 전용), CSV 직접 업로드로 대체 |
+| 금지 | `penguins` (수업 연습용), CSV 직접 업로드로 대체 |
 | 결측 | `mpg`, `titanic` 은 `dropna()` 권장 |
 
 상세: [데이터셋 선택](/assessment/datasets)
@@ -67,7 +66,7 @@ df = sns.load_dataset(DATASET)
 
 ---
 
-## 파일명 예시 (초안)
+## 파일명 예시
 
 | 파일 | 예시 |
 |------|------|
@@ -82,13 +81,3 @@ df = sns.load_dataset(DATASET)
 - CSV 파일만 올리고 `load_dataset` 없음
 - 친구 노트북·코드 그대로 제출
 - 실행하지 않은 수치를 서술에 적기
-
----
-
-## 1차(Orange3)와의 차이
-
-| 1차 | 2차 |
-|-----|-----|
-| Orange + CSV 파일 | **`import seaborn` + `load_dataset`** |
-| 20개 CSV 중 선택 | **seaborn 6종 중 1개** |
-| `.ows` + PNG | `.ipynb` + PNG |

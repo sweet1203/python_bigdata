@@ -6,7 +6,7 @@
 
 ---
 
-## 공통 불러오기 (모든 학생 동일)
+## 공통 불러오기
 
 Colab **맨 위 준비 셀**에 아래를 넣고, `DATASET`만 본인이 고른 이름으로 바꿉니다.
 
@@ -27,7 +27,7 @@ print("크기:", df.shape)
 df.head()
 ```
 
-- **`import seaborn as sns`** — 1차시와 같이 seaborn을 `sns`로 부릅니다.
+- **`import seaborn as sns`** — seaborn을 `sns`로 불러옵니다.
 - **`sns.load_dataset("이름")`** — 인터넷 없이 Colab에 내장된 예제 표를 가져옵니다.
 - **`mpg`, `titanic`** — 결측이 있어 **`dropna()`** 후 쓰는 것을 권장합니다.
 
@@ -46,7 +46,7 @@ df.head()
 | **`flights`** | 항공 승객 | `month`, `year` | `passengers` | line, 막대(월별) |
 | **`exercise`** | 운동·맥박 | `diet`, `kind` | `pulse` | hist, diet별 막대, hue |
 
-**사용 금지:** `penguins` (7~8차시 교안 연습 전용)
+**사용 금지:** `penguins` (7~8차시 연습용)
 
 **사용 비권장:** `diamonds`(행 수 매우 많음), `gapminder`(연도 필터 필요) 등 위 6개 밖 데이터
 
@@ -118,7 +118,7 @@ df = sns.load_dataset("exercise")
 
 | 수업 내용 | 수행에서 |
 |-----------|----------|
-| `sns.load_dataset(...)` | **반드시 동일 방식** (CSV 업로드 X) |
+| `sns.load_dataset(...)` | **이 방식만 사용** (CSV 업로드 X) |
 | `plt.hist` | 분포 그래프 1개 |
 | `groupby(...).plot(kind="bar")` | 집단 비교 1개 |
 | `plt.scatter` / `sns.scatterplot` | 관계 + `hue`로 강조 |

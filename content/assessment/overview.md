@@ -7,9 +7,9 @@
 | 평가 단원 | 빅데이터 분석 결과 시각화 |
 | 실시 시기 | 6월 |
 | 만점 | 100점 (학기 성적의 30% 반영) |
-| 평가 방법 | 포트폴리오 (교사평가, 개별 수행, 원점수 합산) |
+| 평가 방법 | 포트폴리오 (개별 수행) |
 
-1차 수행(Orange3)과 달리, 이번 평가는 **직접 작성한 Python 코드**와 **Colab 실행 결과**를 근거로 합니다.
+**직접 작성한 Python 코드**와 **Colab 실행 결과**를 근거로 채점합니다.
 
 ---
 
@@ -41,31 +41,18 @@ df = sns.load_dataset("tips")  # 본인이 고른 이름
 
 ---
 
-## 왼쪽 메뉴 안내 (1~6단계)
-
-| 단계 | 내용 |
-|------|------|
-| 1 | **평가 개요** (지금 보는 페이지) |
-| 2 | [데이터셋 선택](/assessment/datasets) |
-| 3 | [성취기준·채점표](/assessment/rubric) |
-| 4 | [Colab 노트북 구성](/assessment/colab-outline) |
-| 5 | [제출 전 점검](/assessment/checklist) |
-| 6 | [제출 안내](/assessment/submit) |
-
----
-
 ## Classroom 노트북 (사본 배포)
 
 - Google Classroom에서 받은 **사본**만 편집
-- AI 기본 꺼짐 (`generative_ai_disabled`)
+- 노트북에서 **생성형 AI는 사용하지 않습니다**
 - **질문(마크다운) ↔ 코드** 셀 번갈아 작성
-- 셀 구성은 [Colab 노트북 구성](/assessment/colab-outline) 참고
+- 셀 구성은 [Colab 노트북 구성](/assessment/colab-outline)을 보세요
 
 ---
 
 ## 권장 순서
 
-1. 이 페이지(1단계 개요) 읽기
+1. 이 페이지(평가 개요) 읽기
 2. [데이터셋 선택](/assessment/datasets)에서 `DATASET` 정하기
 3. [성취기준·채점표](/assessment/rubric) 확인
 4. Classroom 사본 노트북 + [Colab 노트북 구성](/assessment/colab-outline)대로 작성

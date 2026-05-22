@@ -81,7 +81,7 @@ plt.show()
 
 ## 셀 6 — 그래프 3 또는 강조 (30점)
 
-`hue`·`color` 로 핵심 강조 (7차시 산점도와 동일 패턴):
+`hue`·`color` 로 핵심 강조 (7차시 산점도와 같은 방식):
 
 ```python
 sns.scatterplot(data=df, x="total_bill", y="tip", hue="sex")
@@ -111,7 +111,7 @@ plt.show()
 
 ---
 
-## 데이터별 참고
+## 데이터별 그래프 조합
 
 | DATASET | 그래프 조합 예 |
 |---------|----------------|
@@ -119,4 +119,4 @@ plt.show()
 | flights | line(연도별 passengers) + 막대(월) |
 | exercise | hist(pulse) + diet별 막대 |
 
-교안 연습: [7차시 시각화](/learn?unit=7) (코드는 같음, 수행만 `load_dataset` 이름 변경).
+수업 복습: [7차시 시각화](/learn?unit=7) — 코드 형태는 같고, 수행 때만 데이터 이름을 바꿉니다.

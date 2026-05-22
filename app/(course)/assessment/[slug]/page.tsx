@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import AssessmentShell from "@/components/assessment/AssessmentShell";
-import LessonMarkdown from "@/components/learn/LessonMarkdown";
+import AssessmentMarkdown from "@/components/assessment/AssessmentMarkdown";
 import {
   allAssessmentSlugs,
   assessmentPlanPage,
@@ -54,7 +54,7 @@ export default async function AssessmentSlugPage({ params }: AssessmentSlugPageP
       title={displayTitle}
       subtitle={subtitle}
     >
-      <LessonMarkdown markdown={body} />
+      <AssessmentMarkdown markdown={body} />
     </AssessmentShell>
   );
 }

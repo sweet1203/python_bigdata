@@ -1,5 +1,5 @@
 import AssessmentShell from "@/components/assessment/AssessmentShell";
-import LessonMarkdown from "@/components/learn/LessonMarkdown";
+import AssessmentMarkdown from "@/components/assessment/AssessmentMarkdown";
 import { assessmentPages } from "@/lib/assessmentCatalog";
 import { loadAssessmentMarkdown, parseMainHeading, stripLeadingH1 } from "@/lib/loadAssessment";
 
@@ -20,9 +20,9 @@ export default async function AssessmentIndexPage() {
       currentSlug="overview"
       badge="3학년 빅데이터분석 · 2차 수행평가"
       title={title}
-      subtitle="왼쪽 메뉴에서 단계별 안내를 이어서 읽고, Classroom 사본 노트북에 작성한 뒤 제출하세요."
+      subtitle="단계별 안내를 순서대로 읽고, Classroom 사본 노트북에 작성한 뒤 제출하세요."
     >
-      <LessonMarkdown markdown={body} />
+      <AssessmentMarkdown markdown={body} />
     </AssessmentShell>
   );
 }

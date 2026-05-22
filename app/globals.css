@@ -29,6 +29,22 @@
   --color-warm-600: #d97706;
   --color-warm-700: #b45309;
   --color-warm-800: #92400e;
+
+  /* Genie / blue_cute — assessment 수행평가 전용 */
+  --color-midnight-ink: #181d27;
+  --color-arctic-mist: #fafdff;
+  --color-canvas-white: #ffffff;
+  --color-obsidian: #0a0d12;
+  --color-silver-pine: #535862;
+  --color-ash-gray: #93979f;
+  --color-sky-wash: #ebf5ff;
+  --color-ghostly-blue: #cce7ff;
+  --color-electric-blue: #0069e0;
+  --color-luminous-blue: #0099ff;
+  --color-whisper-fade-blue: #e5f6ff;
+  --shadow-genie-lg: 0px 14px 20px 4px rgba(4, 69, 144, 0.08);
+  --shadow-genie-subtle: rgba(10, 13, 18, 0.8) 0px 1px 2px 0px,
+    rgb(10, 13, 18) 0px 0px 0px 1px;
 }
 
 html,
@@ -72,4 +88,18 @@ textarea:focus-visible {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* 수행평가 — blue_cute (Genie) 스코프 */
+.assessment-cute {
+  letter-spacing: -0.01em;
+}
+
+.assessment-cute .font-display {
+  font-family: var(--font-aeonik), var(--font-sans);
+}
+
+.assessment-cute a:focus-visible,
+.assessment-cute button:focus-visible {
+  box-shadow: 0 0 0 3px rgb(0 153 255 / 0.35);
 }
