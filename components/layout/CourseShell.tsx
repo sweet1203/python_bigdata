@@ -10,16 +10,25 @@ export default function CourseShell({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const isAssessmentOverview = pathname === "/assessment/overview";
+  /** 수행평가 구역: 차시 목록 사이드바 숨김 (수행 STEP 메뉴만 사용) */
+  const hideCourseSidebar = pathname?.startsWith("/assessment") ?? false;
 
   useEffect(() => {
     mainRef.current?.scrollTo(0, 0);
   }, [pathname]);
 
-  if (isAssessmentOverview) {
+  if (hideCourseSidebar) {
     return (
-      <div className="min-h-screen overflow-y-auto bg-white" id="main-content" ref={mainRef} tabIndex={-1}>
-        {children}
+      <div className="flex min-h-screen flex-col overflow-hidden">
+        <main
+          id="main-content"
+          ref={mainRef}
+          className="flex flex-1 flex-col overflow-y-auto"
+          tabIndex={-1}
+        >
+          <RefreshHintBar />
+          <div className="min-h-0 flex-1">{children}</div>
+        </main>
       </div>
     );
   }

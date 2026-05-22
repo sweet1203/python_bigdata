@@ -41,7 +41,7 @@ export default async function AssessmentOverviewPage() {
           <p className="text-sm font-medium text-amber-800">시작하기</p>
           <p className="mt-2 text-lg font-semibold text-slate-900">{title}</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            이 페이지는 수업 사이드 메뉴 없이 보는 <strong>수행평가 전용 안내</strong>입니다.
+            이 페이지는 <strong>차시 사이드 메뉴 없이</strong> 보는 수행평가 전용 안내입니다.
             아래 단계를 순서대로 진행하세요.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
