@@ -13,7 +13,7 @@ export default function LessonTableOfContents({ items }: LessonTableOfContentsPr
         <li key={item.id} className={item.depth === 3 ? "ml-3 border-l border-zinc-200 pl-3" : ""}>
           <a
             href={`#${item.id}`}
-            className="block text-zinc-600 transition-colors hover:text-emerald-700"
+            className="block text-zinc-600 transition-colors hover:text-primary-700"
           >
             {item.text}
           </a>

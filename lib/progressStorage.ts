@@ -10,7 +10,9 @@ export interface LearningProgressState {
   quizResults: Record<string, QuizResult>;
 }
 
-const STORAGE_KEY = "ac-data-progress-v1";
+/** 기존 로컬 데이터 자동 이전 후 이 키만 사용 */
+export const PROGRESS_STORAGE_KEY = "goo-python-progress-v1";
+const LEGACY_PROGRESS_KEY = "ac-data-progress-v1";
 
 const initialState: LearningProgressState = {
   visitedUnitIds: [],
@@ -21,25 +23,52 @@ function isBrowser() {
   return typeof window !== "undefined";
 }
 
+function normalizeState(parsed: unknown): LearningProgressState {
+  if (!parsed || typeof parsed !== "object") return initialState;
+  const p = parsed as Partial<LearningProgressState>;
+  return {
+    visitedUnitIds: Array.isArray(p.visitedUnitIds) ? p.visitedUnitIds : [],
+    quizResults: p.quizResults && typeof p.quizResults === "object" ? p.quizResults : {},
+  };
+}
+
+function notifyProgressChange() {
+  if (!isBrowser()) return;
+  window.dispatchEvent(new Event("goo-learning-progress"));
+}
+
 export function loadProgress(): LearningProgressState {
   if (!isBrowser()) return initialState;
-  const raw = window.localStorage.getItem(STORAGE_KEY);
-  if (!raw) return initialState;
 
-  try {
-    const parsed = JSON.parse(raw) as LearningProgressState;
-    return {
-      visitedUnitIds: parsed.visitedUnitIds ?? [],
-      quizResults: parsed.quizResults ?? {},
-    };
-  } catch {
-    return initialState;
+  const primary = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
+  if (primary) {
+    try {
+      return normalizeState(JSON.parse(primary));
+    } catch {
+      return initialState;
+    }
   }
+
+  const legacy = window.localStorage.getItem(LEGACY_PROGRESS_KEY);
+  if (legacy) {
+    try {
+      const migrated = normalizeState(JSON.parse(legacy));
+      window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(migrated));
+      window.localStorage.removeItem(LEGACY_PROGRESS_KEY);
+      notifyProgressChange();
+      return migrated;
+    } catch {
+      return initialState;
+    }
+  }
+
+  return initialState;
 }
 
 export function saveProgress(next: LearningProgressState) {
   if (!isBrowser()) return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(next));
+  notifyProgressChange();
 }
 
 export function markUnitVisited(unitId: string) {

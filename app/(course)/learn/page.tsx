@@ -1,8 +1,8 @@
+import Icon from "@/components/common/Icon";
 import ExerciseBox from "@/components/learn/ExerciseBox";
 import LessonMarkdown from "@/components/learn/LessonMarkdown";
 import LinePurposeQuiz from "@/components/learn/LinePurposeQuiz";
 import SectionNav from "@/components/learn/SectionNav";
-import Sidebar from "@/components/learn/Sidebar";
 import UnitVisitTracker from "@/components/learn/UnitVisitTracker";
 import {
   loadLessonMarkdown,
@@ -10,6 +10,7 @@ import {
   stripLeadingH1,
 } from "@/lib/loadLesson";
 import { lessonWebAppendix } from "@/lib/lessonAppendix";
+import { COURSE_MODULE } from "@/lib/courseConstants";
 import { unitContents } from "@/lib/unitContent";
 import { units } from "@/lib/units";
 
@@ -40,34 +41,39 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
   const coreAndAppendix =
     bodyWithoutTitle + (appendix ? `\n\n---\n\n${appendix}` : "");
   const markdownWithIntro =
-    `> **이번 차시 요약:** ${currentContent.summary}\n\n---\n\n` + coreAndAppendix;
+    `> 이번 차시 요약: ${currentContent.summary}\n\n---\n\n` + coreAndAppendix;
 
   return (
-    <div className="grid w-full gap-6 lg:grid-cols-[240px_1fr]">
-      <Sidebar items={units} activeUnitId={currentUnit.id} />
+    <div className="mx-auto max-w-3xl px-6 py-8">
       <div className="min-w-0 space-y-6">
-        <section className="space-y-6 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-10">
+        <section className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm lg:p-10">
           <UnitVisitTracker unitId={currentUnit.id} />
-          <header className="border-b border-zinc-100 pb-6">
+          <header className="border-b border-slate-100 pb-6">
+            <div className="mb-2 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+              <Icon name="chart" size={16} className="text-slate-400" />
+              <span>{COURSE_MODULE.title}</span>
+              <span>·</span>
+              <span>차시 {currentUnit.id}</span>
+            </div>
             <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
-                차시 {currentUnit.id} / {units.length}
-              </p>
-              <h1 className="text-balance text-3xl font-bold tracking-tight text-zinc-900">{displayTitle}</h1>
+              <h1 className="text-balance text-3xl font-bold tracking-tight text-slate-800">{displayTitle}</h1>
             </div>
           </header>
 
           <LessonMarkdown markdown={markdownWithIntro} />
         </section>
 
-        <section className="space-y-5 rounded-xl border border-emerald-200/80 bg-gradient-to-b from-white to-emerald-50/40 p-6 shadow-sm lg:p-8">
-          <div className="border-b border-emerald-100 pb-4">
-            <h2 className="text-lg font-bold text-zinc-900">마무리 점검 · 코스웨어 활동</h2>
-            <p className="mt-1 text-sm text-zinc-600">
-              교안 전체를 읽은 뒤, 아래 퀴즈와 실습으로 오늘 내용을 짧게 점검해 보세요.
+        <section className="space-y-5 rounded-xl border border-primary-200/80 bg-gradient-to-b from-white to-primary-50/40 p-6 shadow-sm lg:p-8">
+          <div className="border-b border-primary-100 pb-4">
+            <h2 className="text-lg font-bold text-slate-900">마무리 점검 · 학습 활동</h2>
+            <p className="mt-1 text-sm text-slate-600">
+              교안을 Colab에서 실행한 뒤, <strong className="font-semibold text-slate-800">변형 실습</strong>(예제와 조건이 조금 다름)과{" "}
+              <strong className="font-semibold text-slate-800">도전 문제</strong>를 풀고, 각 상자의{" "}
+              <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>로 출력을 해석한 다음 퀴즈로 점검해 보세요.
             </p>
           </div>
           <LinePurposeQuiz
+            unitId={currentUnit.id}
             question={currentContent.quiz.question}
             answerId={currentContent.quiz.answerId}
             options={currentContent.quiz.options}
@@ -75,12 +81,22 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           <ExerciseBox
             title={currentContent.exercise.title}
             prompt={currentContent.exercise.prompt}
+            interpretation={currentContent.exercise.interpretation}
             hint={currentContent.exercise.hint}
             answer={currentContent.exercise.answer}
+            variant="practice"
           />
-          <div className="space-y-2 rounded-lg border border-zinc-200 bg-white/90 p-4">
-            <h3 className="text-base font-semibold text-zinc-900">코드 해석 3문장 템플릿</h3>
-            <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-zinc-700">
+          <ExerciseBox
+            title={currentContent.challenge.title}
+            prompt={currentContent.challenge.prompt}
+            interpretation={currentContent.challenge.interpretation}
+            hint={currentContent.challenge.hint}
+            answer={currentContent.challenge.answer}
+            variant="challenge"
+          />
+          <div className="space-y-2 rounded-lg border border-slate-200 bg-white/90 p-4">
+            <h3 className="text-base font-semibold text-slate-900">코드 해석 3문장 템플릿</h3>
+            <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
               <li>이번 차시 예제에서 입력·데이터는 무엇이었고, 어떻게 불러오거나 만들었는가?</li>
               <li>핵심 처리(정렬·선택·집계 등) 한 줄로 요약하면 무엇인가?</li>
               <li>출력 결과로 무엇을 확인했고, 다음 차시에 이어서 무엇을 하면 좋은가?</li>
