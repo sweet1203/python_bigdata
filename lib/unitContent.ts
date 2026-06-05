@@ -412,10 +412,10 @@ len(sub)`,
 (df.shape, df2.shape)`,
     },
   },
-  "7": {
-    unitId: "7",
+  "7-1": {
+    unitId: "7-1",
     summary:
-      "penguins로 히스토그램·막대·산점도·선·상관 히트맵·파이를 그리고, 제목·축 라벨을 붙여 그림을 마무리합니다.",
+      "penguins 데이터로 데이터 시각화의 기초인 히스토그램, 막대 그래프, 산점도를 그리고 제목과 축 라벨을 붙이는 방법을 배웁니다.",
     colabUrl: "https://colab.research.google.com/",
     code: `import matplotlib.pyplot as plt
 ${PENGUINS_LOAD}
@@ -428,23 +428,22 @@ plt.xlabel("body_mass_g")
 plt.ylabel("count")
 plt.show()`,
     breakdown: {
-      input: "seaborn 내장 penguins 표와 matplotlib·seaborn.",
-      process: "목적에 맞게 hist / bar / scatter / line / heatmap / pie를 고르고 title·xlabel·ylabel을 붙입니다.",
-      output: "분포·비교·관계·추세·상관·비율을 그림으로 설명할 수 있습니다.",
+      input: "seaborn 내장 penguins 표와 matplotlib.",
+      process: "목적에 맞게 hist / bar / scatter를 고르고 title·xlabel·ylabel을 붙집니다.",
+      output: "분포·비교·관계를 그림으로 설명할 수 있습니다.",
     },
     lineNotes: [
       "plt.hist: 한 수치 열의 분포를 볼 때 씁니다.",
-      "sns.heatmap(corr): 숫자 열들의 상관행렬을 색으로 표현합니다.",
-      "plt.pie: 범주가 적을 때 전체 대비 비율을 보여 줍니다.",
       "value_counts / groupby().mean()과 plot을 연결하면 빈도·평균 비교 막대를 쉽게 그립니다.",
+      "plt.scatter: 두 수치 열 간의 상관이나 분포 패턴을 점들로 시각화합니다.",
     ],
     quiz: {
-      question: "펭귄 몸무게(body_mass_g)가 전체적으로 어떻게 퍼져 있는지 분포를 보고 싶을 때 가장 먼저 쓰기 쉬운 그래프는?",
+      question: "펭귄 몸무게(body_mass_g)가 전체적으로 어떻게 퍼져 있는지 분포를 보고 싶을 때 사용하는 적절한 그래프는?",
       answerId: "b",
       options: [
-        { id: "a", label: "범주별 평균 막대만 가능" },
+        { id: "a", label: "범주별 평균 막대 그래프" },
         { id: "b", label: "히스토그램 (plt.hist)" },
-        { id: "c", label: "파이 차트만 가능" },
+        { id: "c", label: "파이 차트 (plt.pie)" },
       ],
     },
     exercise: {
@@ -485,6 +484,85 @@ plt.title("Mean bill length by species")
 plt.xlabel("species")
 plt.ylabel("mean bill_length_mm")
 plt.xticks(rotation=0)
+plt.show()`,
+    },
+  },
+  "7-2": {
+    unitId: "7-2",
+    summary:
+      "꺾은선 그래프, 원 그래프, 상관관계 히트맵을 그리고, 여러 그래프를 한 화면에 배치하는 서브플롯과 이미지 저장 방법을 학습합니다.",
+    colabUrl: "https://colab.research.google.com/",
+    code: `import matplotlib.pyplot as plt
+import seaborn as sns
+${PENGUINS_LOAD}
+
+df = df.dropna()
+
+# 섬별 평균 몸무게 꺾은선 그래프
+df.groupby("island")["body_mass_g"].mean().plot(kind="line", marker="o", color="darkorange")
+plt.title("Mean Body Mass by Island")
+plt.xlabel("island")
+plt.ylabel("mean body_mass_g")
+plt.grid(True, alpha=0.3)
+plt.show()`,
+    breakdown: {
+      input: "seaborn 내장 penguins 표와 matplotlib·seaborn.",
+      process: "line / pie / heatmap을 그리고 subplots, savefig를 적용해 봅니다.",
+      output: "추세, 비율, 상관관계를 표현하고 여러 시각화 결과를 하나의 레이아웃으로 저장할 수 있습니다.",
+    },
+    lineNotes: [
+      "plt.plot(kind='line'): 섬별 평균 몸무게 등 순서가 있는 통계값이나 시간에 따른 변화 추이를 나타냅니다.",
+      "plt.pie: 범주별 비율을 파이 모양 조각으로 시각화합니다.",
+      "sns.heatmap: 수치 변수 간의 상관행렬(correlation matrix)을 색상 맵으로 나타냅니다.",
+      "plt.subplots: 2x2 등의 격자 형태로 여러 개별 그래프를 하나의 이미지 영역에 배치합니다.",
+    ],
+    quiz: {
+      question: "여러 수치 변수 간의 상관관계를 색상의 밝기로 한눈에 나타내는 그래프 종류는 무엇일까요?",
+      answerId: "a",
+      options: [
+        { id: "a", label: "히트맵 (sns.heatmap)" },
+        { id: "b", label: "원 그래프 (plt.pie)" },
+        { id: "c", label: "꺾은선 그래프 (plt.plot)" },
+      ],
+    },
+    exercise: {
+      title: "변형 실습",
+      prompt:
+        "`penguins` 데이터가 준비된 상태에서, 섬(`island`)별 펭귄 수 비율을 나타내는 원 그래프(파이 차트)를 그리세요. 조건: 소수점 첫째 자리까지 비율 표시(`autopct='%1.1f%%'`), 제목 `Penguins Share by Island`.",
+      interpretation: `#### 해야 할 일
+
+1. \`df["island"].value_counts()\`로 섬별 빈도를 계산합니다.
+2. \`plt.pie\`로 원 그래프를 그리고 \`autopct\` 옵션으로 비율을 표시합니다.
+3. 제목을 붙이고 \`plt.show()\`를 호출합니다.
+
+#### 참고
+
+- 범주형 변수의 비율 분포를 원형으로 한눈에 보기 좋은 시각화입니다.`,
+      hint: "`island_counts = df[\"island\"].value_counts()` → `plt.pie(island_counts, labels=island_counts.index, autopct=\"%1.1f%%\")` → `title` → `show()`",
+      answer: `island_counts = df["island"].value_counts()
+plt.pie(island_counts, labels=island_counts.index, autopct="%1.1f%%")
+plt.title("Penguins Share by Island")
+plt.show()`,
+    },
+    challenge: {
+      title: "도전 문제",
+      prompt:
+        "펭귄 수치 변수(`bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, `body_mass_g`) 간의 상관계수 행렬을 구하고, 이를 히트맵으로 시각화하세요. 조건: 각 칸에 상관계수 수치 표시(`annot=True`), 소수점 둘째 자리까지(`fmt='.2f'`), 색상 맵 `RdBu_r`, 제목 `Penguin Numeric Correlation`.",
+      interpretation: `#### 해야 할 일
+
+1. 수치 변수 4개의 이름을 리스트로 만들어 상관행렬 \`corr\`을 구합니다.
+2. \`sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r")\`을 호출해 히트맵을 그립니다.
+3. 제목을 붙이고 \`plt.show()\`를 호출합니다.
+
+#### 참고
+
+- 히트맵은 변수가 많을 때 어떤 변수쌍이 강한 양의 상관이나 음의 상관을 갖는지 시각적으로 파악하기에 매우 적절합니다.`,
+      hint: "`num_cols = [\"bill_length_mm\", \"bill_depth_mm\", \"flipper_length_mm\", \"body_mass_g\"]` → `corr = df[num_cols].corr()` → `sns.heatmap(corr, annot=True, fmt=\".2f\", cmap=\"RdBu_r\")` → `title` → `show()`",
+      answer: `num_cols = ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]
+corr = df[num_cols].corr()
+import seaborn as sns
+sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r")
+plt.title("Penguin Numeric Correlation")
 plt.show()`,
     },
   },

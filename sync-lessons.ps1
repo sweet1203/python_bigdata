@@ -4,7 +4,9 @@
 $SRC = Join-Path $PSScriptRoot "..\차시별정보"
 $DST = Join-Path $PSScriptRoot "content\lessons"
 
-for ($i = 1; $i -le 8; $i++) {
+$lessons = @("1", "2", "3", "4", "5", "6", "7-1", "7-2", "8")
+
+foreach ($i in $lessons) {
     $srcFile = Join-Path $SRC "${i}차시.md"
     $dstFile = Join-Path $DST "${i}.md"
     if (Test-Path $srcFile) {

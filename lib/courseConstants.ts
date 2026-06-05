@@ -16,7 +16,8 @@ export const UNIT_DURATION_MIN: Record<string, number> = {
   "4": 25,
   "5": 25,
   "6": 20,
-  "7": 25,
+  "7-1": 20,
+  "7-2": 20,
   "8": 35,
 };
 
