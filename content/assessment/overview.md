@@ -37,7 +37,7 @@ df = sns.load_dataset("tips")  # 본인이 고른 이름
 | 그래픽 강조 | `color`, `hue` 등으로 핵심 정보 강조 | [그래픽 요소 (30점)](/assessment/rubric) |
 | 해석·글 | 그래프·수치에 맞는 해석·결론·주의점 | [스토리텔링 (30점)](/assessment/rubric) |
 
-수업 복습: [7차시 시각화](/learn?unit=7), [8차시 EDA](/learn?unit=8) — 코드 패턴은 같고, 수행 때만 데이터 이름을 바꿉니다.
+수업 복습: [7-1차시 시각화 기초](/learn?unit=7-1), [7-2차시 시각화 응용](/learn?unit=7-2), [8차시 EDA](/learn?unit=8) — 코드 패턴은 같고, 수행 때만 데이터 이름을 바꿉니다.
 
 ---
 

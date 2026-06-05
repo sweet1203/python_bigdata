@@ -22,8 +22,8 @@ export interface UnitContent {
     hint: string;
     answer: string;
   };
-  /** 한 단계 더 생각해 보는 심화 과제 */
-  challenge: {
+  /** 한 단계 더 생각해 보는 심화 과제 (없으면 표시하지 않음) */
+  challenge?: {
     title: string;
     prompt: string;
     interpretation: string;
@@ -36,11 +36,6 @@ const PENGUINS_LOAD = `import pandas as pd
 import seaborn as sns
 
 df = sns.load_dataset("penguins")`;
-
-const MPG_LOAD = `import pandas as pd
-import seaborn as sns
-
-df = sns.load_dataset("mpg")`;
 
 export const unitContents: Record<string, UnitContent> = {
   "1": {
@@ -447,42 +442,37 @@ plt.show()`,
       ],
     },
     exercise: {
-      title: "변형 실습",
-      prompt:
-        "`penguins` 데이터와 `plt`가 준비된 상태에서, `flipper_length_mm` 열 히스토그램만 그리세요. 조건: `bins=10`, `edgecolor=\"black\"`, 제목 `Distribution of flipper length`, 가로축 `flipper_length_mm`, 세로축 `count`.",
-      interpretation: `#### 해야 할 일
+      title: "코드 변형 실습",
+      prompt: `교안 **실습 4**에서 아래 코드로 **종별 평균 몸무게** 막대 그래프를 그렸습니다.
 
-1. \`plt.hist(df["flipper_length_mm"], ...)\`로 히스토그램을 그립니다.
-2. 제목·축 이름을 붙입니다.
-3. \`plt.show()\`까지 호출합니다.
-
-#### 참고
-
-- 교안의 body_mass_g 히스토그램과 같은 형태입니다.`,
-      hint: "`plt.hist(df[\"flipper_length_mm\"], bins=10, color=\"...\", edgecolor=\"black\")` → `title` / `xlabel` / `ylabel` → `show()`",
-      answer: `plt.hist(df["flipper_length_mm"], bins=10, color="lightsteelblue", edgecolor="black")
-plt.title("Distribution of flipper length")
-plt.xlabel("flipper_length_mm")
-plt.ylabel("count")
-plt.show()`,
-    },
-    challenge: {
-      title: "도전 문제",
-      prompt:
-        "종(`species`)별 평균 `bill_length_mm` 막대 그래프를 그리세요. 제목·축 이름은 영어로.",
-      interpretation: `#### 해야 할 일
-
-1. \`groupby(...).mean().plot(kind="bar")\`로 종별 평균 부리 길이 막대를 그립니다.
-2. 제목·축·\`show()\`를 붙입니다.
-
-#### 참고
-
-- 교안의 종별 평균 몸무게 예제와 같은 형태입니다.`,
-      hint: "`df.groupby(\"species\")[\"bill_length_mm\"].mean().plot(kind=\"bar\", ...)` → `title` / `xlabel` / `ylabel` / `xticks(rotation=0)` / `show()`",
-      answer: `df.groupby("species")["bill_length_mm"].mean().plot(kind="bar", color="coral")
-plt.title("Mean bill length by species")
+\`\`\`python
+df.groupby("species")["body_mass_g"].mean().plot(kind="bar", color="coral")
+plt.title("Mean Body Mass by Species")
 plt.xlabel("species")
-plt.ylabel("mean bill_length_mm")
+plt.ylabel("mean body_mass_g")
+plt.xticks(rotation=0)
+plt.show()
+\`\`\`
+
+위 코드에서 **집계 기준·수치 열·제목·색**만 바꿔, **섬(\`island\`)별 평균 지느러미 길이(\`flipper_length_mm\`)** 막대 그래프를 완성하세요.
+
+- 제목: \`Mean Flipper Length by Island\`
+- 가로·세로축 이름은 영어로
+- \`plt.show()\`까지 실행`,
+      interpretation: `#### 해야 할 일
+
+1. \`groupby("island")\`와 \`flipper_length_mm\`으로 **평균 막대**를 그립니다.
+2. 제목·축 이름을 바꿉니다 (몸무게 → 지느러미 길이, 종 → 섬).
+3. 그래프가 나오면 **어느 섬 펭귄의 지느러미가 더 긴지** 한 문장으로 적어 봅니다.
+
+#### 참고
+
+- \`groupby(...).mean().plot(kind="bar")\` **형태는 그대로**, 열 이름만 교체하면 됩니다.`,
+      hint: "`df.groupby(\"island\")[\"flipper_length_mm\"].mean().plot(kind=\"bar\", color=\"steelblue\")` → `title` / `xlabel` / `ylabel` / `xticks(rotation=0)` → `show()`",
+      answer: `df.groupby("island")["flipper_length_mm"].mean().plot(kind="bar", color="steelblue")
+plt.title("Mean Flipper Length by Island")
+plt.xlabel("island")
+plt.ylabel("mean flipper_length_mm")
 plt.xticks(rotation=0)
 plt.show()`,
     },
@@ -526,43 +516,36 @@ plt.show()`,
       ],
     },
     exercise: {
-      title: "변형 실습",
-      prompt:
-        "`penguins` 데이터가 준비된 상태에서, 섬(`island`)별 펭귄 수 비율을 나타내는 원 그래프(파이 차트)를 그리세요. 조건: 소수점 첫째 자리까지 비율 표시(`autopct='%1.1f%%'`), 제목 `Penguins Share by Island`.",
+      title: "코드 변형 실습",
+      prompt: `교안 **실습 3**에서 아래 코드로 **종별 펭귄 비율** 원 그래프를 그렸습니다.
+
+\`\`\`python
+counts = df["species"].value_counts()
+plt.figure(figsize=(6, 6))
+plt.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90)
+plt.title("Share of Penguins by Species")
+plt.show()
+\`\`\`
+
+위 코드에서 **범주 열·제목**만 바꿔, **성별(\`sex\`)별 펭귄 비율** 원 그래프를 완성하세요.
+
+- 제목: \`Share of Penguins by Sex\`
+- \`autopct="%1.1f%%"\` 유지
+- \`plt.show()\`까지 실행`,
       interpretation: `#### 해야 할 일
 
-1. \`df["island"].value_counts()\`로 섬별 빈도를 계산합니다.
-2. \`plt.pie\`로 원 그래프를 그리고 \`autopct\` 옵션으로 비율을 표시합니다.
-3. 제목을 붙이고 \`plt.show()\`를 호출합니다.
+1. \`df["sex"].value_counts()\`로 성별 빈도를 구합니다.
+2. \`plt.pie\` 구조는 그대로 두고 **labels·제목**만 바꿉니다.
+3. 그래프를 본 뒤 **Male과 Female 중 어느 쪽 비율이 더 큰지** 한 문장으로 적어 봅니다.
 
 #### 참고
 
-- 범주형 변수의 비율 분포를 원형으로 한눈에 보기 좋은 시각화입니다.`,
-      hint: "`island_counts = df[\"island\"].value_counts()` → `plt.pie(island_counts, labels=island_counts.index, autopct=\"%1.1f%%\")` → `title` → `show()`",
-      answer: `island_counts = df["island"].value_counts()
-plt.pie(island_counts, labels=island_counts.index, autopct="%1.1f%%")
-plt.title("Penguins Share by Island")
-plt.show()`,
-    },
-    challenge: {
-      title: "도전 문제",
-      prompt:
-        "펭귄 수치 변수(`bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, `body_mass_g`) 간의 상관계수 행렬을 구하고, 이를 히트맵으로 시각화하세요. 조건: 각 칸에 상관계수 수치 표시(`annot=True`), 소수점 둘째 자리까지(`fmt='.2f'`), 색상 맵 `RdBu_r`, 제목 `Penguin Numeric Correlation`.",
-      interpretation: `#### 해야 할 일
-
-1. 수치 변수 4개의 이름을 리스트로 만들어 상관행렬 \`corr\`을 구합니다.
-2. \`sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r")\`을 호출해 히트맵을 그립니다.
-3. 제목을 붙이고 \`plt.show()\`를 호출합니다.
-
-#### 참고
-
-- 히트맵은 변수가 많을 때 어떤 변수쌍이 강한 양의 상관이나 음의 상관을 갖는지 시각적으로 파악하기에 매우 적절합니다.`,
-      hint: "`num_cols = [\"bill_length_mm\", \"bill_depth_mm\", \"flipper_length_mm\", \"body_mass_g\"]` → `corr = df[num_cols].corr()` → `sns.heatmap(corr, annot=True, fmt=\".2f\", cmap=\"RdBu_r\")` → `title` → `show()`",
-      answer: `num_cols = ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]
-corr = df[num_cols].corr()
-import seaborn as sns
-sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r")
-plt.title("Penguin Numeric Correlation")
+- 종(\`species\`) 대신 성별(\`sex\`) 열만 바꾸면 됩니다. \`pie\` 옵션은 동일합니다.`,
+      hint: "`sex_counts = df[\"sex\"].value_counts()` → `plt.figure(figsize=(6, 6))` → `plt.pie(sex_counts, labels=sex_counts.index, autopct=\"%1.1f%%\", startangle=90)` → `title` → `show()`",
+      answer: `sex_counts = df["sex"].value_counts()
+plt.figure(figsize=(6, 6))
+plt.pie(sex_counts, labels=sex_counts.index, autopct="%1.1f%%", startangle=90)
+plt.title("Share of Penguins by Sex")
 plt.show()`,
     },
   },

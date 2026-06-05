@@ -1,6 +1,6 @@
 # 데이터셋 선택 안내 (seaborn)
 
-수행평가에서는 **CSV 파일을 따로 받지 않습니다.** 1~7차시처럼 **`import seaborn`** 후 **`sns.load_dataset()`** 으로만 불러옵니다.
+수행평가에서는 **CSV 파일을 따로 받지 않습니다.** 1~8차시처럼 **`import seaborn`** 후 **`sns.load_dataset()`** 으로만 불러옵니다.
 
 **수업 연습용 `penguins`는 사용하지 않습니다.** 아래 **6개 중 하나**만 골라 같은 방식으로 분석하세요.
 
@@ -114,7 +114,7 @@ df = sns.load_dataset("exercise")
 
 ---
 
-## 7차시에서 배운 것과 연결
+## 7-1·7-2차시에서 배운 것과 연결
 
 | 수업 내용 | 수행에서 |
 |-----------|----------|
@@ -125,7 +125,7 @@ df = sns.load_dataset("exercise")
 | `plt.title`, `xlabel`, `ylabel` | 모든 그래프 |
 | `describe()`, `value_counts()` | 서술 ③ 기초 통계 |
 
-연습은 [7차시](/learn?unit=7) (penguins), 수행은 **위 6개 중 택 1** — 코드 형태는 같고 **데이터 이름만** 바꿉니다.
+연습은 [7-1차시](/learn?unit=7-1), [7-2차시](/learn?unit=7-2) (penguins), 수행은 **위 6개 중 택 1** — 코드 형태는 같고 **데이터 이름만** 바꿉니다.
 
 다음: [성취기준·채점표](/assessment/rubric) → [Colab 노트북 구성](/assessment/colab-outline)
 

@@ -14,7 +14,8 @@ const unitSummaries: Record<string, string> = {
   "4": "loc·iloc 인덱싱으로 원하는 행·열을 정확하게 추출합니다.",
   "5": "조건 필터링과 groupby 집계로 질문에 맞는 데이터를 분석합니다.",
   "6": "결측치 확인·삭제·대체를 통해 분석 가능한 데이터로 정제합니다.",
-  "7": "mpg로 히스토그램·막대·산점도·선·히트맵·파이 등 여러 시각화를 다룹니다.",
+  "7-1": "penguins로 히스토그램·막대·산점도 등 시각화 기초를 익힙니다.",
+  "7-2": "꺾은선·원·히트맵·서브플롯·그래프 저장 등 시각화를 확장합니다.",
   "8": "EDA 5단계로 펭귄 데이터를 정리하고, 시각화와 인사이트까지 한 흐름으로 연결합니다.",
 };
 
@@ -62,7 +63,7 @@ export default function HomePage() {
           <br />
           <strong className="text-slate-700">Google Colab</strong>에서{" "}
           <code className="rounded bg-slate-100 px-1 text-base text-slate-800">sns.load_dataset</code>으로{" "}
-          <strong className="text-slate-700">펭귄·mpg</strong> 예제를 불러와 실습합니다.
+          <strong className="text-slate-700">펭귄(penguins)</strong> 예제를 불러와 실습합니다.
         </p>
 
         <div className="mb-4 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500">
@@ -190,7 +191,7 @@ export default function HomePage() {
           </div>
           <h4 className="mb-1 font-bold text-slate-700">같은 흐름</h4>
           <p className="text-xs text-slate-500">
-            1~6·8차시는 펭귄, 7차시는 자동차 연비(mpg)로 차트까지 연결합니다.
+            1~8차시 모두 <strong className="text-slate-700">penguins</strong> 데이터로 이어지며, 7-1·7-2에서 차트를 배웁니다.
           </p>
         </div>
         <div className="p-4">
