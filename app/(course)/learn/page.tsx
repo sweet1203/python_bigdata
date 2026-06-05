@@ -1,4 +1,5 @@
 import Icon from "@/components/common/Icon";
+import CodeExplanationBox from "@/components/learn/CodeExplanationBox";
 import ExerciseBox from "@/components/learn/ExerciseBox";
 import LessonMarkdown from "@/components/learn/LessonMarkdown";
 import LinePurposeQuiz from "@/components/learn/LinePurposeQuiz";
@@ -68,7 +69,12 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             <h2 className="text-lg font-bold text-slate-900">마무리 점검 · 학습 활동</h2>
             <p className="mt-1 text-sm text-slate-600">
               교안을 Colab에서 실행한 뒤,{" "}
-              {currentContent.challenge ? (
+              {currentContent.codeExplanation ? (
+                <>
+                  <strong className="font-semibold text-slate-800">코드 변형 실습</strong>을 풀고{" "}
+                  <strong className="font-semibold text-slate-800">코드 설명</strong>을 읽고,
+                </>
+              ) : currentContent.challenge ? (
                 <>
                   <strong className="font-semibold text-slate-800">변형 실습</strong>(예제와 조건이 조금 다름)과{" "}
                   <strong className="font-semibold text-slate-800">도전 문제</strong>를 풀고,
@@ -78,8 +84,14 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
                   <strong className="font-semibold text-slate-800">코드 변형 실습</strong>을 풀고,
                 </>
               )}{" "}
-              상자의 <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>로
-              출력을 해석한 다음 퀴즈로 점검해 보세요.
+              {currentContent.codeExplanation ? (
+                <>변형 실습 상자의 해석을 적어 본 뒤 퀴즈로 점검해 보세요.</>
+              ) : (
+                <>
+                  상자의 <strong className="font-semibold text-slate-800">「실행 후, 출력 이렇게 읽어 보세요」</strong>
+                  로 출력을 해석한 다음 퀴즈로 점검해 보세요.
+                </>
+              )}
             </p>
           </div>
           <LinePurposeQuiz
@@ -96,6 +108,13 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             answer={currentContent.exercise.answer}
             variant="practice"
           />
+          {currentContent.codeExplanation && (
+            <CodeExplanationBox
+              title={currentContent.codeExplanation.title}
+              intro={currentContent.codeExplanation.intro}
+              blocks={currentContent.codeExplanation.blocks}
+            />
+          )}
           {currentContent.challenge && (
             <ExerciseBox
               title={currentContent.challenge.title}

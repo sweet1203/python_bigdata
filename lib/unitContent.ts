@@ -30,6 +30,12 @@ export interface UnitContent {
     hint: string;
     answer: string;
   };
+  /** 교안 예제 코드를 줄 단위 주석으로 설명 (7-1 등) */
+  codeExplanation?: {
+    title: string;
+    intro: string;
+    blocks: { label: string; summary: string; code: string }[];
+  };
 }
 
 const PENGUINS_LOAD = `import pandas as pd
@@ -475,6 +481,60 @@ plt.xlabel("island")
 plt.ylabel("mean flipper_length_mm")
 plt.xticks(rotation=0)
 plt.show()`,
+    },
+    codeExplanation: {
+      title: "코드 설명",
+      intro:
+        "교안에서 배운 세 가지 그래프 예제입니다. 주석(초록색)을 읽으며 한 줄씩 따라가 보세요.",
+      blocks: [
+        {
+          label: "1. 히스토그램 — 몸무게 분포 (실습 1)",
+          summary: "한 수치 열이 어떤 구간에 많이 모여 있는지 볼 때",
+          code: `# body_mass_g(몸무게) 값이 어느 구간에 많은지 분포를 봅니다
+plt.hist(
+    df["body_mass_g"],      # 그릴 데이터: 몸무게 열 전체
+    bins=15,                # 가로축을 15개 구간으로 나눔 (막대 15개)
+    color="skyblue",        # 막대 안쪽 색
+    edgecolor="black"       # 막대 테두리 색 (구간 구분이 선명해짐)
+)
+plt.title("Penguin Body Mass Distribution")  # 그래프 위 제목
+plt.xlabel("body_mass_g")   # 가로축 이름 (무엇을 셌는지)
+plt.ylabel("count")         # 세로축: 해당 구간에 속한 펭귄 마릿수
+plt.show()                  # 그래프를 화면에 출력`,
+        },
+        {
+          label: "2. 막대 그래프 — 종별 평균 몸무게 (실습 4)",
+          summary: "범주(종)마다 평균을 비교할 때",
+          code: `# species(종)별로 body_mass_g(몸무게) 평균을 구해 막대로 비교합니다
+df.groupby("species")       # species 값이 같은 행끼리 묶음 (Adelie / Chinstrap / Gentoo)
+    ["body_mass_g"]         # 비교할 숫자 열만 선택
+    .mean()                 # 그룹마다 평균 계산 → 종별 평균 몸무게
+    .plot(
+        kind="bar",         # 막대 그래프 형태로 그림
+        color="coral"       # 막대 색
+    )
+plt.title("Mean Body Mass by Species")  # 제목
+plt.xlabel("species")                   # 가로축: 펭귄 종
+plt.ylabel("mean body_mass_g")          # 세로축: 평균 몸무게(g)
+plt.xticks(rotation=0)    # x축 글자를 기울이지 않음 (0도)
+plt.show()                # 화면에 출력`,
+        },
+        {
+          label: "3. 산점도 — 지느러미 vs 몸무게 (실습 6)",
+          summary: "두 수치 변수의 관계(함께 커지는지 등)를 볼 때",
+          code: `# 점 하나 = 펭귄 한 마리. 가로·세로 위치로 두 수치를 동시에 표시합니다
+plt.scatter(
+    df["flipper_length_mm"],  # x축: 지느러미 길이
+    df["body_mass_g"],        # y축: 몸무게
+    alpha=0.5                 # 점을 반투명하게 (겹친 점도 보이게)
+)
+plt.xlabel("flipper_length_mm")       # 가로축 이름
+plt.ylabel("body_mass_g")             # 세로축 이름
+plt.title("Flipper Length vs Body Mass")  # 제목
+plt.show()                            # 화면에 출력
+# 점이 오른쪽 위로 모이면 → 지느러미가 길수록 몸무게도 큰 경향(양의 상관)`,
+        },
+      ],
     },
   },
   "7-2": {
