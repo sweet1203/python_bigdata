@@ -110,28 +110,16 @@ df.tail(3)`,
         {
           label: "1. 데이터 불러오기",
           summary: "pandas와 seaborn을 가져와 펭귄 표를 만드는 준비 코드",
-          code: `# pandas: 표 데이터를 다루는 라이브러리. pd라는 짧은 이름으로 씁니다
-import pandas as pd
-
-# seaborn: 통계·시각화 라이브러리. 내장 예제 데이터도 제공합니다
-import seaborn as sns
-
-# sns.load_dataset: seaborn이 제공하는 예제 표를 인터넷으로 받아옵니다
-# "penguins"를 df(DataFrame, 표)에 저장합니다
-df = sns.load_dataset("penguins")`,
+          code: `import pandas as pd   # pandas: 표 데이터를 다루는 라이브러리. pd라는 짧은 이름으로 씁니다
+import seaborn as sns  # seaborn: 통계·시각화 라이브러리. 내장 예제 데이터도 제공합니다
+df = sns.load_dataset("penguins")  # seaborn 내장 예제 "penguins"를 표(DataFrame)로 불러옵니다`,
         },
         {
           label: "2. 표 확인하기",
           summary: "불러온 표가 어떻게 생겼는지 빠르게 살펴보는 코드",
-          code: `# df.head(): 표의 앞 5행만 보여줍니다 (행이 수백 개여도 5개만)
-df.head()
-
-# df.shape: 표의 (행 수, 열 수)를 튜플로 알려줍니다
-# 예) (344, 7) → 행 344개, 열 7개
-df.shape
-
-# df.columns: 표에 있는 열 이름들을 목록으로 보여줍니다
-df.columns`,
+          code: `df.head()     # 표의 앞 5행을 보여줍니다 (행이 수백 개여도 5개만)
+df.shape      # (행 수, 열 수) 튜플로 표 크기를 알려줍니다. 예) (344, 7)
+df.columns    # 표에 있는 열 이름들을 목록으로 보여줍니다`,
         },
       ],
     },
@@ -204,35 +192,21 @@ df["body_mass_g"].head(4)`,
         {
           label: "1. 표 구조 살펴보기 — info / shape",
           summary: "행·열 개수, 데이터 타입, 결측 여부를 한 번에 확인",
-          code: `# df.info(): 각 열의 이름 / 결측 아닌 값 개수 / 데이터 타입을 출력합니다
-# 결측이 있는 열은 Non-Null Count가 전체 행보다 작게 나옵니다
-df.info()
-
-# df.shape: (행 수, 열 수) 튜플. 표의 크기를 숫자로 바로 알 수 있습니다
-df.shape`,
+          code: `df.info()   # 각 열의 이름·결측 개수·데이터 타입을 한 번에 출력합니다
+df.shape    # (행 수, 열 수) 튜플로 표 크기를 확인합니다`,
         },
         {
           label: "2. 열 선택하기",
           summary: "한 열(Series) vs 여러 열(DataFrame) 선택 방법",
-          code: `# 열 이름을 하나만 쓰면 → Series(1차원, 숫자 목록처럼 생김)
-df["bill_length_mm"]
-
-# 열 이름을 리스트([ ])로 여러 개 쓰면 → DataFrame(2차원 표)
-# 대괄호가 두 겹인 이유: df[ [리스트] ] 형태입니다
-df[["species", "bill_length_mm"]]
-
-# 앞 5행만 보고 싶으면 뒤에 .head()를 붙입니다
-df[["species", "bill_length_mm"]].head()`,
+          code: `df["bill_length_mm"]                      # 열 이름 하나 → Series(1차원)로 반환됩니다
+df[["species", "bill_length_mm"]]         # 열 이름 여러 개 → DataFrame(2차원). 대괄호 두 겹 사용
+df[["species", "bill_length_mm"]].head()  # 앞 5행만 잘라서 볼 수 있습니다`,
         },
         {
           label: "3. 마지막 행 보기 — tail",
           summary: "표의 뒤쪽 행을 확인할 때",
-          code: `# df.tail(): 기본값은 마지막 5행을 보여줍니다
-df.tail()
-
-# 괄호 안에 숫자를 넣으면 그 개수만큼만 봅니다
-# df.head(3)이 앞 3행이라면, df.tail(3)은 마지막 3행
-df.tail(3)`,
+          code: `df.tail()   # 기본값은 마지막 5행을 보여줍니다
+df.tail(3)  # 괄호 안 숫자만큼 마지막 행을 봅니다. head(3)이 앞 3행이면 tail(3)은 끝 3행`,
         },
       ],
     },
@@ -304,35 +278,19 @@ top20["species"].value_counts()`,
         {
           label: "1. 정렬하기 — sort_values",
           summary: "원하는 열 기준으로 크기 순서대로 줄 세우기",
-          code: `# sort_values(): 지정한 열(by=) 기준으로 행을 정렬합니다
-# ascending=False → 큰 값이 위로 오는 내림차순
-# ascending=True  → 작은 값이 위로 오는 오름차순 (기본값)
-df.sort_values(by="bill_length_mm", ascending=False)
-
-# .head(3)을 붙이면 정렬 후 상위 3개만 볼 수 있습니다
-df.sort_values(by="bill_length_mm", ascending=False).head(3)`,
+          code: `df.sort_values(by="bill_length_mm", ascending=False)         # 부리 길이 내림차순 정렬 (큰 값이 위)
+df.sort_values(by="bill_length_mm", ascending=False).head(3)  # 정렬 후 상위 3행만 봅니다`,
         },
         {
           label: "2. 수치 요약 — describe",
           summary: "숫자 열의 평균·최솟값·최댓값 등을 한눈에 보기",
-          code: `# df.describe(): 수치형 열 전체에 대해 아래 통계를 한 번에 보여줍니다
-# count  : 결측 아닌 값 개수
-# mean   : 평균
-# std    : 표준편차 (값이 얼마나 퍼져 있는지)
-# min    : 최솟값
-# 25%, 50%, 75%: 사분위수
-# max    : 최댓값
-df.describe()`,
+          code: `df.describe()  # 수치형 열 전체의 count·mean·std·min·25%·50%·75%·max를 한 번에 보여줍니다`,
         },
         {
           label: "3. 범주 세기 — value_counts",
           summary: "종·섬처럼 종류가 정해진 열에서 각 항목이 몇 개인지 세기",
-          code: `# value_counts(): 해당 열에 각 값이 몇 번 나오는지 세어 내림차순으로 보여줍니다
-# 가장 많이 나온 값이 제일 위에 옵니다
-df["species"].value_counts()
-
-# 다른 열에도 똑같이 쓸 수 있습니다
-df["island"].value_counts()`,
+          code: `df["species"].value_counts()  # species 열에서 각 값이 몇 번 나오는지 내림차순으로 셉니다
+df["island"].value_counts()   # island 열에도 똑같이 쓸 수 있습니다`,
         },
       ],
     },
@@ -408,36 +366,21 @@ df.loc[last, ["species", "body_mass_g"]]`,
         {
           label: "1. 인덱스 만들기 — set_index",
           summary: "P001, P002… 일련번호를 인덱스(이름표)로 붙이는 과정",
-          code: `# 먼저 결측을 제거하고 줄 번호를 0부터 다시 붙입니다
-df = df.dropna().reset_index(drop=True)
-
-# f"P{i:03d}" → P001, P002… 처럼 세 자리 숫자 문자열을 만듭니다
-# insert(0, ...) → 맨 앞 열(0번)에 추가합니다
-df.insert(0, "펭귄번호", [f"P{i:03d}" for i in range(1, len(df) + 1)])
-
-# set_index("펭귄번호"): 펭귄번호 열을 표의 이름표(인덱스)로 지정합니다
-# 이후 df.loc["P001"] 처럼 이름으로 행을 찾을 수 있습니다
-df = df.set_index("펭귄번호")`,
+          code: `df = df.dropna().reset_index(drop=True)  # 결측 행을 제거하고 줄 번호를 0부터 다시 붙입니다
+df.insert(0, "펭귄번호", [f"P{i:03d}" for i in range(1, len(df) + 1)])  # P001, P002… 일련번호 열을 맨 앞에 추가합니다
+df = df.set_index("펭귄번호")  # 펭귄번호 열을 인덱스(이름표)로 지정합니다`,
         },
         {
           label: "2. 이름표로 찾기 — loc",
           summary: "P001처럼 이름표를 써서 행·열을 가져오는 방법",
-          code: `# df.loc[행이름, 열이름]: 이름표로 정확히 한 칸을 꺼냅니다
-df.loc["P001", "bill_length_mm"]
-
-# 행 범위: "P001":"P003" → P001, P002, P003 모두 포함 (끝 포함!)
-# 열 리스트: ["species", "bill_length_mm", "body_mass_g"]
-df.loc["P001":"P003", ["species", "bill_length_mm", "body_mass_g"]]`,
+          code: `df.loc["P001", "bill_length_mm"]  # 이름표 P001 행과 bill_length_mm 열이 만나는 한 값을 꺼냅니다
+df.loc["P001":"P003", ["species", "bill_length_mm", "body_mass_g"]]  # P001~P003 행, 세 열 선택 (끝 P003 포함)`,
         },
         {
           label: "3. 줄 번호로 찾기 — iloc",
           summary: "0, 1, 2… 순서 번호를 써서 행을 가져오는 방법",
-          code: `# df.iloc[줄번호]: 0부터 시작하는 위치 번호로 행을 선택합니다
-# iloc[0]은 맨 첫 번째 줄 (이름표 P001과 같은 행이지만 숫자로 접근)
-df.iloc[0]
-
-# iloc[0:2] → 0번, 1번 (2번은 제외! loc와 달리 끝을 포함하지 않음)
-df.iloc[0:2]`,
+          code: `df.iloc[0]    # 0번 줄(맨 첫 행)을 위치 번호로 선택합니다
+df.iloc[0:2]  # 0번, 1번 줄 선택. iloc는 끝 번호(2번)를 포함하지 않습니다`,
         },
       ],
     },
@@ -507,27 +450,15 @@ df.groupby("species")["body_mass_g"].mean()`,
         {
           label: "1. 조건으로 행 걸러내기 — 필터링",
           summary: "원하는 조건에 맞는 행만 남기는 방법",
-          code: `# df["body_mass_g"] > 4500  → 각 행이 조건을 만족하면 True, 아니면 False
-# df["species"] == "Gentoo"  → 종이 Gentoo인 행만 True
-
-# 두 조건을 동시에 만족해야 할 때: & (앤드) 사용
-# 주의: pandas에서는 and 키워드 대신 &를 쓰고, 각 조건을 괄호로 묶어야 합니다
-df[(df["body_mass_g"] > 4500) & (df["species"] == "Gentoo")]
-
-# | (파이프)를 쓰면 둘 중 하나만 만족해도 됩니다 (OR 조건)
-# df[(조건A) | (조건B)]`,
+          code: `df[(df["body_mass_g"] > 4500) & (df["species"] == "Gentoo")]  # 몸무게>4500 이고(&) 종이 Gentoo인 행만 남깁니다
+df[(df["body_mass_g"] > 4500) | (df["species"] == "Gentoo")]  # 몸무게>4500 이거나(|) 종이 Gentoo인 행 (OR 조건)`,
         },
         {
           label: "2. 그룹별 집계 — groupby",
           summary: "종·섬처럼 같은 값끼리 묶어서 평균·합계 등을 구하는 방법",
-          code: `# groupby("species"): species 값이 같은 행끼리 묶습니다
-# ["body_mass_g"]: 그 그룹에서 볼 열을 고릅니다
-# .mean(): 그룹마다 평균을 계산합니다
-df.groupby("species")["body_mass_g"].mean()
-
-# .mean() 자리에 다른 함수도 쓸 수 있습니다
-df.groupby("species")["body_mass_g"].max()   # 그룹 내 최댓값
-df.groupby("species")["body_mass_g"].count() # 그룹 내 개수`,
+          code: `df.groupby("species")["body_mass_g"].mean()   # 종별로 묶어 몸무게 평균을 계산합니다
+df.groupby("species")["body_mass_g"].max()    # 종별 몸무게 최댓값
+df.groupby("species")["body_mass_g"].count()  # 종별 행 개수 (결측 제외)`,
         },
       ],
     },
@@ -600,38 +531,21 @@ len(sub)`,
         {
           label: "1. 결측 확인 — isna / isnull",
           summary: "어느 열에 빈 값(NaN)이 몇 개 있는지 세는 방법",
-          code: `# df.isna(): 각 칸이 비어 있으면 True, 값이 있으면 False인 표를 만듭니다
-df.isna()
-
-# .sum(): 열마다 True(=결측) 개수를 더합니다 → 열별 결측 개수
-# 0이면 그 열에는 결측이 없습니다
-df.isna().sum()`,
+          code: `df.isna()        # 각 칸이 비어 있으면 True, 값이 있으면 False인 표를 만듭니다
+df.isna().sum()  # 열마다 True(결측) 개수를 합산합니다. 0이면 결측 없음`,
         },
         {
           label: "2. 결측 채우기 — fillna",
           summary: "빈 칸을 특정 값(중앙값·평균 등)으로 채우는 방법",
-          code: `# .median(): 해당 열의 중앙값(가운데 값)을 구합니다
-# 극단값(너무 크거나 작은 값)이 있어도 평균보다 안정적입니다
-df["bill_length_mm"].median()
-
-# fillna(값): NaN 칸을 지정한 값으로 채웁니다
-# 중앙값으로 채우는 전형적인 패턴입니다
-df["bill_length_mm"] = df["bill_length_mm"].fillna(
-    df["bill_length_mm"].median()  # 결측을 이 열의 중앙값으로 대체
-)`,
+          code: `df["bill_length_mm"].median()  # 해당 열의 중앙값을 구합니다 (극단값에 강해 fillna에 자주 씁니다)
+df["bill_length_mm"] = df["bill_length_mm"].fillna(df["bill_length_mm"].median())  # NaN을 중앙값으로 채웁니다`,
         },
         {
           label: "3. 결측 행 삭제 — dropna",
           summary: "결측이 있는 행 자체를 표에서 제거하는 방법",
-          code: `# df.dropna(): NaN이 하나라도 있는 행을 모두 제거합니다
-df.dropna()
-
-# subset=[열이름]: 해당 열에 결측인 행만 골라서 제거합니다
-# 나머지 열에 결측이 있어도 그 행은 남깁니다
-df2 = df.dropna(subset=["bill_length_mm"])
-
-# 처리 전·후 크기를 비교해 몇 행이 줄었는지 확인합니다
-(df.shape, df2.shape)`,
+          code: `df.dropna()                                 # NaN이 하나라도 있는 행을 모두 제거합니다
+df2 = df.dropna(subset=["bill_length_mm"])  # bill_length_mm 열에만 결측인 행을 제거해 df2에 저장합니다
+(df.shape, df2.shape)                       # 처리 전·후 행 수를 비교합니다`,
         },
       ],
     },
