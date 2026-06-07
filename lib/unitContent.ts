@@ -729,13 +729,13 @@ plt.show()                  # 그래프를 화면에 출력`,
           label: "2. 막대 그래프 — 종별 평균 몸무게 (실습 4)",
           summary: "범주(종)마다 평균을 비교할 때",
           code: `# species(종)별로 body_mass_g(몸무게) 평균을 구해 막대로 비교합니다
-df.groupby("species")       # species 값이 같은 행끼리 묶음 (Adelie / Chinstrap / Gentoo)
+# 괄호로 감싸면 여러 줄로 나눠 쓸 수 있습니다
+(
+    df.groupby("species")   # species 값이 같은 행끼리 묶음 (Adelie / Chinstrap / Gentoo)
     ["body_mass_g"]         # 비교할 숫자 열만 선택
     .mean()                 # 그룹마다 평균 계산 → 종별 평균 몸무게
-    .plot(
-        kind="bar",         # 막대 그래프 형태로 그림
-        color="coral"       # 막대 색
-    )
+    .plot(kind="bar", color="coral")  # 막대 그래프로 그림, coral 색
+)
 plt.title("Mean Body Mass by Species")  # 제목
 plt.xlabel("species")                   # 가로축: 펭귄 종
 plt.ylabel("mean body_mass_g")          # 세로축: 평균 몸무게(g)
