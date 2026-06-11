@@ -100,14 +100,16 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             answerId={currentContent.quiz.answerId}
             options={currentContent.quiz.options}
           />
-          <ExerciseBox
-            title={currentContent.exercise.title}
-            prompt={currentContent.exercise.prompt}
-            interpretation={currentContent.exercise.interpretation}
-            hint={currentContent.exercise.hint}
-            answer={currentContent.exercise.answer}
-            variant="practice"
-          />
+          {currentContent.exercise && (
+            <ExerciseBox
+              title={currentContent.exercise.title}
+              prompt={currentContent.exercise.prompt}
+              interpretation={currentContent.exercise.interpretation}
+              hint={currentContent.exercise.hint}
+              answer={currentContent.exercise.answer}
+              variant="practice"
+            />
+          )}
           {currentContent.codeExplanation && (
             <CodeExplanationBox
               title={currentContent.codeExplanation.title}

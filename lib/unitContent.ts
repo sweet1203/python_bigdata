@@ -14,8 +14,8 @@ export interface UnitContent {
     answerId: string;
     options: { id: string; label: string }[];
   };
-  /** 교안 예제와 조건·열·출력을 살짝 바꾼 과제 */
-  exercise: {
+  /** 교안 예제와 조건·열·출력을 살짝 바꾼 과제 (없으면 표시하지 않음) */
+  exercise?: {
     title: string;
     prompt: string;
     interpretation: string;
@@ -764,45 +764,6 @@ plt.show()`,
         { id: "b", label: "결론 문장만 먼저 작성" },
         { id: "c", label: "head·info·shape 등으로 데이터 모양과 타입 확인" },
       ],
-    },
-    exercise: {
-      title: "변형 실습",
-      prompt:
-        "`df.dropna()`까지 해 둔 같은 `df`로, 섬(`island`)별 평균 `body_mass_g` 막대만 그리세요. 제목: `Mean body mass by island`, 축 이름은 영어로.",
-      interpretation: `#### 해야 할 일
-
-1. \`groupby\` 기준 열을 \`island\`로 바꿉니다 (교안은 종별이었음).
-2. \`plot(kind="bar")\` 뒤에 \`title\`, \`xlabel\`, \`ylabel\`, \`show()\`를 붙입니다.
-
-#### 참고
-
-- "종별 평균 체중" 예제와 같은 줄기입니다.`,
-      hint: "`df.groupby(\"island\")[\"body_mass_g\"].mean().plot(kind=\"bar\", ...)` → 제목·축 → `show()`",
-      answer: `df.groupby("island")["body_mass_g"].mean().plot(kind="bar", color="darkorange")
-plt.title("Mean body mass by island")
-plt.xlabel("island")
-plt.ylabel("mean body_mass_g")
-plt.show()`,
-    },
-    challenge: {
-      title: "도전 문제",
-      prompt:
-        "`flipper_length_mm`(가로)과 `body_mass_g`(세로) 산점도를 그리세요. 제목: `Flipper length vs body mass`(영어). 마지막 줄에 두 열의 상관계수 `corr`를 두세요.",
-      interpretation: `#### 해야 할 일
-
-1. \`plt.scatter\`로 산점도를 그리고, 축 이름·제목·\`show()\`를 붙입니다.
-2. 마지막 줄에 \`corr\`로 상관계수를 봅니다.
-
-#### 참고
-
-- 산점도로 관계를 보고, 숫자 하나로 상관을 확인합니다.`,
-      hint: "`scatter` → `xlabel` / `ylabel` / `title` / `show()` → 마지막 줄 `df[\"flipper_length_mm\"].corr(df[\"body_mass_g\"])`",
-      answer: `plt.scatter(df["flipper_length_mm"], df["body_mass_g"], alpha=0.6)
-plt.xlabel("flipper_length_mm")
-plt.ylabel("body_mass_g")
-plt.title("Flipper length vs body mass")
-plt.show()
-df["flipper_length_mm"].corr(df["body_mass_g"])`,
     },
   },
 };
