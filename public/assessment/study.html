@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>빅데이터 분석 시험 요약노트 (1~8차시)</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1f2430; --muted:#5b6472;
+    --line:#e6e8ec; --accent:#2f6fed; --accent-soft:#eaf1ff;
+    --warn:#b25e00; --warn-soft:#fff4e3; --good:#1a7f4b; --good-soft:#e7f6ee;
+    --bad:#c0392b; --bad-soft:#fdecea; --code:#0f1320; --codebg:#f1f3f6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    line-height:1.65;font-size:16px}
+  a{color:inherit;text-decoration:none}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .bar{max-width:960px;margin:0 auto;padding:12px 20px;display:flex;
+    align-items:center;gap:14px;flex-wrap:wrap}
+  .bar h1{font-size:17px;margin:0;font-weight:800}
+  .bar .sub{font-size:12px;color:var(--muted);margin-left:-6px}
+  .nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .nav a{font-size:12.5px;padding:5px 9px;border:1px solid var(--line);
+    border-radius:999px;color:var(--muted);background:#fff}
+  .nav a:hover{border-color:var(--accent);color:var(--accent)}
+  .pdf{font-size:12.5px;padding:6px 12px;border:0;border-radius:999px;
+    background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
+
+  main{max-width:960px;margin:0 auto;padding:22px 20px 80px}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:22px}
+  .intro h2{margin:.1em 0 .4em;font-size:18px}
+  .intro code{background:var(--codebg);padding:1px 6px;border-radius:5px;
+    font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
+
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:18px;scroll-margin-top:72px}
+  .mh{display:flex;align-items:center;gap:10px;margin:0 0 12px;flex-wrap:wrap}
+  .chip{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;font-weight:700;
+    background:var(--accent-soft);color:var(--accent);padding:3px 10px;border-radius:8px}
+  .mh h2{font-size:19px;margin:0;font-weight:800}
+  .hot{font-size:11.5px;font-weight:800;background:var(--warn-soft);color:var(--warn);
+    padding:3px 9px;border-radius:8px}
+  h3{font-size:15px;margin:16px 0 6px;color:var(--ink)}
+  ul{margin:6px 0;padding-left:20px}
+  li{margin:4px 0;color:#36404f}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;
+    background:var(--codebg);padding:1px 6px;border-radius:5px}
+  pre{background:var(--code);color:#e8ecf3;border-radius:10px;padding:14px 16px;
+    overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:13px;
+    line-height:1.65;margin:10px 0}
+  pre .c{color:#7f8aa3}
+  pre .k{color:#79b8ff}
+  pre .s{color:#9ecbff}
+  pre .n{color:#b392f0}
+
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:#f3f5f8;font-weight:700}
+
+  .desc{background:#f8f9fb;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+    padding:10px 14px;margin:10px 0;font-size:14px;color:#2d3a4a;line-height:1.7}
+  .warnbox{background:var(--warn-soft);border:1px solid #f3dcb6;border-radius:10px;
+    padding:11px 14px;margin:12px 0;font-size:14px;color:#6b4500}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  .cmp>div{border-radius:10px;padding:10px 12px;font-size:13.5px}
+  .ex-bad{background:var(--bad-soft);border:1px solid #f4c9c3}
+  .ex-good{background:var(--good-soft);border:1px solid #bfe6cf}
+  .ex-bad .t{color:var(--bad);font-weight:800;font-size:12.5px;margin-bottom:4px}
+  .ex-good .t{color:var(--good);font-weight:800;font-size:12.5px;margin-bottom:4px}
+  .cmp code{background:rgba(0,0,0,.05)}
+
+  footer{max-width:960px;margin:0 auto;padding:0 20px 60px;color:var(--muted);font-size:13px}
+
+  @media(max-width:640px){.cmp{grid-template-columns:1fr}.nav{display:none}}
+  @media print{
+    header{position:static;backdrop-filter:none}.pdf,.nav{display:none}
+    body{background:#fff}section,.intro{break-inside:avoid;border-color:#ccc}
+    pre{background:#f4f4f4;color:#111;border:1px solid #ddd}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div>
+      <h1>📊 빅데이터 분석 시험 요약노트</h1>
+      <div class="sub">1~8차시 전 범위 · 펭귄 데이터 기준</div>
+    </div>
+    <nav class="nav">
+      <a href="#c1">1</a><a href="#c2">2</a><a href="#c3">3</a><a href="#c4">4</a>
+      <a href="#c5">5</a><a href="#c6">6</a><a href="#c71">7-1</a><a href="#c72">7-2</a>
+      <a href="#c8">8</a>
+    </nav>
+    <button class="pdf" onclick="window.print()">PDF로 저장</button>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <h2>공통 준비 코드</h2>
+    <p>모든 실습은 아래 코드로 시작합니다. <code>df</code> 변수 안에 펭귄 데이터가 DataFrame 형태로 저장됩니다.</p>
+    <pre><span class="k">import</span> pandas <span class="k">as</span> pd           <span class="c"># 데이터 분석의 핵심 라이브러리</span>
+<span class="k">import</span> seaborn <span class="k">as</span> sns          <span class="c"># 예쁜 그래프 + 예제 데이터셋 제공</span>
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt  <span class="c"># 그래프를 실제로 그리는 라이브러리</span>
+
+df = sns.<span class="n">load_dataset</span>(<span class="s">"penguins"</span>)  <span class="c"># 펭귄 344마리 데이터 불러오기</span></pre>
+    <p style="font-size:14px;color:var(--muted);margin:.4em 0 0">펭귄 데이터 열: <b>species(종), island(섬), bill_length_mm(부리 길이), bill_depth_mm(부리 깊이), flipper_length_mm(지느러미 길이), body_mass_g(몸무게), sex(성별)</b></p>
+  </div>
+
+  <!-- ───────── 1차시 ───────── -->
+  <section id="c1">
+    <div class="mh"><span class="chip">1차시</span><h2>데이터의 세계와 Pandas</h2></div>
+
+    <h3>데이터 → 정보 → 지혜</h3>
+    <table>
+      <tr><th>단계</th><th>예시</th><th>설명</th></tr>
+      <tr><td>📊 <b>데이터</b></td><td>"구미진 / 162cm / 50kg / 수학 85점"</td><td>수집된 원래의 기록 — 그 자체로는 의미가 불분명</td></tr>
+      <tr><td>💡 <b>정보</b></td><td>"우리 반 평균 키는 161cm"</td><td>데이터를 정리·분석해서 알게 된 사실</td></tr>
+      <tr><td>🌟 <b>지혜</b></td><td>"키가 큰 학생일수록 농구를 좋아한다"</td><td>정보를 바탕으로 얻은 통찰·판단</td></tr>
+    </table>
+    <div class="desc">
+      날 것의 숫자(데이터)를 모아 분석하면 <b>정보</b>가 되고, 그 정보를 여러 상황에 적용하면 <b>지혜</b>가 됩니다.<br>
+      데이터 분석은 "숨겨진 이야기를 찾아내는 일"입니다.
+    </div>
+
+    <h3>두 도구 비교</h3>
+    <table>
+      <tr><th>구분</th><th>🍊 오렌지3</th><th>🐍 파이썬(Pandas)</th></tr>
+      <tr><td>사용 방법</td><td>위젯을 마우스로 드래그</td><td>코드를 키보드로 입력</td></tr>
+      <tr><td>코딩 필요</td><td>불필요</td><td>필요</td></tr>
+      <tr><td>자유도</td><td>정해진 위젯만 사용 가능</td><td>원하는 분석을 자유롭게</td></tr>
+      <tr><td>결과 공유</td><td>화면 캡처</td><td>링크 하나로 공유 가능</td></tr>
+    </table>
+    <div class="desc">
+      <b>Pandas</b>는 파이썬에서 표 형태 데이터를 다루는 라이브러리입니다. "Panel Data"의 줄임말로, 수십만 행의 데이터를 빠르게 처리할 수 있습니다.
+    </div>
+  </section>
+
+  <!-- ───────── 2차시 ───────── -->
+  <section id="c2">
+    <div class="mh"><span class="chip">2차시</span><h2>Series &amp; DataFrame</h2></div>
+    <ul>
+      <li><b>Series</b> = 1차원(한 열). 예: 몸무게 열 하나.</li>
+      <li><b>DataFrame</b> = 2차원(표 전체). 행과 열로 이루어진 스프레드시트 모양.</li>
+      <li>열을 하나 선택하면 <b>Series</b>, 여러 열을 선택하면 <b>DataFrame</b>이 반환됩니다.</li>
+    </ul>
+
+    <h3>데이터 구조 파악 코드</h3>
+    <pre>df.<span class="n">head</span>()          <span class="c"># 앞 5행 확인 (기본값 5)</span>
+df.<span class="n">head</span>(10)        <span class="c"># 앞 10행 확인</span>
+df.<span class="n">tail</span>(3)         <span class="c"># 뒤 3행 확인</span>
+df.<span class="n">info</span>()          <span class="c"># 열 이름, 타입, 결측 수를 한눈에</span>
+df.<span class="n">shape</span>           <span class="c"># (행 수, 열 수) 튜플 반환 → (344, 7)</span>
+df.<span class="n">shape</span>[0]        <span class="c"># 행 수만 꺼내기 → 344</span>
+df.<span class="n">shape</span>[1]        <span class="c"># 열 수만 꺼내기 → 7</span>
+df.<span class="n">columns</span>         <span class="c"># 열 이름 목록 확인</span>
+df.<span class="n">dtypes</span>          <span class="c"># 각 열의 데이터 타입 확인</span></pre>
+    <div class="desc">
+      <b>info()</b>는 열 이름, 타입(object/float64 등), 결측이 아닌 행 수를 한 번에 보여줍니다.<br>
+      <b>shape</b>는 괄호 없이 씁니다(함수가 아니라 속성). <code>shape[0]</code>은 행, <code>shape[1]</code>은 열.
+    </div>
+
+    <h3>열 선택 코드</h3>
+    <pre><span class="c"># 열 하나 선택 → Series 반환</span>
+df[<span class="s">"species"</span>]
+
+<span class="c"># 여러 열 선택 → DataFrame 반환 (대괄호 2겹!)</span>
+df[[<span class="s">"species"</span>, <span class="s">"sex"</span>]]
+df[[<span class="s">"species"</span>, <span class="s">"body_mass_g"</span>, <span class="s">"island"</span>]]
+
+<span class="c"># 새 열 추가 — 몸무게(g)를 kg으로 변환</span>
+df[<span class="s">"body_mass_kg"</span>] = df[<span class="s">"body_mass_g"</span>] / 1000</pre>
+    <div class="desc">
+      열을 여러 개 선택할 때는 <b>대괄호를 2겹</b>으로 씁니다 — 안쪽 <code>[]</code>는 리스트, 바깥쪽 <code>[]</code>는 DataFrame 인덱싱입니다.
+    </div>
+  </section>
+
+  <!-- ───────── 3차시 ───────── -->
+  <section id="c3">
+    <div class="mh"><span class="chip">3차시</span><h2>정렬과 기초 통계</h2></div>
+
+    <h3>정렬</h3>
+    <pre><span class="c"># 오름차순 정렬 (기본값 ascending=True)</span>
+df.<span class="n">sort_values</span>(by=<span class="s">"body_mass_g"</span>)
+
+<span class="c"># 내림차순 정렬 — 가장 무거운 펭귄이 맨 위</span>
+df.<span class="n">sort_values</span>(by=<span class="s">"body_mass_g"</span>, ascending=<span class="k">False</span>)
+</pre>
+    <div class="desc">
+      <code>ascending=False</code>가 내림차순(큰 값 → 작은 값)입니다. 기본값은 <code>True</code>(오름차순).
+    </div>
+
+    <h3>정렬 + 상위 N행 + 열 선택 체이닝</h3>
+    <pre><span class="c"># 지느러미가 긴 순으로 정렬 → 상위 3마리 → 필요한 열만 출력</span>
+df.<span class="n">sort_values</span>(by=<span class="s">"flipper_length_mm"</span>, ascending=<span class="k">False</span>).<span class="n">head</span>(3)[[<span class="s">"species"</span>, <span class="s">"flipper_length_mm"</span>]]</pre>
+    <div class="desc">
+      순서: <b>sort_values() → head(N) → [열 선택]</b>. head()를 먼저 하면 정렬 전 앞 N행이 선택되어 잘못된 결과가 나옵니다.
+    </div>
+
+    <h3>기초 통계</h3>
+    <pre><span class="c"># 숫자 열 전체 통계 (개수·평균·표준편차·최솟값·사분위수·최댓값)</span>
+df.<span class="n">describe</span>()
+
+<span class="c"># 범주형(문자) 열의 고유값 종류</span>
+df[<span class="s">"species"</span>].<span class="n">unique</span>()         <span class="c"># → ['Adelie', 'Gentoo', 'Chinstrap']</span>
+
+<span class="c"># 각 범주의 개수 세기</span>
+df[<span class="s">"species"</span>].<span class="n">value_counts</span>()    <span class="c"># Adelie가 가장 많음</span>
+df[<span class="s">"island"</span>].<span class="n">value_counts</span>()
+
+<span class="c"># 특정 열의 개별 통계</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>()        <span class="c"># 평균</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">median</span>()      <span class="c"># 중앙값</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">max</span>()         <span class="c"># 최댓값</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">min</span>()         <span class="c"># 최솟값</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">std</span>()         <span class="c"># 표준편차 (값들이 얼마나 퍼져있는지)</span></pre>
+    <div class="desc">
+      <b>describe()</b>는 숫자 열에만 동작합니다. 범주형 열의 분포는 <b>value_counts()</b>로 확인합니다.<br>
+      <b>describe()</b>의 count가 전체 행 수보다 적으면 그 차이만큼 결측치가 있다는 뜻입니다.<br>
+      <b>mean(평균)</b>은 이상치(극단값)에 영향받고, <b>median(중앙값)</b>은 이상치에 강합니다.
+    </div>
+  </section>
+
+  <!-- ───────── 4차시 ───────── -->
+  <section id="c4">
+    <div class="mh"><span class="chip">4차시</span><h2>인덱싱 · loc vs iloc</h2></div>
+
+    <table>
+      <tr><th>구분</th><th>기준</th><th>슬라이스 끝 처리</th></tr>
+      <tr><td><code>loc</code></td><td>레이블(이름표) 기준</td><td><b>끝 포함</b> — loc["P001":"P003"] → 3행</td></tr>
+      <tr><td><code>iloc</code></td><td>정수 위치(순서) 기준</td><td><b>끝 제외</b> — iloc[0:3] → 3행 (0,1,2)</td></tr>
+    </table>
+
+    <div class="warnbox">⚠️ <b>수업에서 사용한 인덱스</b> — 수업에서는 인덱스를 <code>P001, P002, P003…</code> 형태의 레이블로 설정했습니다. loc는 이 레이블을 그대로 씁니다.</div>
+
+    <h3>loc 사용 예시 (P001 형식 인덱스 기준)</h3>
+    <pre><span class="c"># P001~P003 세 행 모두 선택 (끝 P003 포함 → 3행)</span>
+df.<span class="n">loc</span>[<span class="s">"P001"</span>:<span class="s">"P003"</span>]
+
+<span class="c"># 특정 행, 특정 열 하나 선택</span>
+df.<span class="n">loc</span>[<span class="s">"P001"</span>, <span class="s">"species"</span>]
+
+<span class="c"># 행 범위 + 여러 열 선택</span>
+df.<span class="n">loc</span>[<span class="s">"P001"</span>:<span class="s">"P005"</span>, [<span class="s">"species"</span>, <span class="s">"body_mass_g"</span>]]
+
+<span class="c"># 불연속 행 여러 개 + 열 목록 → 각각 리스트로</span>
+df.<span class="n">loc</span>[[<span class="s">"P001"</span>, <span class="s">"P004"</span>, <span class="s">"P008"</span>], [<span class="s">"island"</span>, <span class="s">"flipper_length_mm"</span>]]</pre>
+
+    <h3>iloc 사용 예시</h3>
+    <pre><span class="c"># 0~2번째 행 선택 (끝 3 제외 → 0, 1, 2번 = 3행)</span>
+df.<span class="n">iloc</span>[0:3]
+
+<span class="c"># 행 0~1, 열 0~2 선택</span>
+df.<span class="n">iloc</span>[0:2, 0:3]
+
+<span class="c"># 마지막 행</span>
+df.<span class="n">iloc</span>[-1]
+
+<span class="c"># 특정 위치의 값 하나</span>
+df.<span class="n">iloc</span>[10, 2]     <span class="c"># 11번째 행, 3번째 열의 값</span></pre>
+
+    <div class="warnbox">⚠️ <b>가장 헷갈리는 부분</b> — <code>loc["P001":"P005"]</code>은 5행(끝 포함), <code>iloc[0:3]</code>은 3행(끝 제외). 끝 값 처리가 다릅니다.</div>
+  </section>
+
+  <!-- ───────── 5차시 ───────── -->
+  <section id="c5">
+    <div class="mh"><span class="chip">5차시</span><h2>필터링과 groupby</h2></div>
+
+    <h3>불리언 필터링</h3>
+    <pre><span class="c"># 단일 조건 — 몸무게 4500g 초과인 펭귄</span>
+df[df[<span class="s">"body_mass_g"</span>] > 4500]
+
+<span class="c"># 단일 조건 — Gentoo 종만</span>
+df[df[<span class="s">"species"</span>] == <span class="s">"Gentoo"</span>]
+
+<span class="c"># isin() — 여러 값 중 하나에 해당하는 행</span>
+df[df[<span class="s">"island"</span>].<span class="n">isin</span>([<span class="s">"Dream"</span>, <span class="s">"Torgersen"</span>])]</pre>
+    <div class="desc">
+      <code>df["열"] &gt; 값</code>은 True/False의 목록(불리언 마스크)을 만들고, 이를 df[] 안에 넣으면 True인 행만 남습니다.
+    </div>
+
+    <h3>복합 조건 필터링</h3>
+    <div class="cmp">
+      <div class="ex-bad"><div class="t">❌ 괄호 빠뜨림 (오류 발생)</div>
+        <code>df[df["body_mass_g"]&gt;4500 &amp; df["species"]=="Gentoo"]</code></div>
+      <div class="ex-good"><div class="t">✅ 각 조건에 괄호 (올바름)</div>
+        <code>df[(df["body_mass_g"]&gt;4500) &amp; (df["species"]=="Gentoo")]</code></div>
+    </div>
+    <pre><span class="c"># & (그리고) — 두 조건 모두 만족</span>
+df[(df[<span class="s">"species"</span>] == <span class="s">"Adelie"</span>) & (df[<span class="s">"body_mass_g"</span>] < 3500)]
+
+<span class="c"># | (또는) — 두 조건 중 하나라도 만족</span>
+df[(df[<span class="s">"species"</span>] == <span class="s">"Adelie"</span>) | (df[<span class="s">"species"</span>] == <span class="s">"Gentoo"</span>)]
+
+<span class="c"># isin + & 조합 — 섬이 Biscoe 또는 Dream이면서 몸무게 4000g 이상</span>
+df[(df[<span class="s">"island"</span>].<span class="n">isin</span>([<span class="s">"Biscoe"</span>, <span class="s">"Dream"</span>])) & (df[<span class="s">"body_mass_g"</span>] >= 4000)]
+
+<span class="c"># 필터링 후 특정 열만 출력</span>
+df[(df[<span class="s">"species"</span>] == <span class="s">"Adelie"</span>) & (df[<span class="s">"body_mass_g"</span>] < 3500)][[<span class="s">"species"</span>, <span class="s">"island"</span>, <span class="s">"body_mass_g"</span>]]</pre>
+    <div class="desc">
+      여러 조건을 연결할 때는 <b>각 조건을 괄호로 묶고</b> <code>&amp;</code>(AND), <code>|</code>(OR)으로 연결합니다.<br>
+      파이썬의 <code>and</code>, <code>or</code>는 DataFrame에서 사용할 수 없습니다.
+    </div>
+
+    <h3>groupby — 그룹별 통계</h3>
+    <pre><span class="c"># 종(species)별 평균 몸무게</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>()
+<span class="c"># 결과: Adelie 3706, Chinstrap 3733, Gentoo 5092</span>
+
+<span class="c"># 종별 평균 부리 길이</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"bill_length_mm"</span>].<span class="n">mean</span>()
+
+<span class="c"># 그룹별 여러 통계 한 번에</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">agg</span>([<span class="s">"mean"</span>, <span class="s">"max"</span>, <span class="s">"min"</span>, <span class="s">"count"</span>])</pre>
+    <div class="desc">
+      <b>groupby("그룹열")["집계열"].집계함수()</b> 순서로 씁니다.<br>
+      groupby 결과를 바로 <code>.plot(kind="bar")</code>에 연결하면 그룹별 막대그래프를 그릴 수 있습니다.
+    </div>
+  </section>
+
+  <!-- ───────── 6차시 ───────── -->
+  <section id="c6">
+    <div class="mh"><span class="chip">6차시</span><h2>전처리 · 결측치</h2></div>
+
+    <h3>결측치 확인</h3>
+    <pre><span class="c"># 열별 결측 개수</span>
+df.<span class="n">isna</span>().<span class="n">sum</span>()
+
+<span class="c"># 전체 결측 개수</span>
+df.<span class="n">isna</span>().<span class="n">sum</span>().<span class="n">sum</span>()</pre>
+    <div class="desc">
+      <code>isna()</code>는 각 값이 결측(NaN)인지 True/False로 반환합니다. 뒤에 <code>.sum()</code>을 붙이면 True의 개수(결측 개수)가 됩니다.
+    </div>
+
+    <h3>결측치 제거</h3>
+    <pre><span class="c"># 결측이 있는 행 전부 삭제 → 결과를 df에 다시 저장</span>
+df = df.<span class="n">dropna</span>()
+
+<span class="c"># 특정 열에 결측이 있는 행만 삭제</span>
+df = df.<span class="n">dropna</span>(subset=[<span class="s">"sex"</span>])
+df = df.<span class="n">dropna</span>(subset=[<span class="s">"bill_length_mm"</span>, <span class="s">"bill_depth_mm"</span>])</pre>
+    <div class="desc">
+      <code>dropna()</code>는 기본적으로 원본을 바꾸지 않으므로 <b>반드시 <code>df = df.dropna()</code> 형태로 결과를 다시 저장</b>해야 합니다.
+    </div>
+
+    <h3>결측치 채우기</h3>
+    <pre><span class="c"># 수치형 열 → 평균값으로 채우기 → df에 저장</span>
+df[<span class="s">"body_mass_g"</span>] = df[<span class="s">"body_mass_g"</span>].<span class="n">fillna</span>(df[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>())
+
+<span class="c"># 수치형 열 → 중앙값으로 채우기</span>
+df[<span class="s">"bill_length_mm"</span>] = df[<span class="s">"bill_length_mm"</span>].<span class="n">fillna</span>(df[<span class="s">"bill_length_mm"</span>].<span class="n">median</span>())
+
+<span class="c"># 범주형 열 → 문자열로 채우기</span>
+df[<span class="s">"sex"</span>] = df[<span class="s">"sex"</span>].<span class="n">fillna</span>(<span class="s">"Female"</span>)
+
+<span class="c"># 채운 뒤 결측 개수 확인</span>
+df[[<span class="s">"bill_length_mm"</span>, <span class="s">"sex"</span>]].<span class="n">isna</span>().<span class="n">sum</span>()</pre>
+    <div class="desc">
+      <b>fillna()</b>도 기본적으로 원본을 바꾸지 않으므로 <b><code>df["열"] = df["열"].fillna(...)</code> 형태로 결과를 다시 저장</b>해야 합니다.<br>
+      수치형은 평균(mean) 또는 중앙값(median), 범주형은 "unknown" 같은 문자열로 채웁니다.
+    </div>
+  </section>
+
+  <!-- ───────── 7-1차시 ───────── -->
+  <section id="c71">
+    <div class="mh"><span class="chip">7-1차시</span><h2>시각화 기초</h2></div>
+
+    <h3>히스토그램 — 분포 확인</h3>
+    <pre><span class="c"># sns.histplot() 사용 — 시험 정답 코드 형태</span>
+sns.<span class="n">histplot</span>(data=df, x=<span class="s">"body_mass_g"</span>, bins=15, color=<span class="s">"skyblue"</span>)
+plt.<span class="n">title</span>(<span class="s">"Body mass distribution"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"body_mass_g"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"count"</span>)
+plt.<span class="n">show</span>()</pre>
+
+    <h3>산점도 — 두 변수 관계</h3>
+    <pre><span class="c"># 부리 길이와 부리 깊이의 관계</span>
+plt.<span class="n">scatter</span>(df[<span class="s">"bill_length_mm"</span>], df[<span class="s">"bill_depth_mm"</span>], color=<span class="s">"tomato"</span>, alpha=0.6)
+plt.<span class="n">title</span>(<span class="s">"Bill length vs bill depth"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"bill_length_mm"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"bill_depth_mm"</span>)
+plt.<span class="n">show</span>()</pre>
+    <div class="desc">
+      산점도는 <b>두 수치 변수의 관계</b>를 점으로 나타냅니다. 점이 우상향이면 양의 상관관계, 우하향이면 음의 상관관계.
+    </div>
+
+    <h3>막대그래프 — 그룹 비교</h3>
+    <pre><span class="c"># 종별 평균 몸무게 막대그래프</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">plot</span>(kind=<span class="s">"bar"</span>, color=<span class="s">"steelblue"</span>)
+plt.<span class="n">title</span>(<span class="s">"Mean body mass by species"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"species"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"mean body_mass_g"</span>)
+plt.<span class="n">show</span>()</pre>
+    <div class="desc">
+      막대그래프는 <b>범주(그룹)별 수치를 비교</b>할 때 사용합니다. groupby로 집계한 결과에 바로 <code>.plot(kind="bar")</code>를 연결합니다.
+    </div>
+
+    <table>
+      <tr><th>그래프 종류</th><th>언제 쓰나</th><th>핵심 코드</th></tr>
+      <tr><td>히스토그램</td><td>한 변수의 <b>분포</b></td><td><code>sns.histplot(data=df, x="열", bins=15, color="색")</code></td></tr>
+      <tr><td>산점도</td><td>두 변수의 <b>관계</b></td><td><code>plt.scatter(df["x열"], df["y열"], color="색", alpha=0.6)</code></td></tr>
+      <tr><td>막대그래프</td><td>그룹 간 <b>비교</b></td><td><code>df.groupby("그룹")["수치"].mean().plot(kind="bar", color="색")</code></td></tr>
+    </table>
+
+    <div class="warnbox">🎨 <b>그래프 필수 요소:</b> <code>plt.title()</code> · <code>plt.xlabel()</code> · <code>plt.ylabel()</code> · <code>color=</code> — 마지막에 반드시 <code>plt.show()</code>.</div>
+  </section>
+
+  <!-- ───────── 7-2차시 ───────── -->
+  <section id="c72">
+    <div class="mh"><span class="chip">7-2차시</span><h2>시각화 응용</h2></div>
+
+    <h3>꺾은선 그래프 — plt.plot()</h3>
+    <pre><span class="c"># 월별 기온 변화 꺾은선 (수업 예시)</span>
+months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+temps  = [3.1, 5.2, 10.4, 15.8, 20.1, 24.3, 27.0, 27.5, 22.0, 15.3, 8.4, 3.8]
+
+plt.<span class="n">plot</span>(months, temps, linestyle=<span class="s">"--"</span>, marker=<span class="s">"o"</span>, color=<span class="s">"tomato"</span>, label=<span class="s">"Mean Temp"</span>)
+plt.<span class="n">legend</span>()                  <span class="c"># 범례 표시 — label을 지정했으면 반드시 호출</span>
+plt.<span class="n">title</span>(<span class="s">"월별 기온 변화"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"월"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"기온 (°C)"</span>)
+plt.<span class="n">show</span>()</pre>
+    <div class="desc">
+      <code>plt.plot()</code>은 x·y 리스트를 직접 받아 꺾은선을 그립니다.<br>
+      <code>label=</code>을 지정했으면 <code>plt.legend()</code>를 호출해야 범례가 화면에 표시됩니다.
+    </div>
+
+    <h3>원 그래프(파이 차트)</h3>
+    <pre><span class="c"># 종 비율을 원 그래프로 — autopct로 % 표시</span>
+df[<span class="s">"species"</span>].<span class="n">value_counts</span>().<span class="n">plot</span>(
+    kind=<span class="s">"pie"</span>, autopct=<span class="s">"%1.1f%%"</span>, startangle=90)
+plt.<span class="n">title</span>(<span class="s">"펭귄 종 비율"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">""</span>)   <span class="c"># 기본 y축 레이블 제거</span>
+plt.<span class="n">show</span>()</pre>
+    <div class="desc">
+      <code>autopct="%1.1f%%"</code>는 각 조각에 소수점 1자리 퍼센트를 표시합니다. autopct는 원 그래프에서만 사용합니다.
+    </div>
+
+
+  </section>
+
+  <!-- ───────── 8차시 ───────── -->
+  <section id="c8">
+    <div class="mh"><span class="chip">8차시</span><h2>실전 프로젝트 (EDA)</h2></div>
+    <p style="margin:.2em 0 .6em">EDA(탐색적 데이터 분석) — 데이터를 처음 받았을 때 따르는 5단계 순서입니다.</p>
+
+    <h3>1단계 — 데이터 확인</h3>
+    <pre>df = sns.<span class="n">load_dataset</span>(<span class="s">"penguins"</span>)  <span class="c"># 데이터 불러오기</span>
+
+df.<span class="n">head</span>()        <span class="c"># 앞 5행으로 데이터 생김새 확인</span>
+df.<span class="n">info</span>()        <span class="c"># 열 타입과 결측 수 확인</span>
+df.<span class="n">shape</span>         <span class="c"># 전체 행·열 수 → (344, 7)</span>
+df.<span class="n">describe</span>()    <span class="c"># 수치 열 통계 요약</span></pre>
+
+    <h3>2단계 — 전처리</h3>
+    <pre><span class="c"># 결측이 있는 행 제거 후 df에 바로 저장</span>
+df = df.<span class="n">dropna</span>()
+df.<span class="n">shape</span>         <span class="c"># 제거 후 행 수 확인 → (333, 7)</span></pre>
+
+    <h3>3단계 — 통계 탐색</h3>
+    <pre><span class="c"># 종별 데이터 수 확인</span>
+df[<span class="s">"species"</span>].<span class="n">value_counts</span>()
+
+<span class="c"># 종별 주요 수치 평균 비교</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[[<span class="s">"body_mass_g"</span>, <span class="s">"bill_length_mm"</span>]].<span class="n">mean</span>()</pre>
+
+    <h3>4단계 — 시각화</h3>
+    <pre><span class="c"># 관계 확인 — 산점도 (부리 길이 vs 몸무게)</span>
+plt.<span class="n">scatter</span>(df[<span class="s">"bill_length_mm"</span>], df[<span class="s">"body_mass_g"</span>], color=<span class="s">"steelblue"</span>, alpha=0.6)
+plt.<span class="n">title</span>(<span class="s">"Bill length vs body mass"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"bill_length_mm"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"body_mass_g"</span>)
+plt.<span class="n">show</span>()
+
+<span class="c"># 비교 — 종별 평균 몸무게 막대그래프</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">plot</span>(kind=<span class="s">"bar"</span>, color=<span class="s">"coral"</span>)
+plt.<span class="n">title</span>(<span class="s">"Mean body mass by species"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"species"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"mean body_mass_g"</span>)
+plt.<span class="n">show</span>()</pre>
+
+    <h3>5단계 — 인사이트 도출</h3>
+    <pre><span class="c"># 평균 몸무게가 가장 큰/작은 종 찾기</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">idxmax</span>()  <span class="c"># → 'Gentoo'</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">idxmin</span>()  <span class="c"># → 'Adelie'</span></pre>
+
+
+    <table>
+      <tr><th>단계</th><th>목표</th><th>주요 코드</th></tr>
+      <tr><td>① 확인</td><td>모양·타입 파악</td><td><code>head()</code> <code>info()</code> <code>shape</code> <code>describe()</code></td></tr>
+      <tr><td>② 전처리</td><td>결측 제거</td><td><code>df = df.dropna()</code></td></tr>
+      <tr><td>③ 통계</td><td>그룹별 요약</td><td><code>value_counts()</code> <code>groupby().mean()</code></td></tr>
+      <tr><td>④ 시각화</td><td>관계·분포·비교</td><td><code>scatter()</code> <code>histplot()</code> <code>.plot(kind="bar")</code></td></tr>
+      <tr><td>⑤ 인사이트</td><td>패턴 해석</td><td><code>idxmax()</code> <code>idxmin()</code> + 2문장 설명</td></tr>
+    </table>
+  </section>
+</main>
+
+<footer>빅데이터 분석 시험 요약노트 · 펭귄(penguins) 데이터 기준 · 우상단 <b>PDF로 저장</b>으로 인쇄할 수 있습니다.</footer>
+</body>
+</html>

@@ -203,6 +203,36 @@ export default function HomePage() {
         </div>
       </div>
 
+      <div className="mt-12 rounded-2xl border-2 border-accent-200 bg-accent-50 p-6">
+        <p className="mb-4 text-center text-sm font-bold text-accent-700">📋 시험 요약노트</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <a
+            href="/assessment/study.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-accent-200 bg-white px-5 py-4 shadow-sm transition-all hover:border-accent-400 hover:shadow-md"
+          >
+            <span className="text-2xl">📖</span>
+            <div>
+              <p className="font-bold text-slate-800">시험 요약노트</p>
+              <p className="text-xs text-slate-500">1~8차시 핵심 코드 · PDF 저장 가능</p>
+            </div>
+          </a>
+          <a
+            href="/assessment/study_output.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-primary-200 bg-white px-5 py-4 shadow-sm transition-all hover:border-primary-400 hover:shadow-md"
+          >
+            <span className="text-2xl">💻</span>
+            <div>
+              <p className="font-bold text-slate-800">코드 + 출력 요약노트</p>
+              <p className="text-xs text-slate-500">실행 결과 포함 · PDF 저장 가능</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
       <div className="mt-10 border-t border-slate-200 pt-6 text-center text-xs text-slate-500">
         <p>
           대성여자고등학교 정보 · GOO&apos;s 데이터 분석 with 파이썬 · 진도는 이 브라우저에만 저장됩니다.

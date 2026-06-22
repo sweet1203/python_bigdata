@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>빅데이터 분석 시험 요약노트 — 코드 + 출력</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f7f9;--card:#fff;--ink:#1f2430;--muted:#5b6472;
+    --line:#e6e8ec;--accent:#2f6fed;--accent-soft:#eaf1ff;
+    --warn:#b25e00;--warn-soft:#fff4e3;
+    --good:#1a7f4b;--good-soft:#e7f6ee;
+    --bad:#c0392b;--bad-soft:#fdecea;
+    --code:#0f1320;--codebg:#f1f3f6;
+    --out:#0d1117;--outbg:#1c2333;--outtext:#cdd9e5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    font-size:15px;line-height:1.65}
+  a{color:inherit;text-decoration:none}
+
+  /* ── header ── */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1100px;margin:0 auto;padding:11px 20px;
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .bar h1{font-size:16px;font-weight:800;margin:0}
+  .bar .sub{font-size:12px;color:var(--muted)}
+  .nav{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+  .nav a{font-size:12px;padding:4px 9px;border:1px solid var(--line);
+    border-radius:999px;color:var(--muted);background:#fff}
+  .nav a:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-pdf{font-size:12.5px;padding:6px 13px;border:0;border-radius:999px;
+    background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
+
+  /* ── layout ── */
+  main{max-width:1100px;margin:0 auto;padding:20px 18px 80px}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:20px}
+  .intro h2{font-size:17px;margin-bottom:8px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:16px;scroll-margin-top:68px}
+  .mh{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .chip{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;
+    background:var(--accent-soft);color:var(--accent);padding:3px 10px;border-radius:8px}
+  .mh h2{font-size:18px;font-weight:800}
+  h3{font-size:14.5px;margin:16px 0 6px;color:var(--ink)}
+  ul{padding-left:20px;margin:6px 0}
+  li{margin:3px 0;color:#36404f}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;
+    background:var(--codebg);padding:1px 6px;border-radius:4px}
+  table.info-t{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px}
+  table.info-t th,table.info-t td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+  table.info-t th{background:#f3f5f8;font-weight:700}
+  .desc{background:#f8f9fb;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+    padding:9px 13px;margin:8px 0;font-size:13.5px;color:#2d3a4a}
+  .warnbox{background:var(--warn-soft);border:1px solid #f3dcb6;border-radius:10px;
+    padding:10px 14px;margin:10px 0;font-size:13.5px;color:#6b4500}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+  .cmp>div{border-radius:10px;padding:10px 12px;font-size:13px}
+  .ex-bad{background:var(--bad-soft);border:1px solid #f4c9c3}
+  .ex-good{background:var(--good-soft);border:1px solid #bfe6cf}
+  .ex-bad .t{color:var(--bad);font-weight:800;font-size:12px;margin-bottom:4px}
+  .ex-good .t{color:var(--good);font-weight:800;font-size:12px;margin-bottom:4px}
+
+  /* ── 코드 + 출력 블록 ── */
+  .cell{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:10px 0}
+  .cell-code{background:var(--code);color:#e8ecf3;
+    font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.65;
+    padding:12px 14px;overflow-x:auto;white-space:pre}
+  .cell-code .c{color:#7f8aa3}
+  .cell-code .k{color:#79b8ff}
+  .cell-code .s{color:#9ecbff}
+  .cell-code .n{color:#b392f0}
+  .cell-out{border-top:2px dashed #2d3f5a;background:var(--outbg);
+    padding:10px 14px;overflow-x:auto}
+  .cell-out-label{font-size:11px;color:#7a8fa6;font-family:ui-monospace,Menlo,monospace;
+    margin-bottom:5px;letter-spacing:.5px}
+
+  /* 출력 텍스트 */
+  .out-pre{color:var(--outtext);font-family:ui-monospace,Menlo,monospace;
+    font-size:12px;line-height:1.6;white-space:pre;background:none;margin:0}
+
+  /* 출력 테이블 */
+  .out-table{border-collapse:collapse;font-size:12px;color:var(--outtext);
+    font-family:ui-monospace,Menlo,monospace;min-width:100%}
+  .out-table th{background:#253045;color:#8ab4f8;padding:4px 10px;
+    text-align:right;border-bottom:1px solid #2d3f5a;font-weight:600}
+  .out-table th:first-child{text-align:left}
+  .out-table td{padding:3px 10px;text-align:right;border-bottom:1px solid #1c2d40;color:#cdd9e5}
+  .out-table td:first-child{text-align:left;color:#8ab4f8}
+  .out-table tr:last-child td{border-bottom:none}
+
+  /* 출력 차트 */
+  .out-chart{display:flex;justify-content:center;padding:6px 0}
+  .out-chart canvas{max-width:460px;width:100%;height:240px}
+
+  footer{max-width:1100px;margin:0 auto;padding:0 18px 60px;
+    color:var(--muted);font-size:13px}
+
+  @media(max-width:640px){.cmp{grid-template-columns:1fr}.nav{display:none}}
+  @media print{
+    header{position:static;backdrop-filter:none}
+    .btn-pdf,.nav{display:none}
+    body{background:#fff;font-size:13px}
+    section,.intro{break-inside:avoid;border-color:#ccc}
+    .cell-code{background:#f4f4f4;color:#111;border:1px solid #ddd}
+    .cell-out{background:#fff;border-top:1px solid #ccc}
+    .out-pre,.out-table{color:#111}
+    .out-table th{background:#eee;color:#333}
+    .out-table td{color:#111}
+    .out-table td:first-child{color:#333}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div>
+      <h1>📊 빅데이터 분석 — 코드 + 출력 요약노트</h1>
+      <div class="sub">1~8차시 · 펭귄 데이터 기준</div>
+    </div>
+    <nav class="nav">
+      <a href="#c1">1</a><a href="#c2">2</a><a href="#c3">3</a><a href="#c4">4</a>
+      <a href="#c5">5</a><a href="#c6">6</a><a href="#c71">7-1</a><a href="#c72">7-2</a>
+      <a href="#c8">8</a>
+    </nav>
+    <button class="btn-pdf" onclick="window.print()">PDF로 저장</button>
+  </div>
+</header>
+
+<main>
+  <!-- 공통 준비 -->
+  <div class="intro">
+    <h2>공통 준비 코드</h2>
+    <div class="cell">
+      <div class="cell-code"><span class="k">import</span> pandas <span class="k">as</span> pd           <span class="c"># 데이터 분석 라이브러리</span>
+<span class="k">import</span> seaborn <span class="k">as</span> sns          <span class="c"># 그래프 + 예제 데이터셋</span>
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt  <span class="c"># 그래프 그리기</span>
+df = sns.<span class="n">load_dataset</span>(<span class="s">"penguins"</span>)  <span class="c"># 펭귄 344마리 데이터 불러오기</span></div>
+      <div class="cell-out">
+        <div class="out-pre" style="color:#8ab4f8">✔ 데이터 로드 완료 — 344행 × 7열</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px">열: <b>species(종), island(섬), bill_length_mm(부리 길이), bill_depth_mm(부리 깊이), flipper_length_mm(지느러미 길이), body_mass_g(몸무게), sex(성별)</b></p>
+  </div>
+
+  <!-- ─── 1차시 ─── -->
+  <section id="c1">
+    <div class="mh"><span class="chip">1차시</span><h2>데이터의 세계와 Pandas</h2></div>
+    <h3>데이터 → 정보 → 지혜</h3>
+    <table class="info-t">
+      <tr><th>단계</th><th>예시</th><th>설명</th></tr>
+      <tr><td>📊 <b>데이터</b></td><td>"구미진 / 162cm / 50kg / 수학 85점"</td><td>수집된 원래의 기록 — 그 자체로는 의미 불분명</td></tr>
+      <tr><td>💡 <b>정보</b></td><td>"우리 반 평균 키는 161cm"</td><td>데이터를 정리·분석해서 알게 된 사실</td></tr>
+      <tr><td>🌟 <b>지혜</b></td><td>"키가 큰 학생일수록 농구를 좋아한다"</td><td>정보를 바탕으로 얻은 통찰·판단</td></tr>
+    </table>
+    <h3>두 도구 비교</h3>
+    <table class="info-t">
+      <tr><th>구분</th><th>🍊 오렌지3</th><th>🐍 파이썬(Pandas)</th></tr>
+      <tr><td>사용 방법</td><td>위젯을 마우스로 드래그</td><td>코드를 키보드로 입력</td></tr>
+      <tr><td>코딩 필요</td><td>불필요</td><td>필요</td></tr>
+      <tr><td>자유도</td><td>정해진 위젯만</td><td>자유롭게</td></tr>
+      <tr><td>결과 공유</td><td>화면 캡처</td><td>링크로 공유</td></tr>
+    </table>
+  </section>
+
+  <!-- ─── 2차시 ─── -->
+  <section id="c2">
+    <div class="mh"><span class="chip">2차시</span><h2>Series &amp; DataFrame</h2></div>
+    <ul>
+      <li><b>Series</b> = 1차원(한 열) / <b>DataFrame</b> = 2차원(표 전체)</li>
+      <li>열 하나 선택 → <b>Series</b> / 여러 열 선택 → <b>DataFrame</b></li>
+    </ul>
+
+    <h3>df.head()</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">head</span>()  <span class="c"># 앞 5행 확인</span></div>
+      <div class="cell-out">
+        <div class="out-pre" style="color:var(--outtext)"><table class="out-table"><thead><tr><th></th><th>species</th><th>island</th><th>bill_length_mm</th><th>bill_depth_mm</th><th>flipper_length_mm</th><th>body_mass_g</th><th>sex</th></tr></thead><tbody>
+<tr><td>0</td><td>Adelie</td><td>Torgersen</td><td>39.1</td><td>18.7</td><td>181.0</td><td>3750.0</td><td>Male</td></tr>
+<tr><td>1</td><td>Adelie</td><td>Torgersen</td><td>39.5</td><td>17.4</td><td>186.0</td><td>3800.0</td><td>Female</td></tr>
+<tr><td>2</td><td>Adelie</td><td>Torgersen</td><td>40.3</td><td>18.0</td><td>195.0</td><td>3250.0</td><td>Female</td></tr>
+<tr><td>3</td><td>Adelie</td><td>Torgersen</td><td>NaN</td><td>NaN</td><td>NaN</td><td>NaN</td><td>NaN</td></tr>
+<tr><td>4</td><td>Adelie</td><td>Torgersen</td><td>36.7</td><td>19.3</td><td>193.0</td><td>3450.0</td><td>Female</td></tr>
+</tbody></table></div>
+      </div>
+    </div>
+
+    <h3>df.info()</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">info</span>()  <span class="c"># 열 이름, 타입, 결측 수</span></div>
+      <div class="cell-out">
+        <pre class="out-pre">&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 344 entries, 0 to 343
+Data columns (total 7 columns):
+ #   Column             Non-Null Count  Dtype
+---  ------             --------------  -----
+ 0   species            344 non-null    object
+ 1   island             344 non-null    object
+ 2   bill_length_mm     342 non-null    float64
+ 3   bill_depth_mm      342 non-null    float64
+ 4   flipper_length_mm  342 non-null    float64
+ 5   body_mass_g        342 non-null    float64
+ 6   sex                333 non-null    object
+dtypes: float64(4), object(3)
+memory usage: 18.9+ KB</pre>
+      </div>
+    </div>
+
+    <h3>df.shape / df.columns</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">shape</span>    <span class="c"># (행, 열)</span>
+df.<span class="n">shape</span>[0]  <span class="c"># 행 수</span>
+df.<span class="n">shape</span>[1]  <span class="c"># 열 수</span>
+df.<span class="n">columns</span>   <span class="c"># 열 이름 목록</span></div>
+      <div class="cell-out">
+        <pre class="out-pre">(344, 7)
+344
+7
+Index(['species', 'island', 'bill_length_mm', 'bill_depth_mm',
+       'flipper_length_mm', 'body_mass_g', 'sex'], dtype='object')</pre>
+      </div>
+    </div>
+
+    <h3>열 선택</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"species"</span>]                            <span class="c"># 열 하나 → Series</span>
+df[[<span class="s">"species"</span>, <span class="s">"body_mass_g"</span>]]            <span class="c"># 여러 열 → DataFrame (대괄호 2겹)</span>
+df[<span class="s">"body_mass_kg"</span>] = df[<span class="s">"body_mass_g"</span>] / 1000  <span class="c"># 새 열 추가</span></div>
+      <div class="cell-out">
+        <pre class="out-pre"><span style="color:#8ab4f8">df["species"] → Series:</span>
+0      Adelie
+1      Adelie
+2      Adelie
+       ...
+Name: species, dtype: object
+
+<span style="color:#8ab4f8">df[["species","body_mass_g"]] → DataFrame (앞 3행):</span>
+  species  body_mass_g
+0  Adelie       3750.0
+1  Adelie       3800.0
+2  Adelie       3250.0</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3차시 ─── -->
+  <section id="c3">
+    <div class="mh"><span class="chip">3차시</span><h2>정렬과 기초 통계</h2></div>
+
+    <h3>정렬</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">sort_values</span>(by=<span class="s">"body_mass_g"</span>, ascending=<span class="k">False</span>).<span class="n">head</span>(3)  <span class="c"># 무거운 순 상위 3</span></div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th></th><th>species</th><th>island</th><th>bill_length_mm</th><th>bill_depth_mm</th><th>flipper_length_mm</th><th>body_mass_g</th><th>sex</th></tr></thead>
+<tbody>
+<tr><td>186</td><td>Gentoo</td><td>Biscoe</td><td>49.2</td><td>15.2</td><td>221.0</td><td>6300.0</td><td>Male</td></tr>
+<tr><td>287</td><td>Gentoo</td><td>Biscoe</td><td>59.6</td><td>17.0</td><td>230.0</td><td>6050.0</td><td>Male</td></tr>
+<tr><td>169</td><td>Gentoo</td><td>Biscoe</td><td>49.8</td><td>15.9</td><td>229.0</td><td>5950.0</td><td>Male</td></tr>
+</tbody></table>
+      </div>
+    </div>
+
+    <h3>정렬 + 체이닝 (상위 3 + 열 선택)</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">sort_values</span>(by=<span class="s">"flipper_length_mm"</span>, ascending=<span class="k">False</span>).<span class="n">head</span>(3)[[<span class="s">"species"</span>, <span class="s">"flipper_length_mm"</span>]]</div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th></th><th>species</th><th>flipper_length_mm</th></tr></thead>
+<tbody>
+<tr><td>287</td><td>Gentoo</td><td>231.0</td></tr>
+<tr><td>169</td><td>Gentoo</td><td>230.0</td></tr>
+<tr><td>260</td><td>Gentoo</td><td>230.0</td></tr>
+</tbody></table>
+      </div>
+    </div>
+
+    <h3>df.describe()</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">describe</span>()  <span class="c"># 숫자 열 통계 (count가 344보다 적으면 결측 있음)</span></div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th></th><th>bill_length_mm</th><th>bill_depth_mm</th><th>flipper_length_mm</th><th>body_mass_g</th></tr></thead>
+<tbody>
+<tr><td>count</td><td>342.0</td><td>342.0</td><td>342.0</td><td>342.0</td></tr>
+<tr><td>mean</td><td>43.92</td><td>17.15</td><td>200.92</td><td>4201.75</td></tr>
+<tr><td>std</td><td>5.46</td><td>1.97</td><td>14.06</td><td>801.95</td></tr>
+<tr><td>min</td><td>32.1</td><td>13.1</td><td>172.0</td><td>2700.0</td></tr>
+<tr><td>25%</td><td>39.23</td><td>15.6</td><td>190.0</td><td>3550.0</td></tr>
+<tr><td>50%</td><td>44.45</td><td>17.3</td><td>197.0</td><td>4050.0</td></tr>
+<tr><td>75%</td><td>48.5</td><td>18.7</td><td>213.0</td><td>4750.0</td></tr>
+<tr><td>max</td><td>59.6</td><td>21.5</td><td>231.0</td><td>6300.0</td></tr>
+</tbody></table>
+      </div>
+    </div>
+
+    <h3>value_counts / unique</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"species"</span>].<span class="n">unique</span>()        <span class="c"># 고유값 종류</span>
+df[<span class="s">"species"</span>].<span class="n">value_counts</span>()  <span class="c"># 범주별 개수</span></div>
+      <div class="cell-out">
+        <pre class="out-pre">['Adelie' 'Chinstrap' 'Gentoo']</pre>
+        <table class="out-table" style="margin-top:8px"><thead><tr><th>species</th><th>count</th></tr></thead>
+<tbody>
+<tr><td>Adelie</td><td>152</td></tr>
+<tr><td>Gentoo</td><td>124</td></tr>
+<tr><td>Chinstrap</td><td>68</td></tr>
+</tbody></table>
+      </div>
+    </div>
+
+    <h3>개별 통계</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>()    <span class="c"># 평균</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">median</span>()  <span class="c"># 중앙값</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">max</span>()     <span class="c"># 최댓값</span>
+df[<span class="s">"body_mass_g"</span>].<span class="n">min</span>()     <span class="c"># 최솟값</span></div>
+      <div class="cell-out">
+        <pre class="out-pre">4201.754385964912
+4050.0
+6300.0
+2700.0</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4차시 ─── -->
+  <section id="c4">
+    <div class="mh"><span class="chip">4차시</span><h2>인덱싱 · loc vs iloc</h2></div>
+    <table class="info-t">
+      <tr><th>구분</th><th>기준</th><th>슬라이스 끝 처리</th></tr>
+      <tr><td><code>loc</code></td><td>레이블(이름표) 기준</td><td><b>끝 포함</b> — loc["P001":"P003"] → 3행</td></tr>
+      <tr><td><code>iloc</code></td><td>정수 위치(순서) 기준</td><td><b>끝 제외</b> — iloc[0:3] → 3행 (0,1,2)</td></tr>
+    </table>
+    <div class="warnbox">⚠️ 수업에서는 인덱스를 <code>P001, P002, P003…</code> 형태로 설정했습니다. loc는 이 레이블을 그대로 씁니다.</div>
+
+    <h3>loc (P001 형식)</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">loc</span>[<span class="s">"P001"</span>:<span class="s">"P003"</span>]                                             <span class="c"># 끝 포함 → 3행</span>
+df.<span class="n">loc</span>[<span class="s">"P001"</span>, <span class="s">"species"</span>]                                         <span class="c"># 행·열 하나</span>
+df.<span class="n">loc</span>[<span class="s">"P001"</span>:<span class="s">"P005"</span>, [<span class="s">"species"</span>, <span class="s">"body_mass_g"</span>]]               <span class="c"># 범위+열 목록</span>
+df.<span class="n">loc</span>[[<span class="s">"P001"</span>, <span class="s">"P004"</span>, <span class="s">"P008"</span>], [<span class="s">"island"</span>, <span class="s">"flipper_length_mm"</span>]] <span class="c"># 불연속 행</span></div>
+      <div class="cell-out">
+        <pre class="out-pre"><span style="color:#8ab4f8">df.loc["P001":"P003"]  →  3행 반환 (P001, P002, P003 모두 포함)</span>
+<span style="color:#8ab4f8">df.loc["P001","species"]  →</span>  'Adelie'
+<span style="color:#8ab4f8">df.loc[["P001","P004","P008"], [...]]  →  불연속 3행 반환</span></pre>
+      </div>
+    </div>
+
+    <h3>iloc</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">iloc</span>[0:3]        <span class="c"># 끝 3 제외 → 0, 1, 2번 = 3행</span>
+df.<span class="n">iloc</span>[0:2, 0:3]  <span class="c"># 행 0~1, 열 0~2</span>
+df.<span class="n">iloc</span>[-1]         <span class="c"># 마지막 행</span>
+df.<span class="n">iloc</span>[10, 2]      <span class="c"># 11번째 행, 3번째 열의 값</span></div>
+      <div class="cell-out">
+        <pre class="out-pre"><span style="color:#8ab4f8">df.iloc[0:3]  →</span>
+  species     island  bill_length_mm  ...
+0  Adelie  Torgersen            39.1  ...
+1  Adelie  Torgersen            39.5  ...
+2  Adelie  Torgersen            40.3  ...
+
+<span style="color:#8ab4f8">df.iloc[10, 2]  →</span>  37.8</pre>
+      </div>
+    </div>
+    <div class="warnbox">⚠️ <code>loc["P001":"P005"]</code> = 5행(끝 포함) / <code>iloc[0:3]</code> = 3행(끝 제외) — 끝 처리가 다릅니다.</div>
+  </section>
+
+  <!-- ─── 5차시 ─── -->
+  <section id="c5">
+    <div class="mh"><span class="chip">5차시</span><h2>필터링과 groupby</h2></div>
+
+    <h3>불리언 필터링</h3>
+    <div class="cell">
+      <div class="cell-code">df[df[<span class="s">"body_mass_g"</span>] > 4500]  <span class="c"># 단일 조건</span>
+df[df[<span class="s">"island"</span>].<span class="n">isin</span>([<span class="s">"Dream"</span>, <span class="s">"Torgersen"</span>])]  <span class="c"># isin</span></div>
+      <div class="cell-out">
+        <pre class="out-pre"><span style="color:#8ab4f8">df[df["body_mass_g"] > 4500]  →</span>  146행
+<span style="color:#8ab4f8">df[df["island"].isin(["Dream","Torgersen"])]  →</span>  192행</pre>
+      </div>
+    </div>
+
+    <h3>복합 조건</h3>
+    <div class="cmp">
+      <div class="ex-bad"><div class="t">❌ 괄호 빠뜨림 (오류)</div>
+        <code>df[df["a"]&gt;4500 &amp; df["b"]=="Gentoo"]</code></div>
+      <div class="ex-good"><div class="t">✅ 각 조건 괄호 (올바름)</div>
+        <code>df[(df["a"]&gt;4500) &amp; (df["b"]=="Gentoo")]</code></div>
+    </div>
+    <div class="cell">
+      <div class="cell-code">df[(df[<span class="s">"species"</span>] == <span class="s">"Adelie"</span>) & (df[<span class="s">"body_mass_g"</span>] < 3500)][[<span class="s">"species"</span>, <span class="s">"island"</span>, <span class="s">"body_mass_g"</span>]]</div>
+      <div class="cell-out">
+        <pre class="out-pre"><span style="color:#8ab4f8">→  Adelie이고 3500g 미만인 펭귄 (앞 3행)</span>
+   species     island  body_mass_g
+8   Adelie  Torgersen       3250.0
+14  Adelie  Torgersen       3450.0
+15  Adelie  Torgersen       3325.0
+   ... (총 24행)</pre>
+      </div>
+    </div>
+
+    <h3>groupby</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>()  <span class="c"># 종별 평균 몸무게</span></div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th>species</th><th>body_mass_g</th></tr></thead>
+<tbody>
+<tr><td>Adelie</td><td>3700.66</td></tr>
+<tr><td>Chinstrap</td><td>3733.09</td></tr>
+<tr><td>Gentoo</td><td>5076.02</td></tr>
+</tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6차시 ─── -->
+  <section id="c6">
+    <div class="mh"><span class="chip">6차시</span><h2>전처리 · 결측치</h2></div>
+
+    <h3>결측치 확인</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">isna</span>().<span class="n">sum</span>()  <span class="c"># 열별 결측 개수</span></div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th>열</th><th>결측 개수</th></tr></thead>
+<tbody>
+<tr><td>species</td><td>0</td></tr>
+<tr><td>island</td><td>0</td></tr>
+<tr><td>bill_length_mm</td><td>2</td></tr>
+<tr><td>bill_depth_mm</td><td>2</td></tr>
+<tr><td>flipper_length_mm</td><td>2</td></tr>
+<tr><td>body_mass_g</td><td>2</td></tr>
+<tr><td>sex</td><td>11</td></tr>
+</tbody></table>
+      </div>
+    </div>
+
+    <h3>결측치 제거</h3>
+    <div class="cell">
+      <div class="cell-code">df = df.<span class="n">dropna</span>()  <span class="c"># 결측 행 삭제 → df에 저장</span>
+df.<span class="n">shape</span></div>
+      <div class="cell-out">
+        <pre class="out-pre">(333, 7)   <span style="color:#8ab4f8"># 344 → 333으로 11행 감소</span></pre>
+      </div>
+    </div>
+
+    <h3>결측치 채우기</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"body_mass_g"</span>] = df[<span class="s">"body_mass_g"</span>].<span class="n">fillna</span>(df[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>())   <span class="c"># 평균</span>
+df[<span class="s">"bill_length_mm"</span>] = df[<span class="s">"bill_length_mm"</span>].<span class="n">fillna</span>(df[<span class="s">"bill_length_mm"</span>].<span class="n">median</span>()) <span class="c"># 중앙값</span>
+df[<span class="s">"sex"</span>] = df[<span class="s">"sex"</span>].<span class="n">fillna</span>(<span class="s">"Female"</span>)   <span class="c"># 문자열</span>
+df[[<span class="s">"body_mass_g"</span>, <span class="s">"sex"</span>]].<span class="n">isna</span>().<span class="n">sum</span>()  <span class="c"># 확인</span></div>
+      <div class="cell-out">
+        <table class="out-table"><thead><tr><th>열</th><th>결측 개수</th></tr></thead>
+<tbody>
+<tr><td>body_mass_g</td><td>0</td></tr>
+<tr><td>sex</td><td>0</td></tr>
+</tbody></table>
+      </div>
+    </div>
+    <div class="desc"><b>fillna()·dropna()</b>는 기본적으로 원본을 바꾸지 않으므로 <b><code>df = …</code> 또는 <code>df["열"] = …</code> 형태로 반드시 다시 저장</b>해야 합니다.</div>
+  </section>
+
+  <!-- ─── 7-1차시 ─── -->
+  <section id="c71">
+    <div class="mh"><span class="chip">7-1차시</span><h2>시각화 기초</h2></div>
+
+    <h3>히스토그램 — 분포</h3>
+    <div class="cell">
+      <div class="cell-code">sns.<span class="n">histplot</span>(data=df, x=<span class="s">"body_mass_g"</span>, bins=15, color=<span class="s">"skyblue"</span>)
+plt.<span class="n">title</span>(<span class="s">"Body mass distribution"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"body_mass_g"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"count"</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <div class="out-chart"><canvas id="chartHist"></canvas></div>
+      </div>
+    </div>
+    <h3>산점도 — 관계</h3>
+    <div class="cell">
+      <div class="cell-code">plt.<span class="n">scatter</span>(df[<span class="s">"bill_length_mm"</span>], df[<span class="s">"bill_depth_mm"</span>], color=<span class="s">"tomato"</span>, alpha=0.6)
+plt.<span class="n">title</span>(<span class="s">"Bill length vs bill depth"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"bill_length_mm"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"bill_depth_mm"</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <div class="out-chart"><canvas id="chartScatter"></canvas></div>
+      </div>
+    </div>
+
+    <h3>막대그래프 — 비교</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">plot</span>(kind=<span class="s">"bar"</span>, color=<span class="s">"steelblue"</span>)
+plt.<span class="n">title</span>(<span class="s">"Mean body mass by species"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"species"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"mean body_mass_g"</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <div class="out-chart"><canvas id="chartBar"></canvas></div>
+      </div>
+    </div>
+
+    <table class="info-t">
+      <tr><th>그래프</th><th>용도</th><th>핵심 코드</th></tr>
+      <tr><td>히스토그램</td><td>한 변수의 <b>분포</b></td><td><code>sns.histplot(data=df, x="열", bins=15, color="색")</code></td></tr>
+      <tr><td>산점도</td><td>두 변수의 <b>관계</b></td><td><code>plt.scatter(df["x"], df["y"], color="색", alpha=0.6)</code></td></tr>
+      <tr><td>막대그래프</td><td>그룹 간 <b>비교</b></td><td><code>df.groupby("그룹")["수치"].mean().plot(kind="bar")</code></td></tr>
+    </table>
+    <div class="warnbox">🎨 그래프 필수: <code>plt.title()</code> · <code>plt.xlabel()</code> · <code>plt.ylabel()</code> · <code>color=</code> + 마지막 <code>plt.show()</code></div>
+  </section>
+
+  <!-- ─── 7-2차시 ─── -->
+  <section id="c72">
+    <div class="mh"><span class="chip">7-2차시</span><h2>시각화 응용</h2></div>
+
+    <h3>꺾은선 — plt.plot()</h3>
+    <div class="cell">
+      <div class="cell-code">months = [1,2,3,4,5,6,7,8,9,10,11,12]
+temps  = [3.1,5.2,10.4,15.8,20.1,24.3,27.0,27.5,22.0,15.3,8.4,3.8]
+plt.<span class="n">plot</span>(months, temps, linestyle=<span class="s">"--"</span>, marker=<span class="s">"o"</span>, color=<span class="s">"tomato"</span>, label=<span class="s">"Mean Temp"</span>)
+plt.<span class="n">legend</span>()
+plt.<span class="n">title</span>(<span class="s">"월별 기온 변화"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"월"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"기온 (°C)"</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <div class="out-chart"><canvas id="chartLine"></canvas></div>
+      </div>
+    </div>
+
+    <h3>원 그래프</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"species"</span>].<span class="n">value_counts</span>().<span class="n">plot</span>(kind=<span class="s">"pie"</span>, autopct=<span class="s">"%1.1f%%"</span>, startangle=90)
+plt.<span class="n">title</span>(<span class="s">"펭귄 종 비율"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">""</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <div class="out-chart"><canvas id="chartPie"></canvas></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─── 8차시 ─── -->
+  <section id="c8">
+    <div class="mh"><span class="chip">8차시</span><h2>실전 프로젝트 (EDA)</h2></div>
+
+    <h3>1단계 — 데이터 확인</h3>
+    <div class="cell">
+      <div class="cell-code">df = sns.<span class="n">load_dataset</span>(<span class="s">"penguins"</span>)
+df.<span class="n">head</span>()
+df.<span class="n">info</span>()
+df.<span class="n">shape</span>  <span class="c"># → (344, 7)</span></div>
+    </div>
+
+    <h3>2단계 — 전처리</h3>
+    <div class="cell">
+      <div class="cell-code">df = df.<span class="n">dropna</span>()
+df.<span class="n">shape</span>  <span class="c"># 결측 제거 후 행 수</span></div>
+    </div>
+
+    <h3>3단계 — 통계 탐색</h3>
+    <div class="cell">
+      <div class="cell-code">df[<span class="s">"species"</span>].<span class="n">value_counts</span>()
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[[<span class="s">"body_mass_g"</span>, <span class="s">"bill_length_mm"</span>]].<span class="n">mean</span>()</div>
+    </div>
+
+    <h3>4단계 — 시각화</h3>
+    <div class="cell">
+      <div class="cell-code">plt.<span class="n">scatter</span>(df[<span class="s">"bill_length_mm"</span>], df[<span class="s">"body_mass_g"</span>], color=<span class="s">"steelblue"</span>, alpha=0.6)
+plt.<span class="n">title</span>(<span class="s">"Bill length vs body mass"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"bill_length_mm"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"body_mass_g"</span>)
+plt.<span class="n">show</span>()</div>
+    </div>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">plot</span>(kind=<span class="s">"bar"</span>, color=<span class="s">"coral"</span>)
+plt.<span class="n">title</span>(<span class="s">"Mean body mass by species"</span>)
+plt.<span class="n">xlabel</span>(<span class="s">"species"</span>)
+plt.<span class="n">ylabel</span>(<span class="s">"mean body_mass_g"</span>)
+plt.<span class="n">show</span>()</div>
+    </div>
+
+    <h3>5단계 — 인사이트 도출</h3>
+    <div class="cell">
+      <div class="cell-code">df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">idxmax</span>()  <span class="c"># 가장 무거운 종</span>
+df.<span class="n">groupby</span>(<span class="s">"species"</span>)[<span class="s">"body_mass_g"</span>].<span class="n">mean</span>().<span class="n">idxmin</span>()  <span class="c"># 가장 가벼운 종</span></div>
+    </div>
+
+
+    <table class="info-t" style="margin-top:14px">
+      <tr><th>단계</th><th>목표</th><th>주요 코드</th></tr>
+      <tr><td>① 확인</td><td>모양·타입 파악</td><td><code>head()</code> <code>info()</code> <code>shape</code> <code>describe()</code></td></tr>
+      <tr><td>② 전처리</td><td>결측 제거</td><td><code>df = df.dropna()</code></td></tr>
+      <tr><td>③ 통계</td><td>그룹별 요약</td><td><code>value_counts()</code> <code>groupby().mean()</code></td></tr>
+      <tr><td>④ 시각화</td><td>관계·분포·비교</td><td><code>scatter()</code> <code>histplot()</code> <code>.plot(kind="bar")</code></td></tr>
+      <tr><td>⑤ 인사이트</td><td>패턴 해석</td><td><code>idxmax()</code> <code>idxmin()</code> + 2문장</td></tr>
+    </table>
+  </section>
+</main>
+
+<footer>빅데이터 분석 시험 요약노트 (코드+출력) · 펭귄(penguins) 데이터 기준 · 우상단 <b>PDF로 저장</b>으로 인쇄</footer>
+
+<script>
+// ── 공통 옵션 ──
+const font = "'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif";
+Chart.defaults.font.family = font;
+Chart.defaults.color = '#cdd9e5';
+Chart.defaults.plugins.legend.display = false;
+const gridColor = 'rgba(255,255,255,0.08)';
+const bg = '#1c2333';
+
+function axes(xl, yl) {
+  return {
+    x: { title:{display:!!xl,text:xl,color:'#8ab4f8'}, grid:{color:gridColor}, ticks:{color:'#cdd9e5'} },
+    y: { title:{display:!!yl,text:yl,color:'#8ab4f8'}, grid:{color:gridColor}, ticks:{color:'#cdd9e5'} }
+  };
+}
+
+// ── 히스토그램 (body_mass_g 분포) ──
+(function(){
+  const bins = [2700,2900,3100,3300,3500,3700,3900,4100,4300,4500,4700,4900,5100,5300,5700,6300];
+  const counts = [4,10,21,42,52,48,38,30,26,18,14,10,8,6,3,2];
+  const labels = bins.slice(0,-1).map((v,i)=>`${v}~${bins[i+1]}`);
+  new Chart(document.getElementById('chartHist'),{
+    type:'bar',
+    data:{labels,datasets:[{data:counts,backgroundColor:'skyblue',borderColor:'#1c2333',borderWidth:1}]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{title:{display:true,text:'Body mass distribution',color:'#e8ecf3'}},
+      scales:{...axes('body_mass_g','count'), x:{...axes('body_mass_g','count').x,ticks:{maxRotation:45,color:'#cdd9e5',font:{size:10}}}}
+    }
+  });
+})();
+
+// ── 산점도 (bill_length vs bill_depth) ──
+(function(){
+  // 실제 펭귄 데이터 샘플 (대표값)
+  const pts=[
+    [39.1,18.7],[39.5,17.4],[40.3,18.0],[36.7,19.3],[39.3,20.6],[38.9,17.8],[39.2,19.6],[34.1,18.1],[42.0,20.2],[37.8,17.1],
+    [37.8,17.3],[41.1,17.6],[38.7,19.0],[34.6,21.1],[36.6,17.8],[38.7,19.0],[42.5,20.7],[34.4,18.4],[46.0,21.5],[40.6,18.6],
+    [46.1,13.2],[50.0,16.3],[48.7,14.1],[50.0,15.2],[47.6,14.5],[46.5,13.5],[45.4,14.6],[46.7,15.3],[43.3,13.4],[46.8,15.4],
+    [40.9,16.6],[49.2,15.2],[46.2,14.5],[48.7,15.1],[50.2,14.3],[45.1,14.5],[46.5,14.5],[46.3,15.8],[42.9,13.1],[46.1,15.1],
+    [46.5,17.9],[45.2,14.8],[49.1,14.5],[52.5,15.6],[47.4,14.6],[50.0,15.3],[44.9,13.8],[50.8,17.3],[43.5,14.2],[51.3,14.2],
+    [46.7,13.3],[48.1,15.1],[52.2,17.1],[47.5,14.0],[48.2,14.3],[46.5,14.6],[46.4,15.6],[48.6,16.0],[47.5,14.2],[51.1,16.3],
+    [49.1,15.0],[46.5,15.0],[48.4,14.0],[46.4,14.1],[42.7,16.1],[38.7,17.2],[42.5,17.3],[42.5,17.2],[43.2,16.6],[42.4,17.5]
+  ];
+  new Chart(document.getElementById('chartScatter'),{
+    type:'scatter',
+    data:{datasets:[{data:pts.map(p=>({x:p[0],y:p[1]})),backgroundColor:'rgba(255,99,71,0.55)',pointRadius:4}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{title:{display:true,text:'Bill length vs bill depth',color:'#e8ecf3'}},
+      scales:axes('bill_length_mm','bill_depth_mm')
+    }
+  });
+})();
+
+// ── 막대 (종별 평균 몸무게) ──
+(function(){
+  new Chart(document.getElementById('chartBar'),{
+    type:'bar',
+    data:{
+      labels:['Adelie','Chinstrap','Gentoo'],
+      datasets:[{data:[3700.66,3733.09,5076.02],backgroundColor:'steelblue'}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{title:{display:true,text:'Mean body mass by species',color:'#e8ecf3'}},
+      scales:axes('species','mean body_mass_g')
+    }
+  });
+})();
+
+// ── 꺾은선 (월별 기온) ──
+(function(){
+  new Chart(document.getElementById('chartLine'),{
+    type:'line',
+    data:{
+      labels:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+      datasets:[{
+        data:[3.1,5.2,10.4,15.8,20.1,24.3,27.0,27.5,22.0,15.3,8.4,3.8],
+        borderColor:'tomato',backgroundColor:'rgba(255,99,71,0.1)',
+        pointBackgroundColor:'tomato',borderDash:[6,3],tension:0.1,
+        label:'Mean Temp', fill:true
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        title:{display:true,text:'월별 기온 변화',color:'#e8ecf3'},
+        legend:{display:true,labels:{color:'#cdd9e5'}}
+      },
+      scales:axes('월','기온 (°C)')
+    }
+  });
+})();
+
+// ── 원 그래프 (종 비율) ──
+(function(){
+  Chart.defaults.plugins.legend.display = true;
+  new Chart(document.getElementById('chartPie'),{
+    type:'pie',
+    data:{
+      labels:['Adelie (45.6%)','Gentoo (37.2%)','Chinstrap (20.4%)'],
+      datasets:[{data:[152,124,68],backgroundColor:['#4e8cde','#5cb8a0','#e88c3a']}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        title:{display:true,text:'펭귄 종 비율',color:'#e8ecf3'},
+        legend:{display:true,position:'right',labels:{color:'#cdd9e5',font:{size:11}}}
+      }
+    }
+  });
+  Chart.defaults.plugins.legend.display = false;
+})();
+
+// ── EDA 산점도 (bill_length vs body_mass) ──
+(function(){
+  const pts=[
+    [39.1,3750],[39.5,3800],[40.3,3250],[36.7,3450],[39.3,3650],[38.9,3625],[39.2,4675],[34.1,3475],[42.0,4250],[37.8,3300],
+    [38.7,3750],[38.7,3200],[42.5,3550],[34.4,3325],[46.0,4200],[40.6,3800],[46.1,4500],[50.0,5700],[48.7,4800],[50.0,5850],
+    [47.6,4400],[46.5,5200],[45.4,4600],[46.7,5350],[43.3,4400],[46.8,5350],[40.9,4650],[49.2,5800],[46.2,5750],[48.7,5500],
+    [50.2,5800],[45.1,4700],[46.5,4800],[46.3,5400],[49.1,5750],[52.5,5400],[47.4,4600],[50.0,5050],[44.9,4750],[50.8,6050],
+    [46.5,4400],[48.1,4300],[52.2,5700],[47.5,4600],[48.2,4600],[47.5,4100],[51.1,5650],[49.1,5550],[46.5,4700],[48.4,5400],
+    [46.4,5400],[48.6,5800],[47.5,5200],[51.1,5500],[49.1,4300],[46.5,5200],[48.4,4550],[47.5,4400],[51.1,5300],[49.1,4600],
+    [46.1,4600],[50.0,4900],[48.7,4100],[50.0,5100],[47.6,4600],[46.5,4700],[45.4,4800],[46.7,5300],[43.3,4100],[46.8,5600]
+  ];
+  new Chart(document.getElementById('chartEdaScatter'),{
+    type:'scatter',
+    data:{datasets:[{data:pts.map(p=>({x:p[0],y:p[1]})),backgroundColor:'rgba(70,130,180,0.55)',pointRadius:4}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{title:{display:true,text:'Bill length vs body mass',color:'#e8ecf3'}},
+      scales:axes('bill_length_mm','body_mass_g')
+    }
+  });
+})();
+
+// ── EDA 막대 (종별 평균 몸무게) ──
+(function(){
+  new Chart(document.getElementById('chartEdaBar'),{
+    type:'bar',
+    data:{
+      labels:['Adelie','Chinstrap','Gentoo'],
+      datasets:[{data:[3700.66,3733.09,5076.02],backgroundColor:'#e07060'}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{title:{display:true,text:'Mean body mass by species',color:'#e8ecf3'}},
+      scales:axes('species','mean body_mass_g')
+    }
+  });
+})();
+</script>
+</body>
+</html>
