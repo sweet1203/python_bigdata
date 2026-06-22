@@ -539,6 +539,23 @@ plt.<span class="n">show</span>()</div>
       </div>
     </div>
 
+    <h3>히트맵 — 상관관계</h3>
+    <div class="cell">
+      <div class="cell-code">sns.<span class="n">heatmap</span>(df.<span class="n">corr</span>(numeric_only=<span class="k">True</span>), annot=<span class="k">True</span>, fmt=<span class="s">".2f"</span>, cmap=<span class="s">"coolwarm"</span>)
+plt.<span class="n">title</span>(<span class="s">"수치 변수 간 상관관계"</span>)
+plt.<span class="n">show</span>()</div>
+      <div class="cell-out">
+        <table class="out-table">
+          <thead><tr><th></th><th>bill_len</th><th>bill_dep</th><th>flipper</th><th>body_mass</th></tr></thead>
+          <tbody>
+            <tr><td>bill_len</td><td style="color:#e06c75">1.00</td><td style="color:#5cb8a0">−0.24</td><td style="color:#e06c75">0.65</td><td style="color:#e06c75">0.60</td></tr>
+            <tr><td>bill_dep</td><td style="color:#5cb8a0">−0.24</td><td style="color:#e06c75">1.00</td><td style="color:#5cb8a0">−0.58</td><td style="color:#5cb8a0">−0.47</td></tr>
+            <tr><td>flipper</td><td style="color:#e06c75">0.65</td><td style="color:#5cb8a0">−0.58</td><td style="color:#e06c75">1.00</td><td style="color:#e06c75">0.87</td></tr>
+            <tr><td>body_mass</td><td style="color:#e06c75">0.60</td><td style="color:#5cb8a0">−0.47</td><td style="color:#e06c75">0.87</td><td style="color:#e06c75">1.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="desc">
       <b>상관계수</b>는 −1 ~ +1 범위입니다. +1에 가까울수록 강한 양의 상관관계, −1에 가까울수록 강한 음의 상관관계, 0에 가까우면 관계 없음.
     </div>

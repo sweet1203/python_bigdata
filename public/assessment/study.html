@@ -441,6 +441,11 @@ plt.<span class="n">show</span>()</pre>
       <code>autopct="%1.1f%%"</code>는 각 조각에 소수점 1자리 퍼센트를 표시합니다. autopct는 원 그래프에서만 사용합니다.
     </div>
 
+    <h3>히트맵 — 상관관계</h3>
+    <pre><span class="c"># 수치 열 간 상관계수를 색깔로 표현</span>
+sns.<span class="n">heatmap</span>(df.<span class="n">corr</span>(numeric_only=<span class="k">True</span>), annot=<span class="k">True</span>, fmt=<span class="s">".2f"</span>, cmap=<span class="s">"coolwarm"</span>)
+plt.<span class="n">title</span>(<span class="s">"수치 변수 간 상관관계"</span>)
+plt.<span class="n">show</span>()</pre>
     <div class="desc">
       <b>상관계수</b>는 −1 ~ +1 범위입니다. +1에 가까울수록 강한 양의 상관관계, −1에 가까울수록 강한 음의 상관관계, 0에 가까우면 관계 없음.
     </div>
